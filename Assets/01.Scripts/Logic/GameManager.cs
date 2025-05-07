@@ -5,6 +5,7 @@ public static class GameManager
 {
     public static bool stopGame = false;
     public static Player player { get; private set; }
+    public static UiComponent ui { get; private set; }
     public static FadeComponent fade { get; private set; }
     public static SoundManager sound { get; private set; } = new SoundManager();
     public static EventManager gameEvent { get; private set; } = new EventManager();
@@ -12,6 +13,7 @@ public static class GameManager
     public static void SetComponent(MonoBehaviour _component)
     {
         if (_component is Player isPlayer) player = isPlayer;
+        if (_component is UiComponent isUi) ui = isUi;
         if (_component is FadeComponent isFade) fade = isFade;
 
         sound.SetComponent(_component);
