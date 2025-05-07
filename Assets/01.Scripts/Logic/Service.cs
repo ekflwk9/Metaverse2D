@@ -1,4 +1,5 @@
 using UnityEngine;
+using Newtonsoft.Json;
 
 public delegate void Func();
 public interface IHit { public void OnHit(int _dmg); }
