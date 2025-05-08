@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum StateCode
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 10;
     public int maxHealth { get; private set; } = 10;
+
     public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
 
@@ -43,6 +45,7 @@ public class Player : MonoBehaviour
             case StateCode.MoveSpeed:
                 moveSpeed += _upValue;
                 action.SetFloat("MoveSpeed", moveSpeed);
+
                 break;
 
             case StateCode.AttackSpeed:
@@ -50,7 +53,7 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("Àß¸øµÈ Ãß°¡ ¹æ½ÄÀÔ´Ï´Ù ¸Å°³º¯¼ö¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+                Debug.Log("ì˜ëª»ëœ ì¶”ê°€ ë°©ì‹ì…ë‹ˆë‹¤ ë§¤ê°œë³€ìˆ˜ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
                 break;
         }
     }
@@ -72,24 +75,24 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("Àß¸øµÈ Ãß°¡ ¹æ½ÄÀÔ´Ï´Ù ¸Å°³º¯¼ö¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+                Debug.Log("ì˜ëª»ëœ ì¶”ê°€ ë°©ì‹ì…ë‹ˆë‹¤ ë§¤ê°œë³€ìˆ˜ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
                 break;
         }
     }
 
-    //½ºÅ³ Ãß°¡
+    //ìŠ¤í‚¬ ì¶”ê°€
     public void AddSkill(Func _skill)
     {
         skill += _skill;
     }
 
-    //½ºÅ³ »èÁ¦
+    //ìŠ¤í‚¬ ì‚­ì œ
     public void RemoveSkill(Func _skill)
     {
         skill -= _skill;
     }
 
-    //¾Ö´Ï¸ŞÀÌ¼Ç È£Ãâ ¸Ş¼­µå => °ø°İ
+    //ì• ë‹ˆë©”ì´ì…˜ í˜¸ì¶œ ë©”ì„œë“œ => ê³µê²©
     private void AttackFunction()
     {
         if (inRange) skill?.Invoke();
@@ -106,13 +109,13 @@ public class Player : MonoBehaviour
 
     private void EndPickUp()
     {
-        //Áİ´Â ¸ğ¼Ç Á¾·á
+        //ì¤ëŠ” ëª¨ì…˜ ì¢…ë£Œ
         isPickUp = false;
     }
 
     public void PickUp()
     {
-        //Áİ´Â ¸ğ¼Ç È£Ãâ
+        //ì¤ëŠ” ëª¨ì…˜ í˜¸ì¶œ
         action.Play("PickUp", 0, 0);
         isPickUp = true;
         rigid.velocity = Vector3.zero;
@@ -130,11 +133,11 @@ public class Player : MonoBehaviour
         pos.x = 0;
         pos.y = 0;
 
-        //»óÇÏ
+        //ìƒí•˜
         if (Input.GetKey(KeyCode.W)) pos.y = 1f;
         else if (Input.GetKey(KeyCode.S)) pos.y = -1f;
 
-        //ÁÂ¿ì
+        //ì¢Œìš°
         if (Input.GetKey(KeyCode.A))
         {
             pos.x = -1f;
@@ -147,11 +150,11 @@ public class Player : MonoBehaviour
             direction.x = -1f;
         }
 
-        //¾Ö´Ï¸ŞÀÌ¼Ç Àç»ı
+        //ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
         if (pos.x != 0 || pos.y != 0) action.SetBool("Move", true);
         else action.SetBool("Move", false);
 
-        //º¸´Â ¹æÇâ
+        //ë³´ëŠ” ë°©í–¥
         this.transform.localScale = direction;
         rigid.velocity = pos.normalized * moveSpeed;
     }
