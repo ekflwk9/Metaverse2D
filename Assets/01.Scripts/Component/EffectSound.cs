@@ -21,6 +21,15 @@ public class EffectSound : MonoBehaviour
         GameManager.SetComponent(this);
     }
 
+    public void SetVolume()
+    {
+        //º¼·ý ¼³Á¤
+        for (int i = 0; i < soundCount; i++)
+        {
+            source[i].volume = GameManager.sound.volume;
+        }
+    }
+
     public void On(AudioClip _sound)
     {
         soundCount++;

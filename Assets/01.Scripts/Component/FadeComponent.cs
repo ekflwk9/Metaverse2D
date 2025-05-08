@@ -15,6 +15,7 @@ public class FadeComponent : MonoBehaviour
 
     public void OnFade(Func _fadeFunc, float _fadeSpeed = 1f)
     {
+        //페이드 인
         onFade = true;
         fadeFunc = _fadeFunc;
 
@@ -24,6 +25,7 @@ public class FadeComponent : MonoBehaviour
 
     public void OnFade(float _fadeSpeed = 1f)
     {
+        //페이드 아웃
         onFade = false;
 
         anim.SetFloat("Speed", _fadeSpeed);

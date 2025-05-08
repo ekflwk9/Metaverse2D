@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class SoundManager
 {
-    private Dictionary<string, AudioClip> sound = new Dictionary<string, AudioClip>();
+    public float volume { get; private set; } = 0.5f;
 
     private EffectSound effect;
     private MusicSound music;
+
+    private Dictionary<string, AudioClip> sound = new Dictionary<string, AudioClip>();
 
     public void Load()
     {
@@ -16,6 +18,14 @@ public class SoundManager
         {
             sound.Add(sounds[i].name, sounds[i]);
         }
+    }
+
+    public void SetVolume(float _volume)
+    {
+        //º¼·ý ¼³Á¤
+        volume = _volume;
+        music.SetVolume();
+        effect.SetVolume();
     }
 
     public void SetComponent(MonoBehaviour _component)

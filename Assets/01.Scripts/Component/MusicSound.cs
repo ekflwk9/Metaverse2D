@@ -15,6 +15,12 @@ public class MusicSound : MonoBehaviour
         GameManager.SetComponent(this);
     }
 
+    public void SetVolume()
+    {
+        //º¼·ý ¼³Á¤
+        source.volume = GameManager.sound.volume;
+    }
+
     public void On(AudioClip _sound)
     {
         if (_sound != null)

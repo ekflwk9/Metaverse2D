@@ -1,9 +1,14 @@
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class EventManager
 {
+    private StringBuilder eventName = new StringBuilder(40);
+
+    private event Func end;
     private Dictionary<string, IHit> hit = new Dictionary<string, IHit>();
+
     private Dictionary<string, Func> gameEvent = new Dictionary<string, Func>();
     private Dictionary<string, Func> constEvent = new Dictionary<string, Func>();
 
@@ -13,32 +18,47 @@ public class EventManager
         {
             if (!hit.ContainsKey(_component.name)) hit.Add(_component.name, isHit);
         }
+
+        if (_component is IEnd isEnd)
+        {
+            end += isEnd.OnEnd;
+        }
     }
 
     public void Reset()
     {
+        //이벤트 정리
         hit.Clear();
         gameEvent.Clear();
+    }
+
+    public void EndEvent()
+    {
+        //씬 전환시 이벤트
+        end?.Invoke();
+        end = null;
     }
 
     public void Add(Func _function, bool _constEvent = false)
     {
         //오브젝트 이름 + _function 이름
-        var eventName = _function.Method.Name;
+        eventName.Clear();
         var isClass = _function.Target;
 
-        if (isClass is MonoBehaviour unityObject) eventName = $"{unityObject.name}{eventName}";
+        if (isClass is MonoBehaviour unityObject) eventName.Append(unityObject.name);
         else Debug.Log($"{eventName}의 클래스는 MonoBehaviour의 상속을 받지 않음");
+
+        eventName.Append(_function.Method.Name);
 
         if (!_constEvent)
         {
-            if (!gameEvent.ContainsKey(eventName)) gameEvent.Add(eventName, _function);
+            if (!gameEvent.ContainsKey(eventName.ToString())) gameEvent.Add(eventName.ToString(), _function);
             else Debug.Log($"{eventName}는 이미 추가된 \"gameEvent\"");
         }
 
         else
         {
-            if (!constEvent.ContainsKey(eventName)) constEvent.Add(eventName, _function);
+            if (!constEvent.ContainsKey(eventName.ToString())) constEvent.Add(eventName.ToString(), _function);
             else Debug.Log($"{eventName}는 이미 추가된 \"constEvent\"");
         }
     }

@@ -12,9 +12,10 @@ public static class GameManager
 
     public static void SetComponent(MonoBehaviour _component)
     {
+        //컴포넌트 / interface이벤트 할당 메서드
         if (_component is Player isPlayer) player = isPlayer;
-        if (_component is UiComponent isUi) ui = isUi;
-        if (_component is FadeComponent isFade) fade = isFade;
+        else if (_component is UiComponent isUi) ui = isUi;
+        else if (_component is FadeComponent isFade) fade = isFade;
 
         sound.SetComponent(_component);
         gameEvent.SetComponent(_component);
@@ -28,10 +29,15 @@ public static class GameManager
             return;
         }
 
+        //씬 전환 이벤트 발생 및 정리
+        gameEvent.EndEvent();
         gameEvent.Reset();
         gameEvent.SetComponent(player);
-        if(player != null) player.transform.position = Vector3.zero;
 
+        //플레이어 위치 재설정
+        if (player != null) player.transform.position = Vector3.zero;
+
+        //씬 로드
         SceneManager.LoadScene(_sceneName);
     }
 }

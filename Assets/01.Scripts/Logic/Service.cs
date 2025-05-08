@@ -2,6 +2,7 @@ using UnityEngine;
 using Newtonsoft.Json;
 
 public delegate void Func();
+public interface IEnd { public void OnEnd(); }
 public interface IHit { public void OnHit(int _dmg); }
 
 public class Service
