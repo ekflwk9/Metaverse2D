@@ -31,7 +31,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-		
         attack = GetComponent<Animator>();
         action = Service.FindChild(this.transform, "Action").GetComponent<Animator>();
 
@@ -46,6 +45,7 @@ public class Player : MonoBehaviour
             case StateCode.MoveSpeed:
                 moveSpeed += _upValue;
                 action.SetFloat("MoveSpeed", moveSpeed);
+
                 break;
 
             case StateCode.AttackSpeed:
@@ -53,7 +53,7 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("?�못된 추가 방식?�?�??매�?변?��??�?�해주?�요.");
+                Debug.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
                 break;
         }
     }
@@ -75,24 +75,24 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("?�못된 추가 방식?�?�??매�?변?��??�?�해주?�요.");
+                Debug.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
                 break;
         }
     }
 
-    //?��?추가
+    //스킬 추가
     public void AddSkill(Func _skill)
     {
         skill += _skill;
     }
 
-    //?��??�?�
+    //스킬 삭제
     public void RemoveSkill(Func _skill)
     {
         skill -= _skill;
     }
 
-    //?�?�메?�션 ?��? 메?�?� => 공격
+    //애니메이션 호출 메서드 => 공격
     private void AttackFunction()
     {
         if (inRange) skill?.Invoke();
@@ -109,13 +109,13 @@ public class Player : MonoBehaviour
 
     private void EndPickUp()
     {
-        //줍?� 모션 종료
+        //줍는 모션 종료
         isPickUp = false;
     }
 
     public void PickUp()
     {
-        //줍?� 모션 ?��?
+        //줍는 모션 호출
         action.Play("PickUp", 0, 0);
         isPickUp = true;
         rigid.velocity = Vector3.zero;
@@ -125,7 +125,6 @@ public class Player : MonoBehaviour
     {
         if (inRange) attack.SetFloat("AttackSpeed", attackSpeed);
         else attack.SetFloat("AttackSpeed", 0);
-
     }
 
     private void Move()
@@ -134,11 +133,11 @@ public class Player : MonoBehaviour
         pos.x = 0;
         pos.y = 0;
 
-        //?�?�
+        //상하
         if (Input.GetKey(KeyCode.W)) pos.y = 1f;
         else if (Input.GetKey(KeyCode.S)) pos.y = -1f;
 
-        //좌??
+        //좌우
         if (Input.GetKey(KeyCode.A))
         {
             pos.x = -1f;
@@ -151,11 +150,11 @@ public class Player : MonoBehaviour
             direction.x = -1f;
         }
 
-        //?�?�메?�션 ?�생
+        //애니메이션 재생
         if (pos.x != 0 || pos.y != 0) action.SetBool("Move", true);
         else action.SetBool("Move", false);
 
-        //보는 방�?
+        //보는 방향
         this.transform.localScale = direction;
         rigid.velocity = pos.normalized * moveSpeed;
     }
