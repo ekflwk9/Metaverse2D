@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum StateCode
@@ -15,17 +14,23 @@ public class Player : MonoBehaviour
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 10;
     public int maxHealth { get; private set; } = 10;
-    public float moveSpeend { get; private set; } = 2f;
+    public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
+
+    private bool inRange = false;
+    private bool isPickUp = false;
+    private Vector3 direction = Vector3.one;
 
     private event Func skill;
     private Rigidbody2D rigid;
-    private Animator anim;
+    private Animator action;
+    private Animator attack;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        attack = GetComponent<Animator>();
+        action = Service.FindChild(this.transform, "Action").GetComponent<Animator>();
 
         GameManager.SetComponent(this);
         DontDestroyOnLoad(this.gameObject);
@@ -36,13 +41,12 @@ public class Player : MonoBehaviour
         switch (_code)
         {
             case StateCode.MoveSpeed:
-                moveSpeend += _upValue;
-                anim.SetFloat("MoveSpeed", moveSpeend);
+                moveSpeed += _upValue;
+                action.SetFloat("MoveSpeed", moveSpeed);
                 break;
 
             case StateCode.AttackSpeed:
                 attackSpeed += _upValue;
-                anim.SetFloat("AttackSpeed", attackSpeed);
                 break;
 
             default:
@@ -74,17 +78,50 @@ public class Player : MonoBehaviour
     }
 
     //스킬 추가
-    public void AddSkill(Func _skill) => skill += _skill;
-   
+    public void AddSkill(Func _skill)
+    {
+        skill += _skill;
+    }
+
     //스킬 삭제
-    public void RemoveSkill(Func _skill) => skill -= _skill;
+    public void RemoveSkill(Func _skill)
+    {
+        skill -= _skill;
+    }
 
     //애니메이션 호출 메서드 => 공격
-    private void Attack() => skill?.Invoke();
+    private void AttackFunction()
+    {
+        if (inRange) skill?.Invoke();
+    }
 
     private void Update()
     {
-        if(!GameManager.stopGame) Move();      
+        if (!GameManager.stopGame && !isPickUp)
+        {
+            Move();
+            Attack();
+        }
+    }
+
+    private void EndPickUp()
+    {
+        //줍는 모션 종료
+        isPickUp = false;
+    }
+
+    public void PickUp()
+    {
+        //줍는 모션 호출
+        action.Play("PickUp", 0, 0);
+        isPickUp = true;
+        rigid.velocity = Vector3.zero;
+    }
+
+    private void Attack()
+    {
+        if (inRange) attack.SetFloat("AttackSpeed", attackSpeed);
+        else attack.SetFloat("AttackSpeed", 0);
     }
 
     private void Move()
@@ -98,9 +135,34 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.S)) pos.y = -1f;
 
         //좌우
-        if (Input.GetKey(KeyCode.A)) pos.x = -1f;
-        else if (Input.GetKey(KeyCode.D)) pos.x = 1f;
+        if (Input.GetKey(KeyCode.A))
+        {
+            pos.x = -1f;
+            direction.x = 1f;
+        }
 
-        rigid.velocity = pos.normalized * moveSpeend;
+        else if (Input.GetKey(KeyCode.D))
+        { 
+            pos.x = 1f;
+            direction.x = -1f;
+        }
+
+        //애니메이션 재생
+        if (pos.x != 0 || pos.y != 0) action.SetBool("Move", true);
+        else action.SetBool("Move", false);
+
+        //보는 방향
+        this.transform.localScale = direction;
+        rigid.velocity = pos.normalized * moveSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) inRange = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) inRange = false;
     }
 }
