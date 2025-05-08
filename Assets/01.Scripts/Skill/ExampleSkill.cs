@@ -1,76 +1,80 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Burst.CompilerServices;
 using UnityEngine;
 
-public abstract class BaseSkill : MonoBehaviour
+public class ExampleSkill : MonoBehaviour
 {
-    protected Animator anim;
-    protected Rigidbody2D rigid;
-
-    protected int count = 0;
-    protected int randomState;
-    protected float skillDamage;
-    protected float skillSpeed;
-
-    protected Vector2 range = Vector2.zero;
-    protected Vector3 direction = Vector3.zero;
-
-    protected void Awake()
+    private Animator anim;
+    
+    private int count = 0;
+    private int randomState;
+    private float skillDamage;
+    
+    private Vector2 range = Vector2.zero;
+    
+    private void Awake()
     {
         GameManager.gameEvent.Add(GetSkill, true);
         DontDestroyOnLoad(gameObject);
     }
 
-    protected virtual void GetSkill()
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            GetSkill();
+        }
+
+    }
+
+    private void GetSkill()
     {
         GameManager.player.AddSkill(SkillName);
         DmgChange();
     }
 
-    protected virtual void SkillName()
+    private void SkillName()
     {
         count++;
         if (count >= 6)
         {
+
             this.gameObject.SetActive(true);
             DmgApply();
-            CoordinateOfSkill();
+            RangeOfSkill();
             count = 0;
         }
+
     }
 
-    protected virtual void DirectionOfSkill()
-    {
-        direction = GameManager.player.direction;
-        rigid.velocity = direction.normalized * Time.deltaTime * skillSpeed;
-    }
-
-    protected virtual void CoordinateOfSkill()
+    private void RangeOfSkill()
     {
         //스킬의 범위
         var pos = GameManager.player.transform.position;
 
+        
         range.x = pos.x + 0f;
         range.y = pos.y + 0f;
 
         this.transform.position = range;
     }
 
-    protected virtual void DmgChange()
+    private void DmgChange()
     {
         //스킬 획득시 플레이어 데미지 조정
         GameManager.player.StateUp(StateCode.Damage, 0);
     }
 
-    protected virtual void DmgApply()
+    private void DmgApply()
     {
         //스킬의 데미지 = 플레이어 데미지의 1.5배 ~ 2배
         randomState = Random.Range(5, 11);
-        skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
+        skillDamage = ( randomState * 0.1f ) + GameManager.player.dmg;
     }
 
     //딜 넣는거
-    protected virtual void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
@@ -79,7 +83,7 @@ public abstract class BaseSkill : MonoBehaviour
         }
     }
 
-    protected virtual void AnimationOff()
+    private void AnimationOff()
     {
         this.gameObject.SetActive(false);
     }

@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum StateCode
@@ -21,7 +20,8 @@ public class Player : MonoBehaviour
 
     private bool inRange = false;
     private bool isPickUp = false;
-    private Vector3 direction = Vector3.one;
+    public Vector3 direction { get => fieldDirection; }
+    private Vector3 fieldDirection = Vector3.one;
 
     private event Func skill;
     private Rigidbody2D rigid;
@@ -134,20 +134,29 @@ public class Player : MonoBehaviour
         pos.y = 0;
 
         //상하
-        if (Input.GetKey(KeyCode.W)) pos.y = 1f;
-        else if (Input.GetKey(KeyCode.S)) pos.y = -1f;
+        if (Input.GetKey(KeyCode.W))
+        {
+            pos.y = 1f;
+            fieldDirection.y = 1f;
+        }
+
+        else if (Input.GetKey(KeyCode.S))
+        {
+            pos.y = -1f;
+            fieldDirection.y = -1f;
+        }
 
         //좌우
         if (Input.GetKey(KeyCode.A))
         {
             pos.x = -1f;
-            direction.x = 1f;
+            fieldDirection.x = 1f;
         }
 
         else if (Input.GetKey(KeyCode.D))
-        { 
+        {
             pos.x = 1f;
-            direction.x = -1f;
+            fieldDirection.x = -1f;
         }
 
         //애니메이션 재생
