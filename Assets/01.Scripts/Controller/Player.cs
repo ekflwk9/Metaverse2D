@@ -15,17 +15,24 @@ public class Player : MonoBehaviour
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 10;
     public int maxHealth { get; private set; } = 10;
-    public float moveSpeend { get; private set; } = 2f;
+
+    public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
+
+    private bool inRange = false;
+    private bool isPickUp = false;
+    private Vector3 direction = Vector3.one;
 
     private event Func skill;
     private Rigidbody2D rigid;
-    private Animator anim;
+    private Animator action;
+    private Animator attack;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        attack = GetComponent<Animator>();
+        action = Service.FindChild(this.transform, "Action").GetComponent<Animator>();
 
         GameManager.SetComponent(this);
         DontDestroyOnLoad(this.gameObject);
@@ -36,17 +43,17 @@ public class Player : MonoBehaviour
         switch (_code)
         {
             case StateCode.MoveSpeed:
-                moveSpeend += _upValue;
-                anim.SetFloat("MoveSpeed", moveSpeend);
+                moveSpeed += _upValue;
+                action.SetFloat("MoveSpeed", moveSpeed);
+
                 break;
 
             case StateCode.AttackSpeed:
                 attackSpeed += _upValue;
-                anim.SetFloat("AttackSpeed", attackSpeed);
                 break;
 
             default:
-                Debug.Log("Àß¸øµÈ Ãß°¡ ¹æ½ÄÀÔ´Ï´Ù ¸Å°³º¯¼ö¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+                Debug.Log("ì˜ëª»ëœ ì¶”ê°€ ë°©ì‹ì…ë‹ˆë‹¤ ë§¤ê°œë³€ìˆ˜ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
                 break;
         }
     }
@@ -68,23 +75,56 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("Àß¸øµÈ Ãß°¡ ¹æ½ÄÀÔ´Ï´Ù ¸Å°³º¯¼ö¸¦ È®ÀÎÇØÁÖ¼¼¿ä.");
+                Debug.Log("ì˜ëª»ëœ ì¶”ê°€ ë°©ì‹ì…ë‹ˆë‹¤ ë§¤ê°œë³€ìˆ˜ë¥¼ í™•ì¸í•´ì£¼ì„¸ìš”.");
                 break;
         }
     }
 
-    //½ºÅ³ Ãß°¡
-    public void AddSkill(Func _skill) => skill += _skill;
-   
-    //½ºÅ³ »èÁ¦
-    public void RemoveSkill(Func _skill) => skill -= _skill;
+    //ìŠ¤í‚¬ ì¶”ê°€
+    public void AddSkill(Func _skill)
+    {
+        skill += _skill;
+    }
 
-    //¾Ö´Ï¸ŞÀÌ¼Ç È£Ãâ ¸Ş¼­µå => °ø°İ
-    private void Attack() => skill?.Invoke();
+    //ìŠ¤í‚¬ ì‚­ì œ
+    public void RemoveSkill(Func _skill)
+    {
+        skill -= _skill;
+    }
+
+    //ì• ë‹ˆë©”ì´ì…˜ í˜¸ì¶œ ë©”ì„œë“œ => ê³µê²©
+    private void AttackFunction()
+    {
+        if (inRange) skill?.Invoke();
+    }
 
     private void Update()
     {
-        if(!GameManager.stopGame) Move();      
+        if (!GameManager.stopGame && !isPickUp)
+        {
+            Move();
+            Attack();
+        }
+    }
+
+    private void EndPickUp()
+    {
+        //ì¤ëŠ” ëª¨ì…˜ ì¢…ë£Œ
+        isPickUp = false;
+    }
+
+    public void PickUp()
+    {
+        //ì¤ëŠ” ëª¨ì…˜ í˜¸ì¶œ
+        action.Play("PickUp", 0, 0);
+        isPickUp = true;
+        rigid.velocity = Vector3.zero;
+    }
+
+    private void Attack()
+    {
+        if (inRange) attack.SetFloat("AttackSpeed", attackSpeed);
+        else attack.SetFloat("AttackSpeed", 0);
     }
 
     private void Move()
@@ -93,14 +133,39 @@ public class Player : MonoBehaviour
         pos.x = 0;
         pos.y = 0;
 
-        //»óÇÏ
+        //ìƒí•˜
         if (Input.GetKey(KeyCode.W)) pos.y = 1f;
         else if (Input.GetKey(KeyCode.S)) pos.y = -1f;
 
-        //ÁÂ¿ì
-        if (Input.GetKey(KeyCode.A)) pos.x = -1f;
-        else if (Input.GetKey(KeyCode.D)) pos.x = 1f;
+        //ì¢Œìš°
+        if (Input.GetKey(KeyCode.A))
+        {
+            pos.x = -1f;
+            direction.x = 1f;
+        }
 
-        rigid.velocity = pos.normalized * moveSpeend;
+        else if (Input.GetKey(KeyCode.D))
+        { 
+            pos.x = 1f;
+            direction.x = -1f;
+        }
+
+        //ì• ë‹ˆë©”ì´ì…˜ ì¬ìƒ
+        if (pos.x != 0 || pos.y != 0) action.SetBool("Move", true);
+        else action.SetBool("Move", false);
+
+        //ë³´ëŠ” ë°©í–¥
+        this.transform.localScale = direction;
+        rigid.velocity = pos.normalized * moveSpeed;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) inRange = true;
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) inRange = false;
     }
 }
