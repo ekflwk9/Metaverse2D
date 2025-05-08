@@ -9,6 +9,9 @@ public class CamComponent : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         target = GameManager.player.transform;
+
+        GameManager.SetComponent(this);
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void Update()
