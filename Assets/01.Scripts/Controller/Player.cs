@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 10;
     public int maxHealth { get; private set; } = 10;
-    public float moveSpeend { get; private set; } = 2f;
+    public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
 
     private event Func skill;
@@ -36,8 +36,8 @@ public class Player : MonoBehaviour
         switch (_code)
         {
             case StateCode.MoveSpeed:
-                moveSpeend += _upValue;
-                anim.SetFloat("MoveSpeed", moveSpeend);
+                moveSpeed += _upValue;
+                anim.SetFloat("MoveSpeed", moveSpeed);
                 break;
 
             case StateCode.AttackSpeed:
@@ -101,6 +101,6 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.A)) pos.x = -1f;
         else if (Input.GetKey(KeyCode.D)) pos.x = 1f;
 
-        rigid.velocity = pos.normalized * moveSpeend;
+        rigid.velocity = pos.normalized * moveSpeed;
     }
 }
