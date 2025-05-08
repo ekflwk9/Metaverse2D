@@ -1,0 +1,29 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+// 방의 종류를 구분하는 열거형 (enum)
+public enum RoomType
+{
+    Empty,    // 빈칸 
+    Start,    // 시작 방 (플레이어 시작 위치)
+    Battle,   // 전투 방 (일반 전투)
+    Treasure, // 보물 방 (스킬 획득)
+    Boss      // 보스 방 (층의 최종 목표)
+}
+
+// Room 클래스: 맵 상의 한 칸 정보를 저장하는 데이터 클래스
+public class Room
+{
+    public Vector2Int Position; // 그리드상의 위치 
+    public RoomType Type;       // 이 방의 타입
+
+    // 상하좌우 방향 연결 여부 확인, 
+    public Dictionary<Vector2Int, bool> Connections = new Dictionary<Vector2Int, bool>
+    {
+        { Vector2Int.up, false },
+        { Vector2Int.down, false },
+        { Vector2Int.left, false },
+        { Vector2Int.right, false }
+    };
+}
