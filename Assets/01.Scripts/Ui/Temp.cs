@@ -9,6 +9,6 @@ public class Temp : MonoBehaviour
 
     public void SkillCard()
     {
-        GameObject skillCard = Instantiate(skillCardPrefab, skillCardParent);
+        GameObject SkillPrefabs = Instantiate(skillCardPrefab, skillCardParent);
     }
 }
