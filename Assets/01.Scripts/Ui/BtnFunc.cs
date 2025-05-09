@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class BtnFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 {
+
     [SerializeField] private Image image;
     [SerializeField] private Sprite defaultImage;
     [SerializeField] private Sprite clickImage;
@@ -26,11 +27,6 @@ public class BtnFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-    public void MainBtnAllOff()
-    {
-        transform.parent.gameObject.SetActive(false);
-    }
-
     public void GameStart()
     {
     }
@@ -41,5 +37,18 @@ public class BtnFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
+    }
+
+    public void Setting()
+    {
+        SettingOpen();
+    }
+
+    public void SettingOpen()
+    {
+        Transform parentTransform = transform.parent;
+        Transform settingsTransform = parentTransform.Find("Settings");
+
+        settingsTransform.gameObject.SetActive(true);
     }
 }
