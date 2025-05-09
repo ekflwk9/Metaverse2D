@@ -33,6 +33,10 @@ public class BtnFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
 
     public void GameStart()
     {
+    }
+
+    public void GameExit()
+    {
 #if UNITY_EDITOR
     UnityEditor.EditorApplication.isPlaying = false;
 #endif
