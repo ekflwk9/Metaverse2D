@@ -14,41 +14,11 @@ public class BtnFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         if (image != null && clickImage != null)
-        {
             image.sprite = clickImage;
-
-        }
     }
     public void OnPointerUp(PointerEventData eventData)
     {
         if (image != null && defaultImage != null)
-        {
             image.sprite = defaultImage;
-        }
-    }
-
-    public void GameStart()
-    {
-    }
-
-    public void GameExit()
-    {
-#if UNITY_EDITOR
-    UnityEditor.EditorApplication.isPlaying = false;
-#endif
-        Application.Quit();
-    }
-
-    public void Setting()
-    {
-        SettingOpen();
-    }
-
-    public void SettingOpen()
-    {
-        Transform parentTransform = transform.parent;
-        Transform settingsTransform = parentTransform.Find("Settings");
-
-        settingsTransform.gameObject.SetActive(true);
     }
 }
