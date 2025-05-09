@@ -5,9 +5,10 @@ using UnityEngine;
 public class Temp : MonoBehaviour
 {
     [SerializeField] public GameObject skillCardPrefab;
+    [SerializeField] public Transform skillCardParent;
 
     public void SkillCard()
-    { 
-        Instantiate(skillCardPrefab);
+    {
+        GameObject skillCard = Instantiate(skillCardPrefab, skillCardParent);
     }
 }
