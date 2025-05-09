@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
@@ -29,6 +30,7 @@ public class UiManager : MonoBehaviour
     public void GameStart()
     {
         MainUiAllToggle();
+        SceneManager.LoadScene("DungeonStart");
     }
 
     public void GameExit()
