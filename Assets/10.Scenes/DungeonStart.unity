@@ -290,7 +290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startRoom: {fileID: 191185795387208813, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
-  player: {fileID: 8140055612019801714, guid: 36e86fcf05e00d9439ba15b747c69258, type: 3}
+  player: {fileID: 1484487418246572921, guid: 36e86fcf05e00d9439ba15b747c69258, type: 3}
   currentFloor: 1
   StartRoom: {fileID: 6456145385029889785, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
   BattleRoom: {fileID: 2873403125639864130, guid: c3d794798f84b314c96023bb27cf88a5, type: 3}

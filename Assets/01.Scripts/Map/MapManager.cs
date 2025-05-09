@@ -154,22 +154,22 @@ public class MapManager : MonoBehaviour
 
     void SetDoors(GameObject roomObj, int x, int y)
     {
-        // 각 방향에 인접한 방이 있는지 검사
         bool hasUp = IsInBounds(new Vector2Int(x, y + 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y + 1] != null;
         bool hasDown = IsInBounds(new Vector2Int(x, y - 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y - 1] != null;
         bool hasLeft = IsInBounds(new Vector2Int(x - 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x - 1, y] != null;
         bool hasRight = IsInBounds(new Vector2Int(x + 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x + 1, y] != null;
 
-        // 방 안에서 각 방향의 Door 오브젝트 찾기
-        Transform doorUp = roomObj.transform.Find("Door_U");
-        Transform doorDown = roomObj.transform.Find("Door_D");
-        Transform doorLeft = roomObj.transform.Find("Door_L");
-        Transform doorRight = roomObj.transform.Find("Door_R");
-
-        // 각 문 오브젝트를 인접 방 여부에 따라 On/Off
-        if (doorUp != null) doorUp.gameObject.SetActive(hasUp);
-        if (doorDown != null) doorDown.gameObject.SetActive(hasDown);
-        if (doorLeft != null) doorLeft.gameObject.SetActive(hasLeft);
-        if (doorRight != null) doorRight.gameObject.SetActive(hasRight);
+        // 모든 Door 태그 오브젝트를 찾아서 처리
+        Transform[] allDoors = roomObj.GetComponentsInChildren<Transform>(true);
+        foreach (Transform door in allDoors)
+        {
+            if (door.CompareTag("Door"))
+            {
+                if (door.name.Contains("Door_U")) door.gameObject.SetActive(hasUp);
+                else if (door.name.Contains("Door_D")) door.gameObject.SetActive(hasDown);
+                else if (door.name.Contains("Door_L")) door.gameObject.SetActive(hasLeft);
+                else if (door.name.Contains("Door_R")) door.gameObject.SetActive(hasRight);
+            }
+        }
     }
 }
