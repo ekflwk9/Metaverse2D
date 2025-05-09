@@ -11,21 +11,18 @@ public class UiManager : MonoBehaviour
 
     public void MainUiAllOff()
     {
-        if (startButtonObject != null)
+        bool isStartBtnActive = startButtonObject.activeSelf;
+        if (isStartBtnActive)
         {
             startButtonObject.SetActive(false);
-        }
-        if (exitButtonObject != null)
-        {
             exitButtonObject.SetActive(false);
-        }
-        if (settingButtonObject != null)
-        {
             settingButtonObject.SetActive(false);
         }
-        if (settingsPanelObject != null)
+        else
         {
-            settingsPanelObject.SetActive(false);
+            startButtonObject.SetActive(true);
+            exitButtonObject.SetActive(true);
+            settingButtonObject.SetActive(true);
         }
     }
 
