@@ -26,9 +26,16 @@ public class BtnFunc : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
         }
     }
 
-
     public void MainBtnAllOff()
     {
         transform.parent.gameObject.SetActive(false);
+    }
+
+    public void GameStart()
+    {
+#if UNITY_EDITOR
+    UnityEditor.EditorApplication.isPlaying = false;
+#endif
+        Application.Quit();
     }
 }
