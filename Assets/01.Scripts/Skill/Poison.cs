@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Cristalize : BaseSkill
+public class Poison : BaseSkill
 {
     protected override void GetSkill()
     {
-        GameManager.player.AddSkill(Cristalize_Skill);
+        GameManager.player.AddSkill(Poison_Skill);
         DmgChange();
     }
 
-    protected void Cristalize_Skill()
+    protected void Poison_Skill()
     {
         count++;
         if (count >= 6)
