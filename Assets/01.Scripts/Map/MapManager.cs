@@ -6,7 +6,10 @@ public class MapManager : MonoBehaviour
 {
     [SerializeField] private GameObject startRoom;
     [SerializeField] private GameObject player;
+    public string decorationTag = "Decoration";
 
+    // 현재 층 (1층부터 시작)
+    public int currentFloor = 1;
 
     private void Start()
     {
@@ -14,8 +17,6 @@ public class MapManager : MonoBehaviour
     }
 
 
-    // 현재 층 (1층부터 시작)
-    public int currentFloor = 1;
 
     // 1층 = 5x3, 2층 = 5x4, 3층 = 5x5
     private int[] floorWidth = { 5, 5, 5 };
@@ -34,6 +35,7 @@ public class MapManager : MonoBehaviour
 
     public void GenerateMap()
     {
+
         //층에 따라 Width와 Height의 배치 설정
         int width = floorWidth[currentFloor - 1];
         int height = floorHeight[currentFloor - 1];
@@ -45,20 +47,43 @@ public class MapManager : MonoBehaviour
         Vector2Int startPos = new Vector2Int(rng.Next(width), rng.Next(height));
         PlaceRoom(startPos, RoomType.Start);
 
-        RandomRooms(RoomType.Boss, 1, width, height);
+        // 2. 층별 전투방, 보물방 수 설정
+        int battleRooms = 0;
+        int treasureRooms = 0;
 
-        // 3. 랜덤으로 나머지 방 생성하고 배치 1층은 전투방 7~10개, 보물방 1~3개
-        int battleRooms = rng.Next(7, 11);
-        int treasureRooms = rng.Next(1, 4);
+        if (currentFloor == 1)
+        {
+            battleRooms = rng.Next(7, 11);
+            treasureRooms = rng.Next(1, 4);
+        }
+        else if (currentFloor == 2)
+        {
+            battleRooms = rng.Next(7, 14);
+            treasureRooms = rng.Next(1, 5);
+        }
+        else if (currentFloor == 3)
+        {
+            battleRooms = rng.Next(9, 17);
+            treasureRooms = rng.Next(2, 6);
+        }
 
+        // 3. BattleRoom 배치
         RandomRooms(RoomType.Battle, battleRooms, width, height);
+
+        // 4. TreasureRoom 배치
         RandomRooms(RoomType.Treasure, treasureRooms, width, height);
 
-        // 6. 프리팹으로 방 생성 
+        // 5. BossRoom 배치
+        RandomRooms(RoomType.Boss, 1, width, height);
+
+        // 6. 프리팹으로 방 생성  
         SpawnRooms();
 
         // 7. 플레이어 StartRoom에 스폰
         SpawnPlayer(startRoom);
+
+        // 8. 데코레이션 설정
+        RandomizeDecorations();
     }
     void PlaceRoom(Vector2Int pos, RoomType type)
     {
@@ -170,6 +195,26 @@ public class MapManager : MonoBehaviour
                 else if (door.name.Contains("Door_L")) door.gameObject.SetActive(hasLeft);
                 else if (door.name.Contains("Door_R")) door.gameObject.SetActive(hasRight);
             }
+        }
+    }
+
+    public void RandomizeDecorations()
+    {
+        // Tag가 "Decoration"인 모든 오브젝트를 찾음
+        GameObject[] decorations = GameObject.FindGameObjectsWithTag(decorationTag);
+
+        // 배열이 비어있는지 체크
+        if (decorations.Length == 0)
+        {
+            Debug.LogWarning("No decorations found with tag: " + decorationTag);
+            return;
+        }
+
+        // 각 오브젝트에 대해 랜덤으로 on/off 설정
+        foreach (GameObject deco in decorations)
+        {
+            bool isActive = Random.value > 0.5f;  // 50% 확률로 true / false
+            deco.SetActive(isActive);
         }
     }
 }
