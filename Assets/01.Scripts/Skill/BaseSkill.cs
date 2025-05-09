@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class BaseSkill : MonoBehaviour
@@ -10,9 +8,11 @@ public abstract class BaseSkill : MonoBehaviour
     protected int count = 0;
     protected int randomState;
     protected float skillDamage;
-    protected float skillSpeed;
 
-    protected Vector2 range = Vector2.zero;
+    [SerializeField] protected float skillSpeed = 0f;
+    [SerializeField] protected float forward = 0f;
+
+    protected Vector3 range = Vector3.zero;
     protected Vector3 direction = Vector3.zero;
 
     protected void Awake()
@@ -39,21 +39,36 @@ public abstract class BaseSkill : MonoBehaviour
         }
     }
 
-    protected virtual void DirectionOfSkill()
+    protected virtual void DirectionOfSkill(Vector3 target)
     {
-        direction = GameManager.player.direction;
-        rigid.velocity = direction.normalized * Time.deltaTime * skillSpeed;
+        direction = (target - GameManager.player.transform.position).normalized;
+        rigid.velocity = direction * skillSpeed;
     }
 
     protected virtual void CoordinateOfSkill()
     {
-        //스킬의 범위
+        direction = GameManager.player.direction;
         var pos = GameManager.player.transform.position;
 
-        range.x = pos.x + 0f;
-        range.y = pos.y + 0f;
+        if (direction.x >= 0)
+        {
+            range.x = pos.x + forward;
+        }
+        else
+        {
+            range.x = pos.x - forward;
+        }
 
-        this.transform.position = range;
+        if (direction.y >= 0)
+        {
+            range.y = pos.y + forward;
+        }
+        else
+        {
+            range.y = pos.y - forward;
+        }
+        
+        this.transform.position += range;
     }
 
     protected virtual void DmgChange()
@@ -74,6 +89,8 @@ public abstract class BaseSkill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            DirectionOfSkill(collision.transform.position);
+
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
         }
