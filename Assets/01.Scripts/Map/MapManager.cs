@@ -4,7 +4,15 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    public GameObject player;
+    [SerializeField] private GameObject startRoom;
+    [SerializeField] private GameObject player;
+
+
+    private void Start()
+    {
+        GenerateMap();
+    }
+
 
     // 현재 층 (1층부터 시작)
     public int currentFloor = 1;
@@ -13,10 +21,10 @@ public class MapManager : MonoBehaviour
     private int[] floorWidth = { 5, 5, 5 };
     private int[] floorHeight = { 3, 4, 5 };
 
-    public GameObject startRoom;
-    public GameObject battleRoom;
-    public GameObject treasureRoom;
-    public GameObject bossRoom;
+    public GameObject StartRoom;
+    public GameObject BattleRoom;
+    public GameObject TreasureRoom;
+    public GameObject BossRoom;
 
 
     private Room[,] grid; // 맵의 2D 배열
@@ -44,13 +52,13 @@ public class MapManager : MonoBehaviour
         int treasureRooms = rng.Next(1, 4);
 
         RandomRooms(RoomType.Battle, battleRooms, width, height);
-        RandomRooms(RoomType.Treasure, battleRooms, width, height);
+        RandomRooms(RoomType.Treasure, treasureRooms, width, height);
 
         // 6. 프리팹으로 방 생성 
         SpawnRooms();
 
         // 7. 플레이어 StartRoom에 스폰
-
+        SpawnPlayer(startRoom);
     }
     void PlaceRoom(Vector2Int pos, RoomType type)
     {
@@ -103,10 +111,10 @@ public class MapManager : MonoBehaviour
     {
         switch (type)
         {
-            case RoomType.Start: return startRoom;
-            case RoomType.Battle: return battleRoom;
-            case RoomType.Treasure: return treasureRoom;
-            case RoomType.Boss: return bossRoom;
+            case RoomType.Start: return StartRoom;
+            case RoomType.Battle: return BattleRoom;
+            case RoomType.Treasure: return TreasureRoom;
+            case RoomType.Boss: return BossRoom;
             default: return null;
         }
     }
@@ -121,7 +129,7 @@ public class MapManager : MonoBehaviour
                 Room room = grid[x, y];
                 if (room != null)
                 {
-                    Vector3 worldPos = new Vector3(x * 2, y * 2, 0); // 2배 간격으로 배치
+                    Vector3 worldPos = new Vector3(x * 20, y * 20, 0); // 2배 간격으로 배치
                     GameObject prefab = GetPrefab(room.Type);
                     Instantiate(prefab, worldPos, Quaternion.identity, transform);
                 }
@@ -129,10 +137,15 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // 플레이어를 StartRoom에 스폰
-    void SpawnPlayer(Vector2Int startPos)
+    // 플레이어를 StartRoom 중앙에 생성하는 함수
+    public void SpawnPlayer(GameObject startRoom)
     {
-        Vector3 spawnPos = new Vector3(startPos.x * 2, startPos.y * 2, 0);
-        Instantiate(player, spawnPos, Quaternion.identity);
+        GameObject go = GameObject.FindWithTag("StartRoom");
+
+        // StartRoom의 테그를 따라서 플레이어의 위치 생성
+        Vector3 centerPos = go.transform.position + new Vector3(2.8f, 3.9f, 0f);
+
+        //GameManager.player.transform.position = centerPos;
+        Instantiate(player, centerPos, Quaternion.identity);
     }
 }
