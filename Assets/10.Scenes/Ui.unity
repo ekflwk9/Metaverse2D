@@ -284,7 +284,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1156851532}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: SettingOpen
+        m_MethodName: SettingScreen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1093,8 +1093,8 @@ GameObject:
   - component: {fileID: 1487110899}
   - component: {fileID: 1487110901}
   - component: {fileID: 1487110900}
-  - component: {fileID: 1487110902}
   - component: {fileID: 1487110903}
+  - component: {fileID: 1487110902}
   m_Layer: 5
   m_Name: SettingExitBtn
   m_TagString: Untagged
@@ -1119,7 +1119,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 244.99997, y: 129.99998}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 30, y: 49}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1487110900
 MonoBehaviour:
@@ -1221,7 +1221,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1487110900}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1156851532}
+        m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
+        m_MethodName: SettingScreen
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1845073547
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,7 +1560,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1912039202
 RectTransform:
   m_ObjectHideFlags: 0
