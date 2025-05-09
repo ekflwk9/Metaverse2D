@@ -9,7 +9,7 @@ public class UiManager : MonoBehaviour
     [SerializeField] private GameObject settingButtonObject;
     [SerializeField] private GameObject settingsPanelObject;
 
-    public void MainUiAllOff()
+    public void MainUiAllToggle()
     {
         bool isStartBtnActive = startButtonObject.activeSelf;
         if (isStartBtnActive)
@@ -28,7 +28,7 @@ public class UiManager : MonoBehaviour
 
     public void GameStart()
     {
-        MainUiAllOff();
+        MainUiAllToggle();
     }
 
     public void GameExit()
@@ -39,18 +39,19 @@ public class UiManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void SettingOpen()
+    public void SettingScreen()
     {
-        MainUiAllOff();
-        Settings();
+        MainUiAllToggle();
+        SettingToggle();
     }
 
-    public void Settings()
+    public void SettingToggle()
     {
-        if (settingsPanelObject != null)
-        {
+        bool isSettings = settingsPanelObject.activeSelf;
+        if (isSettings)
+            settingsPanelObject.SetActive(false);
+        else
             settingsPanelObject.SetActive(true);
-        }
 
     }
 }
