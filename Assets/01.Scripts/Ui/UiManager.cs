@@ -45,10 +45,15 @@ public class UiManager : MonoBehaviour
     public void SettingOpen()
     {
         MainUiAllOff();
+        Settings();
+    }
+
+    public void Settings()
+    {
         if (settingsPanelObject != null)
         {
             settingsPanelObject.SetActive(true);
-            Debug.Log("설정 창 열림 (관리자 스크립트)");
         }
+
     }
 }
