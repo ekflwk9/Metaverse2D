@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterProgectileManager : MonoBehaviour
+public class MonsterProgectileController : MonoBehaviour
 {
     [SerializeField] private MonsterProjectile projectilePrefab;
-    private int poolSize = 50;
+    private int poolSize = 20;
 
     private Queue<MonsterProjectile> pool = new Queue<MonsterProjectile>();
     private List<MonsterProjectile> activeProjectiles = new List<MonsterProjectile>();
@@ -57,7 +57,7 @@ public class MonsterProgectileManager : MonoBehaviour
         proj.Initialize(direction, speed, damage, ReturnProjectile);
     }
 
-    // 보스 클리어 할 때 호출
+    // 클리어 할 때 호출
     public void ClearAllProjectiles()
     {
         foreach (var proj in activeProjectiles)

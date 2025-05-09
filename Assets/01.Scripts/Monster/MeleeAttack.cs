@@ -2,17 +2,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttack : MonoBehaviour
+public class MeleeAttack : MonsterAttackBase
 {
-    // Start is called before the first frame update
-    void Start()
+    private float attackRange = 1.0f;
+
+    protected override void Awake()
     {
-        
+        base.Awake();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Attack()
     {
-        
+        if (Time.time - lastAttackTime < attackSpeed)
+            return;
+
+        float distance = Vector2.Distance(transform.position, player.position);
+        if (distance <= attackRange)
+        {
+            GameManager.gameEvent.Hit(player.name, attackDamage);
+        }
+        else 
+        { 
+            StopAttack(); 
+        }
     }
 }

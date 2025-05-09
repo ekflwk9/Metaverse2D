@@ -11,16 +11,16 @@ public class MonsterProjectile : MonoBehaviour
     private float speed;
     private int damage;
 
-    private Rigidbody2D _rigidbody;
-    private Animator _anim;
+    private Rigidbody2D rb;
+    private Animator anim;
     private bool isHit = false;
 
     private System.Action<MonsterProjectile> returnToPoolCallback;
 
     void Start()
     {
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _anim = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     public void Initialize(Vector2 direction, float speed, int damage, System.Action<MonsterProjectile> returnToPool)
@@ -29,8 +29,7 @@ public class MonsterProjectile : MonoBehaviour
         this.damage = damage;
         this.returnToPoolCallback = returnToPool;
 
-        _rigidbody = GetComponent<Rigidbody2D>();
-        _rigidbody.velocity = direction.normalized * speed;
+        rb.velocity = direction.normalized * speed;
 
     }
 
@@ -62,7 +61,7 @@ public class MonsterProjectile : MonoBehaviour
 
     private void ReturnToPool()
     {
-        _rigidbody.velocity = Vector2.zero;
+        rb.velocity = Vector2.zero;
         returnToPoolCallback?.Invoke(this);
         gameObject.SetActive(false);
     }
