@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
-    
     [SerializeField] private GameObject startButtonObject;
     [SerializeField] private GameObject exitButtonObject;
     [SerializeField] private GameObject settingButtonObject;
@@ -55,10 +54,5 @@ public class UiManager : MonoBehaviour
             settingsPanelObject.SetActive(false);
         else
             settingsPanelObject.SetActive(true);
-
-        
-
     }
-
-    
 }
