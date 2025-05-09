@@ -1,0 +1,271 @@
+fileFormatVersion: 2
+guid: e4e0c76815e9223428135865d3c37f0f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 35
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Door00
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 534
+        width: 90
+        height: 90
+      alignment: 9
+      pivot: {x: 0.30667588, y: 0.25325114}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b2bf6d2f722ac64d837aeed8eb401ec
+      internalID: 326032164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Door01
+      rect:
+        serializedVersion: 2
+        x: 299
+        y: 455
+        width: 90
+        height: 170
+      alignment: 9
+      pivot: {x: 0.29670036, y: 0.18195657}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 907950c7c446f92498a07f506a64406c
+      internalID: 1427775962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Door00: 326032164
+      Door01: 1427775962
+      decoration01: 976619047
+      decorative02_0: 1750407629
+      decorative02_1: 112574310
+      decorative02_10: 112796999
+      decorative02_11: -1910733514
+      decorative02_12: -1145546592
+      decorative02_13: 1573485144
+      decorative02_14: -2111588252
+      decorative02_15: -1541730872
+      decorative02_16: 1764298793
+      decorative02_17: -1210694889
+      decorative02_18: -1190534005
+      decorative02_19: -77233724
+      decorative02_2: -115629556
+      decorative02_20: -1522046082
+      decorative02_21: -660418904
+      decorative02_22: -1086023957
+      decorative02_23: -737475313
+      decorative02_24: 2103512607
+      decorative02_25: -305557772
+      decorative02_26: -292638311
+      decorative02_27: 1102515896
+      decorative02_28: 2033189304
+      decorative02_29: -1035125089
+      decorative02_3: 1980953630
+      decorative02_30: 339207359
+      decorative02_31: -170298135
+      decorative02_32: 1059125175
+      decorative02_33: -989826706
+      decorative02_34: 764984642
+      decorative02_35: -614465508
+      decorative02_36: -794723441
+      decorative02_37: -1554895866
+      decorative02_38: 103458886
+      decorative02_39: 1349307248
+      decorative02_4: -848677797
+      decorative02_40: -1689560345
+      decorative02_41: -1974424426
+      decorative02_42: -275958331
+      decorative02_43: 205412422
+      decorative02_44: -1795051125
+      decorative02_45: -1037381592
+      decorative02_46: -1617468299
+      decorative02_47: 332337886
+      decorative02_48: 280855892
+      decorative02_49: -1822917221
+      decorative02_5: 2108229611
+      decorative02_50: 782121033
+      decorative02_51: -37037829
+      decorative02_52: -892119247
+      decorative02_53: -987055507
+      decorative02_54: -1120056928
+      decorative02_55: -1359561967
+      decorative02_56: -1008104939
+      decorative02_57: 510622120
+      decorative02_58: 144662922
+      decorative02_59: -114023931
+      decorative02_6: 1761489092
+      decorative02_60: 2123700636
+      decorative02_61: 838394149
+      decorative02_62: 99640694
+      decorative02_63: 172854036
+      decorative02_64: 1275253316
+      decorative02_65: -869575710
+      decorative02_66: -901825508
+      decorative02_67: 993644310
+      decorative02_68: -1468809815
+      decorative02_69: 1272997444
+      decorative02_7: -200318579
+      decorative02_70: -1945093919
+      decorative02_71: 723164385
+      decorative02_72: -1580855868
+      decorative02_73: 1320580858
+      decorative02_8: 158338229
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

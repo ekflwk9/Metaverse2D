@@ -136,32 +136,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tile_G_0
-      rect:
-        serializedVersion: 2
-        x: 976
-        y: 240
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: fa9af9576ba50de47aba7c00c0016595
-      internalID: -2001843086
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tile_G_1
+      name: Tile_G_01
       rect:
         serializedVersion: 2
         x: 928
-        y: 240
+        y: 241
         width: 32
         height: 32
       alignment: 0
@@ -178,7 +157,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_G_2
+      name: Tile_G_02
       rect:
         serializedVersion: 2
         x: 976
@@ -199,7 +178,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_G_3
+      name: Tile_G_03
       rect:
         serializedVersion: 2
         x: 928
@@ -220,7 +199,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_G_4
+      name: Tile_G_04
       rect:
         serializedVersion: 2
         x: 976
@@ -241,11 +220,11 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_G_5
+      name: Tile_G_05
       rect:
         serializedVersion: 2
         x: 928
-        y: 336
+        y: 337
         width: 32
         height: 32
       alignment: 0
@@ -262,7 +241,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_G_6
+      name: Tile_G_06
       rect:
         serializedVersion: 2
         x: 976
@@ -283,7 +262,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tile_G_7
+      name: Tile_G_07
       rect:
         serializedVersion: 2
         x: 928
@@ -307,7 +286,7 @@ TextureImporter:
       name: Tile_G_8
       rect:
         serializedVersion: 2
-        x: 928
+        x: 930
         y: 160
         width: 64
         height: 64
@@ -328,7 +307,7 @@ TextureImporter:
       name: Tile_B_8
       rect:
         serializedVersion: 2
-        x: 832
+        x: 834
         y: 160
         width: 64
         height: 64
@@ -475,7 +454,7 @@ TextureImporter:
       name: Tile_B_6
       rect:
         serializedVersion: 2
-        x: 880
+        x: 881
         y: 384
         width: 32
         height: 48
@@ -706,8 +685,8 @@ TextureImporter:
       name: Hole_0
       rect:
         serializedVersion: 2
-        x: 487
-        y: 359
+        x: 488
+        y: 360
         width: 82
         height: 79
       alignment: 0
@@ -828,6 +807,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Tile_G_00
+      rect:
+        serializedVersion: 2
+        x: 976
+        y: 240
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae86dac61d388e14687f80c2287c1cb4
+      internalID: 1500478980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -850,13 +850,14 @@ TextureImporter:
       Tile_B_7: -1504286229
       Tile_B_8: -1009235364
       Tile_G_0: -2001843086
-      Tile_G_1: -384190609
-      Tile_G_2: 39071347
-      Tile_G_3: 1765320504
-      Tile_G_4: 1048166193
-      Tile_G_5: 797606301
-      Tile_G_6: 1061528427
-      Tile_G_7: -1370410484
+      Tile_G_00: 1500478980
+      Tile_G_01: -384190609
+      Tile_G_02: 39071347
+      Tile_G_03: 1765320504
+      Tile_G_04: 1048166193
+      Tile_G_05: 797606301
+      Tile_G_06: 1061528427
+      Tile_G_07: -1370410484
       Tile_G_8: -1614148195
       Tile_R_0: -1806817446
       Tile_R_1: 1046435793
@@ -867,12 +868,12 @@ TextureImporter:
       Tile_R_6: 1902794643
       Tile_R_7: 1589093301
       Tile_R_8: -727807774
+      Wall_01: 1931966886
       hole_1: -1457279681
       hole_2: -1880132122
       hole_3: 1701205572
       hole_4: 1839855322
       hole_5: 474578473
-      mainlevbuild_0: 1931966886
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
