@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
+    
     [SerializeField] private GameObject startButtonObject;
     [SerializeField] private GameObject exitButtonObject;
     [SerializeField] private GameObject settingButtonObject;
@@ -30,7 +31,7 @@ public class UiManager : MonoBehaviour
     public void GameStart()
     {
         MainUiAllToggle();
-        SceneManager.LoadScene("DungeonStart");
+        GameManager.ChangeScene("DungeonStart");
     }
 
     public void GameExit()
@@ -55,5 +56,9 @@ public class UiManager : MonoBehaviour
         else
             settingsPanelObject.SetActive(true);
 
+        
+
     }
+
+    
 }
