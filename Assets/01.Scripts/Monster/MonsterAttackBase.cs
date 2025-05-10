@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class MonsterAttackBase : MonoBehaviour
@@ -8,44 +9,70 @@ public abstract class MonsterAttackBase : MonoBehaviour
     protected MonsterProgectileController progectile;
     protected float attackSpeed;
     protected int attackDamage;
+    protected float attackRange;
 
     protected Transform player;
     protected Animator anim;
 
-    protected bool isAttack = false;
-    public bool IsAttack => isAttack;
+    protected bool isAttacking;
+    public bool IsAttacking => isAttacking;
+    protected bool canAttack;
+    public bool CanAttack => canAttack;
+
     protected float lastAttackTime;
+    protected Vector2 direction;
+    protected float distance;
 
     protected virtual void Awake()
     {
         monsterBase = GetComponent<MonsterBase>();
         player = GameManager.player.transform;
     }
-    public void SetAttack(float attackSpeed, int attackDamage)
+    private void Start()
     {
-        this.attackSpeed = attackSpeed;
-        this.attackDamage = attackDamage;
+        attackSpeed = monsterBase.AttackSpeed;
+        attackDamage = monsterBase.AttackDamage;
+        attackRange = monsterBase.AttackRange;
     }
 
+    private void Update()
+    {
+        CanPerformAttack();
+    }
+   
+
+    bool CanPerformAttack() 
+    {
+        bool canAttack = ((Time.time - lastAttackTime) >= attackSpeed && distance <= attackRange);
+        return canAttack; 
+    }
     public abstract void Attack();
 
-    protected IEnumerator AttackRoutine()
+    public virtual void OnAttack()
     {
-        isAttack = true;
+        if (monsterBase.IsDead) return;
 
-        monsterBase.anim.SetTrigger("isAttack");
+        Vector2 direction = (player.position - transform.position).normalized;
+        float distance = Vector2.Distance(transform.position, player.position);
 
-        Attack();
+        if (canAttack)
+        {
+            if (anim != null)
+            {
+                anim.SetBool("isAttack", true);
+            }
 
-        yield return new WaitForSeconds(attackSpeed);
-
-        
-        lastAttackTime = Time.time;
+            Attack();
+        }
+        else
+        {
+            StopAttack();
+        }
     }
 
-    protected void StopAttack()
+    public virtual void StopAttack()
     {
-        isAttack = false;
+        isAttacking = false;
 
         if (anim != null)
         {

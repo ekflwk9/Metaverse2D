@@ -12,17 +12,14 @@ public class MeleeMovement : MonsterMoveBase
 
     public override void Move()
     {
-        Vector2 direction = (player.position - transform.position).normalized;
-        float distance = direction.magnitude;
-
         if (distance > keepDistance)
         {
             rb.velocity = direction * moveSpeed * Time.deltaTime;
-            isMove = true;
+            isMoving = true;
         }
-        if (distance <= keepDistance)
+        else if (distance <= keepDistance)
         {
-            StopMove();
+            base.StopMove();
         }
     }
 }
