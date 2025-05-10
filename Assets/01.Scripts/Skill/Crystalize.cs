@@ -2,21 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PaladinHammer : BaseSkill
+public class Cristalize : BaseSkill
 {
-   
     protected override void GetSkill()
     {
-        //스킬을 플레이어에게 추가
-        GameManager.player.AddSkill(PaladinHammer_Skill);
-        //스킬이 플레이어 기본 공격력 증가 또는 감소
+        GameManager.player.AddSkill(Crystalize_Skill);
         DmgChange();
     }
 
-    protected void PaladinHammer_Skill()
+    protected void Crystalize_Skill()
     {
         count++;
-        if (count >= 10)
+        if (count >= 6)
         {
             this.gameObject.SetActive(true);
             DmgApply();
@@ -24,7 +21,6 @@ public class PaladinHammer : BaseSkill
             count = 0;
         }
     }
-
 
     protected override void DirectionOfSkill(Vector3 target)
     {
@@ -61,7 +57,7 @@ public class PaladinHammer : BaseSkill
     protected override void DmgChange()
     {
         //스킬 획득시 플레이어 데미지 조정
-        GameManager.player.StateUp(StateCode.Damage, 2);
+        GameManager.player.StateUp(StateCode.Damage, 0);
     }
 
     protected override void DmgApply()
