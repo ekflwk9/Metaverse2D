@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Description
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 79307f501eb267b44be9d7ca808a3dfb, type: 2}
-  m_sharedMaterial: {fileID: -3191260080303070782, guid: 79307f501eb267b44be9d7ca808a3dfb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f147584eb10fdbe4fae03a5df40c9df9, type: 2}
+  m_sharedMaterial: {fileID: 554022436438280861, guid: f147584eb10fdbe4fae03a5df40c9df9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -338,8 +338,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Skill Name
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 79307f501eb267b44be9d7ca808a3dfb, type: 2}
-  m_sharedMaterial: {fileID: -3191260080303070782, guid: 79307f501eb267b44be9d7ca808a3dfb, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f147584eb10fdbe4fae03a5df40c9df9, type: 2}
+  m_sharedMaterial: {fileID: 554022436438280861, guid: f147584eb10fdbe4fae03a5df40c9df9, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

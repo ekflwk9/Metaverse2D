@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: e5c356a4b721b024daa3ce4df25a2a24
+guid: ab5d1920fee929845886448cd36b14d4
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Arvo
+  - Heir of Light Bold
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
