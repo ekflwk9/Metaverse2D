@@ -20,6 +20,7 @@ public class MonsterBase : MonoBehaviour
     [SerializeField] private SpriteRenderer characterRenderer;
 
     private float moveSpeed;
+    private float attackRange;
     public float MoveSpeed { get { return moveSpeed; } }
     private float maxHealth;
     public float MaxHealth { get { return maxHealth; } }
@@ -34,13 +35,8 @@ public class MonsterBase : MonoBehaviour
 
     public float currentHealth;
 
-    private Collider2D _collider;
+    public Collider2D _collider;
     public Animator anim;
-
-    public bool CanMove = true;
-
-    private MonsterAttackBase attackBase;
-
 
     void Awake()
     {
@@ -50,9 +46,6 @@ public class MonsterBase : MonoBehaviour
 
         anim = GetComponent<Animator>();
         _collider = GetComponent<Collider2D>();
-        attackBase = GetComponent<MonsterAttackBase>();
-
-        InitializeAttack();
     }
 
 
@@ -64,6 +57,7 @@ public class MonsterBase : MonoBehaviour
                 moveSpeed = 1.4f;
                 maxHealth = 4f;
                 attackDamage = 1;
+                attackRange = 1f;
                 break;
 
             case MonsterType.FireWorm:
@@ -71,6 +65,7 @@ public class MonsterBase : MonoBehaviour
                 maxHealth = 4f;
                 attackDamage = 1;
                 attackSpeed = 1f;
+                attackRange = 6f;
                 break;
 
             case MonsterType.Necromancer:
@@ -78,6 +73,7 @@ public class MonsterBase : MonoBehaviour
                 maxHealth = 6f;
                 attackDamage = 1;
                 attackSpeed = 1.5f;
+                attackRange = 6f;
                 break;
 
             case MonsterType.Shaman:
@@ -85,6 +81,7 @@ public class MonsterBase : MonoBehaviour
                 maxHealth = 6f;
                 attackDamage = 1;
                 attackSpeed = 2f;
+                attackRange = 6f;
                 break;
 
             case MonsterType.Boss:
@@ -92,40 +89,34 @@ public class MonsterBase : MonoBehaviour
                 maxHealth = 12f;
                 attackDamage = 1;
                 attackSpeed = 2.5f;
+                attackRange = 6f;
                 break;
 
         }
     }
 
-    void InitializeAttack()
-    {
-        if (attackBase != null)
-        {
-            attackBase.SetAttack(attackSpeed, attackDamage);
-        }
-    }
-
-    public void TakeDamage(float amount)
+    public virtual void TakeDamage(float amount)
     {
         if (isDead) return;
+
+        //플레이어 스킬과 충돌
 
         currentHealth -= amount;
         anim.SetTrigger("isDamaged");
 
         if (currentHealth <= 0)
         {
-            Die();
+            Dead();
         }
     }
 
-    private void Die()
+    public virtual void Dead()
     {
         if (isDead) return;
 
         isDead = true;
-        anim.SetTrigger("Die");
+        anim.SetTrigger("isDead");
 
-        CanMove = false;
         _collider.enabled = false;
 
         StartCoroutine(DisableAfterDeath());
@@ -135,5 +126,23 @@ public class MonsterBase : MonoBehaviour
     {
         yield return new WaitForSeconds(2f);
         gameObject.SetActive(false);
+    }
+
+    public virtual void Idle()
+    {
+        if (isDead) return;
+
+        if(anim != null)
+        {
+            anim.SetBool("isIdle", true);
+        }
+    }
+
+    public virtual void StopIdle()
+    {
+        if (anim != null)
+        {
+            anim.SetBool("isIdle", false);
+        }
     }
 }

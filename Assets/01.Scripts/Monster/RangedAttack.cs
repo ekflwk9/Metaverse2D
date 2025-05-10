@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class RangedAttack : MonsterAttackBase
 {
-    private float attackRange = 6f;
-    
-
     protected override void Awake()
     {
         base.Awake();
@@ -14,18 +11,9 @@ public class RangedAttack : MonsterAttackBase
 
     public override void Attack()
     {
-        if (Time.time - lastAttackTime < attackSpeed)
-            return;
+        isAttacking = true;
+        progectile.Shoot(transform.position, direction, attackSpeed, attackDamage);
 
-        Vector2 direction = (player.position - transform.position).normalized;
-        float distance = Vector2.Distance(transform.position, player.position);
-        if (distance <= attackRange)
-        {
-            progectile.Shoot(transform.position, direction, attackSpeed, attackDamage);
-        }
-        else
-        {
-            StopAttack();
-        }
+        lastAttackTime = Time.time;
     }
 }
