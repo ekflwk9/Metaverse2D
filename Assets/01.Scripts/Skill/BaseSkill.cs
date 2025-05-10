@@ -4,24 +4,26 @@ public abstract class BaseSkill : MonoBehaviour
 {
     protected Animator anim;
     protected Rigidbody2D rigid;
+    protected Collider2D _collider;
 
     protected int count = 0;
     protected int randomState;
     protected float skillDamage;
 
     [SerializeField] protected float skillSpeed = 0f;
-    [SerializeField] protected float forward = 0f;
+    [SerializeField] protected float forward = 0.5f;
 
-    protected Vector3 range = Vector3.zero;
+    protected Vector3 generateLocation = Vector3.zero;
     protected Vector3 direction = Vector3.zero;
 
-    protected void Awake()
-    {
-        GameManager.gameEvent.Add(GetSkill, true);
-        DontDestroyOnLoad(gameObject);
-    }
+    //Test 위해 수정함
+    //protected void Awake()
+    //{
+    //    GameManager.gameEvent.Add(GetSkill, true);
+    //    DontDestroyOnLoad(gameObject);
+    //}
 
-    protected virtual void GetSkill()
+    public virtual void GetSkill()
     {
         GameManager.player.AddSkill(SkillName);
         DmgChange();
@@ -33,13 +35,13 @@ public abstract class BaseSkill : MonoBehaviour
         if (count >= 6)
         {
             this.gameObject.SetActive(true);
-            DmgApply();
+            SkillDmg();
             CoordinateOfSkill();
             count = 0;
         }
     }
 
-    protected virtual void DirectionOfSkill(Vector3 target)
+    protected virtual void DirectionOfProjectileSkill(Vector3 target)
     {
         direction = (target - GameManager.player.transform.position).normalized;
         rigid.velocity = direction * skillSpeed;
@@ -52,23 +54,23 @@ public abstract class BaseSkill : MonoBehaviour
 
         if (direction.x >= 0)
         {
-            range.x = pos.x + forward;
+            generateLocation.x = pos.x + forward;
         }
         else
         {
-            range.x = pos.x - forward;
+            generateLocation.x = pos.x - forward;
         }
 
         if (direction.y >= 0)
         {
-            range.y = pos.y + forward;
+            generateLocation.y = pos.y + forward;
         }
         else
         {
-            range.y = pos.y - forward;
+            generateLocation.y = pos.y - forward;
         }
         
-        this.transform.position += range;
+        this.transform.position += generateLocation;
     }
 
     protected virtual void DmgChange()
@@ -77,7 +79,7 @@ public abstract class BaseSkill : MonoBehaviour
         GameManager.player.StateUp(StateCode.Damage, 0);
     }
 
-    protected virtual void DmgApply()
+    protected virtual void SkillDmg()
     {
         //스킬의 데미지 = 플레이어 데미지의 1.5배 ~ 2배
         randomState = Random.Range(5, 11);
@@ -89,7 +91,7 @@ public abstract class BaseSkill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            DirectionOfSkill(collision.transform.position);
+            //DirectionOfProjectileSkill(collision.transform.position);
 
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
