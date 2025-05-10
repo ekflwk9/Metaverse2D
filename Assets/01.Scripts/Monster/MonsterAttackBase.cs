@@ -28,6 +28,12 @@ public abstract class MonsterAttackBase : MonoBehaviour
         monsterBase = GetComponent<MonsterBase>();
         player = GameManager.player.transform;
     }
+    private void Start()
+    {
+        attackSpeed = monsterBase.AttackSpeed;
+        attackDamage = monsterBase.AttackDamage;
+        attackRange = monsterBase.AttackRange;
+    }
 
     private void Update()
     {

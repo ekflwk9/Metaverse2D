@@ -20,7 +20,6 @@ public class MonsterBase : MonoBehaviour
     [SerializeField] private SpriteRenderer characterRenderer;
 
     private float moveSpeed;
-    private float attackRange;
     public float MoveSpeed { get { return moveSpeed; } }
     private float maxHealth;
     public float MaxHealth { get { return maxHealth; } }
@@ -29,6 +28,8 @@ public class MonsterBase : MonoBehaviour
 
     private int attackDamage;
     public int AttackDamage { get { return attackDamage; } }
+    private float attackRange;
+    public float AttackRange { get { return attackRange; } }
 
     private bool isDead = false;
     public bool IsDead { get { return isDead; } }
