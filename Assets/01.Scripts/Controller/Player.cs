@@ -22,6 +22,8 @@ public class Player : MonoBehaviour
     private bool isPickUp = false;
     public Vector3 direction { get => fieldDirection; }
     private Vector3 fieldDirection = Vector3.one;
+    private Vector3 scale = Vector3.one;
+
 
     private event Func skill;
     private Rigidbody2D rigid;
@@ -143,7 +145,7 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.S))
         {
             pos.y = -1f;
-            fieldDirection.y = -1f;
+            fieldDirection.y = 1f;
         }
 
         //좌우
@@ -151,12 +153,14 @@ public class Player : MonoBehaviour
         {
             pos.x = -1f;
             fieldDirection.x = 1f;
+            scale.x = 1f;
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             pos.x = 1f;
             fieldDirection.x = -1f;
+            scale.x = -1f;
         }
 
         //애니메이션 재생
@@ -164,7 +168,7 @@ public class Player : MonoBehaviour
         else action.SetBool("Move", false);
 
         //보는 방향
-        this.transform.localScale = direction;
+        this.transform.localScale = scale;
         rigid.velocity = pos.normalized * moveSpeed;
     }
 
