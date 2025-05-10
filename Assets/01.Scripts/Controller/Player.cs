@@ -1,4 +1,5 @@
-using UnityEngine;
+    using UnityEngine;
+using UnityEngine.UI;
 
 public enum StateCode
 {
@@ -11,10 +12,13 @@ public enum StateCode
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Image healthBar;
+
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 10;
     public int maxHealth { get; private set; } = 10;
 
+    public float healthRatio { get; private set; }
     public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
 
@@ -33,7 +37,7 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        attack = GetComponent<Animator>();
+        attack = GetComponent<Animator>(); 
         action = Service.FindChild(this.transform, "Action").GetComponent<Animator>();
 
         GameManager.SetComponent(this);
