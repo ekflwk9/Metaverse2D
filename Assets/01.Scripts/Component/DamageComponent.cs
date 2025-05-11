@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -8,15 +6,20 @@ public class DamageComponent : MonoBehaviour
     private Animator anim;
     private TMP_Text damageText;
 
-    private void Awake()
+    public void SetComponent()
     {
+        damageText = Service.FindChild(this.transform, "Text").GetComponent<TMP_Text>();
         anim = GetComponent<Animator>();
-        damageText = GetComponent<TMP_Text>();
+        this.gameObject.SetActive(false);
     }
 
-    public void Show(int _damageValue)
+    public void Show(Vector3 _spawnPos, int _damageValue)
     {
         damageText.text = _damageValue.ToString();
+        this.transform.position = _spawnPos;
+
+        if (this.gameObject.activeSelf) anim.Play("Idle", 0, 0);
+        else this.gameObject.SetActive(true);
     }
 
     private void SetOff()
