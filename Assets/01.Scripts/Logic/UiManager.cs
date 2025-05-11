@@ -5,25 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
-    [SerializeField] private GameObject startButtonObject;
-    [SerializeField] private GameObject exitButtonObject;
-    [SerializeField] private GameObject settingButtonObject;
-    [SerializeField] private GameObject settingsPanelObject;
+    public Serialized serialized;
 
     public void MainUiAllToggle()
     {
-        bool isStartBtnActive = startButtonObject.activeSelf;
+        bool isStartBtnActive = serialized.startButtonObject.activeSelf;
         if (isStartBtnActive)
         {
-            startButtonObject.SetActive(false);
-            exitButtonObject.SetActive(false);
-            settingButtonObject.SetActive(false);
+            serialized.startButtonObject.SetActive(false);
+            serialized.exitButtonObject.SetActive(false);
+            serialized.settingButtonObject.SetActive(false);
         }
         else
         {
-            startButtonObject.SetActive(true);
-            exitButtonObject.SetActive(true);
-            settingButtonObject.SetActive(true);
+            serialized.startButtonObject.SetActive(true);
+            serialized.exitButtonObject.SetActive(true);
+            serialized.settingButtonObject.SetActive(true);
         }
     }
 
@@ -49,10 +46,10 @@ public class UiManager : MonoBehaviour
 
     public void SettingToggle()
     {
-        bool isSettings = settingsPanelObject.activeSelf;
+        bool isSettings = serialized.settingsPanelObject.activeSelf;
         if (isSettings)
-            settingsPanelObject.SetActive(false);
+            serialized.settingsPanelObject.SetActive(false);
         else
-            settingsPanelObject.SetActive(true);
+            serialized.settingsPanelObject.SetActive(true);
     }
 }
