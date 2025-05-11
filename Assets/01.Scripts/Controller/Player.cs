@@ -12,8 +12,6 @@ public enum StateCode
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] private Image healthBar;
-
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 10;
     public int maxHealth { get; private set; } = 10;
