@@ -46,4 +46,38 @@ public class Service
 
         return findObject;
     }
+
+    public static void SpawnMonster(Transform _mapPos, string[] _monsterNameArray, int _maxSpawnCount)
+    {
+        if (_maxSpawnCount < 3) Debug.Log($"{_maxSpawnCount} 스폰 최대 수치가 3보다 이하일 수는 없습니다.");
+
+        //스폰할 몬스터 정보
+        GameObject[] monster = new GameObject[_monsterNameArray.Length];
+
+        for (int i = 0; i < _monsterNameArray.Length; i++)
+        {
+            monster[i] = Service.FindResource("Enemy", _monsterNameArray[i]);
+        }
+
+        //몬스터 배열만큼 랜덤 스폰 및 지정
+        var ranSpawnCount = Random.Range(3, _maxSpawnCount);
+        var ranMonsterType = Random.Range(0, _monsterNameArray.Length);
+        var isRandom = ranMonsterType == 0 ? false : true;
+
+        for (int i = 0; i < ranSpawnCount; i++)
+        {
+            //스폰 타입 랜덤
+            if (isRandom) ranMonsterType = Random.Range(0, _monsterNameArray.Length);
+            else ranMonsterType = 0;
+
+            var monsterPos = _mapPos.transform.position;
+            monsterPos.x = Random.Range(0, 8);
+            monsterPos.y = Random.Range(0, 8);
+
+            //몬스터 스폰 메서드 추가해야함
+            var spawnMonster = MonoBehaviour.Instantiate(monster[ranMonsterType]);
+            spawnMonster.transform.position = _mapPos.transform.position + monsterPos;
+            spawnMonster.gameObject.SetActive(true);
+        }
+    }
 }

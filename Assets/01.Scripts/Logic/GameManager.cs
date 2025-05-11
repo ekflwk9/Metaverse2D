@@ -8,6 +8,7 @@ public static class GameManager
     public static CamComponent cam { get; private set; }
     public static UiComponent ui { get; private set; }
     public static FadeComponent fade { get; private set; }
+    public static EffectManager effect { get; private set; } = new EffectManager();
     public static SoundManager sound { get; private set; } = new SoundManager();
     public static EventManager gameEvent { get; private set; } = new EventManager();
 
