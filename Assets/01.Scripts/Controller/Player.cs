@@ -24,8 +24,6 @@ public class Player : MonoBehaviour
     private Vector3 fieldDirection = Vector3.zero;
     private Vector3 scale = Vector3.one;
 
-    private PaladinHammer hammer;
-
     private event Func skill;
     private Rigidbody2D rigid;
     private Animator action;
@@ -107,7 +105,6 @@ public class Player : MonoBehaviour
         {
             Move();
             Attack();
-            Get();
         }
     }
 
@@ -184,21 +181,5 @@ public class Player : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) inRange = false;
-    }
-
-    //Test 코드
-    private void Get()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            hammer = FindObjectOfType<PaladinHammer>();
-            if (hammer == null)
-                Debug.Log("x");
-            else
-            {
-                hammer.GetSkill();
-                hammer = null;
-            }
-        }
     }
 }
