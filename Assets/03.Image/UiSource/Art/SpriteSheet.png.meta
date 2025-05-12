@@ -791,7 +791,7 @@ TextureImporter:
         height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 4, y: 7, z: 4, w: 4}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -812,7 +812,7 @@ TextureImporter:
         height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 5, y: 5, z: 5, w: 6}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -840,6 +840,48 @@ TextureImporter:
       bones: []
       spriteID: 39cf7756999316e45b0055a81233b37e
       internalID: 1882975590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Power
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 1755
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a8bb6872be682449a10acf3915de8db
+      internalID: -1790357653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_X
+      rect:
+        serializedVersion: 2
+        x: 592
+        y: 1825
+        width: 23
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 974f9d409d83ee340a3d3420bb3ead5e
+      internalID: -1344022969
       vertices: []
       indices: 
       edges: []
@@ -881,6 +923,7 @@ TextureImporter:
       Setting_Option: -240249899
       Setting_Option_Border: 1277063037
       Setting_Pause: -115612847
+      Setting_Power: -1790357653
       Setting_Select_Arrow_Left: 977788220
       Setting_Select_Arrow_Right: -1690267352
       Setting_Slot_0: 362749305
@@ -890,6 +933,7 @@ TextureImporter:
       Setting_Slot_4: -1399508773
       Setting_Turn_Page: 529194819
       Setting_Video: -1401496782
+      Setting_X: -1344022969
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
