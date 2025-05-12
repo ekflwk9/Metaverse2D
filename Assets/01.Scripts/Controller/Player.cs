@@ -55,7 +55,7 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
+                Service.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
                 break;
         }
     }
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
+                Service.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
                 break;
         }
     }

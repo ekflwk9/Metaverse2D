@@ -18,42 +18,55 @@ public class EffectManager
     public void Load()
     {
         var poolingCount = 50;
-        var effects = Resources.LoadAll<MonoBehaviour>("Effect");
+        var effects = Resources.LoadAll<GameObject>("Effect");
 
         for (int i = 0; i < effects.Length; i++)
         {
-            //데미지
-            if (effects[i].name.Contains("Damage"))
+            if (!effect.ContainsKey(effects[i].name))
             {
-                var pooling = new DamageComponent[poolingCount];
+                var component = effects[i].GetComponent<DamageComponent>();
 
-                for (int I = 0; I < poolingCount; I++)
-                {
-                    var poolingEffect = MonoBehaviour.Instantiate(effects[i].gameObject);
-                    pooling[I] = poolingEffect.GetComponent<DamageComponent>();
-                    pooling[I].SetComponent();
-                }
-
-                damage.Add(effects[i].name, pooling);
+                if (component != null) LoadDamage(component, poolingCount);
+                else LoadEffect(effects[i], poolingCount);
             }
 
-            //임펙트
-            else if (!effect.ContainsKey(effects[i].name))
-            {
-                var pooling = new GameObject[poolingCount];
-
-                for (int I = 0; I < poolingCount; I++)
-                {
-                    var poolingEffect = MonoBehaviour.Instantiate(effects[i].gameObject);
-                    pooling[I] = poolingEffect;
-                    poolingEffect.SetActive(false);
-                }
-
-                effect.Add(effects[i].name, pooling);
-            }
+            else Service.Log($"{effects[i]}라는 같은 파일이 이미 존재함");
         }
     }
 
+    private void LoadEffect(GameObject _resource, int _poolingCount)
+    {
+        var pooling = new GameObject[_poolingCount];
+
+        for (int i = 0; i < _poolingCount; i++)
+        {
+            var poolingEffect = MonoBehaviour.Instantiate(_resource);
+            pooling[i] = poolingEffect;
+            poolingEffect.SetActive(false);
+        }
+
+        effect.Add(_resource.name, pooling);
+    }
+
+    private void LoadDamage(DamageComponent _resource, int _poolingCount)
+    {
+        var pooling = new DamageComponent[_poolingCount];
+
+        for (int i = 0; i < _poolingCount; i++)
+        {
+            var poolingEffect = MonoBehaviour.Instantiate(_resource);
+            pooling[i] = poolingEffect;
+            pooling[i].SetComponent();
+        }
+
+        damage.Add(_resource.name, pooling);
+    }
+
+    /// <summary>
+    /// 특정 위치에 원하는 임펙트를 재생해줌
+    /// </summary>
+    /// <param name="_spawnPos"></param>
+    /// <param name="_effectName"></param>
     public void Show(Vector3 _spawnPos, string _effectName)
     {
         if (effect.ContainsKey(_effectName))
@@ -71,17 +84,20 @@ public class EffectManager
 
         else
         {
-            Debug.Log($"{_effectName}은 Effect파일에 없는 Effect입니다.");
+            Service.Log($"{_effectName}은 Effect파일에 없는 Effect입니다.");
         }
     }
 
+    /// <summary>
+    /// 특정 바닥 위치에 피 자국을 만들어줌
+    /// </summary>
+    /// <param name="_spawnPos"></param>
     public void FloorBlood(Vector3 _spawnPos)
     {
         var bloodType = Random.Range(0, 3);
         var typeName = $"FloorBlood{bloodType}";
 
         floorBloodCount[bloodType]++;
-        var index = floorBloodCount[bloodType];
 
         if (floorBloodCount[bloodType] >= effect[typeName].Length)
         {
@@ -98,6 +114,12 @@ public class EffectManager
         effect[typeName][floorBloodCount[bloodType]].transform.position = _spawnPos;
     }
 
+    /// <summary>
+    /// 특정 객체 포지션에 데미지 임펙트를 출력해줌
+    /// </summary>
+    /// <param name="_spawnPos"></param>
+    /// <param name="_damageValue"></param>
+    /// <param name="dmgType"></param>
     public void Damage(Vector3 _spawnPos, int _damageValue, DmgTypeCode dmgType = DmgTypeCode.Damage)
     {
         damageCount++;
@@ -109,6 +131,6 @@ public class EffectManager
             damage[typeName][damageCount].Show(_spawnPos, _damageValue);
         }
 
-        else Debug.Log($"{typeName}은 없는 타입입니다.");
+        else Service.Log($"{typeName}은 없는 타입입니다.");
     }
 }

@@ -28,7 +28,7 @@ public static class GameManager
     {
         if (_sceneName == "Loading")
         {
-            Debug.Log("\"Loading\"은 가면 안되는 씬입니다.");
+            Service.Log("\"Loading\"은 가면 안되는 씬입니다.");
             return;
         }
 

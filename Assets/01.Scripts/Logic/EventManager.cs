@@ -46,20 +46,20 @@ public class EventManager
         var isClass = _function.Target;
 
         if (isClass is MonoBehaviour unityObject) eventName.Append(unityObject.name);
-        else Debug.Log($"{eventName}의 클래스는 MonoBehaviour의 상속을 받지 않음");
+        else Service.Log($"{eventName}의 클래스는 MonoBehaviour의 상속을 받지 않음");
 
         eventName.Append(_function.Method.Name);
 
         if (!_constEvent)
         {
             if (!gameEvent.ContainsKey(eventName.ToString())) gameEvent.Add(eventName.ToString(), _function);
-            else Debug.Log($"{eventName}는 이미 추가된 \"gameEvent\"");
+            else Service.Log($"{eventName}는 이미 추가된 \"gameEvent\"");
         }
 
         else
         {
             if (!constEvent.ContainsKey(eventName.ToString())) constEvent.Add(eventName.ToString(), _function);
-            else Debug.Log($"{eventName}는 이미 추가된 \"constEvent\"");
+            else Service.Log($"{eventName}는 이미 추가된 \"constEvent\"");
         }
     }
 
@@ -67,12 +67,12 @@ public class EventManager
     {
         if (gameEvent.ContainsKey(_eventName)) gameEvent[_eventName]();
         else if (constEvent.ContainsKey(_eventName)) constEvent[_eventName]();
-        else Debug.Log($"{_eventName}는 추가되지 않은 \"constEvent\"");
+        else Service.Log($"{_eventName}는 추가되지 않은 \"constEvent\"");
     }
 
     public void Hit(string _hitObjectName, int _hitValue = 0)
     {
         if (hit.ContainsKey(_hitObjectName)) hit[_hitObjectName].OnHit(_hitValue);
-        else Debug.Log($"{_hitObjectName}는 추가되지 않은 \"Hit Interface\"");
+        else Service.Log($"{_hitObjectName}는 추가되지 않은 \"Hit Interface\"");
     }
 }
