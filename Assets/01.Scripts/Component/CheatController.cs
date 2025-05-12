@@ -9,7 +9,7 @@ public class CheatController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.C)) GameManager.ChangeScene(sceneName);
+        if (Input.GetKeyDown(KeyCode.K)) GameManager.ChangeScene(sceneName);
 
         //if (Input.GetKeyDown(KeyCode.V))
         //{

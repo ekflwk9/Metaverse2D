@@ -14,10 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/10.Scenes/Skill.unity
     guid: 3cc20037c6efab84c95fa9318975ab3d
-  - enabled: 0
+  - enabled: 1
     path: Assets/10.Scenes/Ui.unity
     guid: 113152844644b224c8f7dd6ac267313a
   - enabled: 1
     path: Assets/10.Scenes/DungeonStart.unity
     guid: 2e3a4a2dc0090294590cd4691f5a06fe
+  - enabled: 1
+    path: Assets/10.Scenes/Test.unity
+    guid: 6211e8ea3378831418f419ddbc9aabf0
   m_configObjects: {}
