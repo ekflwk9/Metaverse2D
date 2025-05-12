@@ -12,6 +12,7 @@ TagManager:
   - Door_D
   - Door_U
   - Door_R
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -19,8 +20,8 @@ TagManager:
   - Enemy
   - Water
   - UI
-  - 
-  - 
+  - Wall
+  - Player
   - 
   - 
   - 

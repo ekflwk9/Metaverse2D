@@ -11,11 +11,15 @@ public enum StateCode
     AttackSpeed = 4,
 }
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour,
+IHit
 {
+    [SerializeField] private Vector3 bloodPos; 
+    [SerializeField] private Vector3 textPos; 
+
     public int dmg { get; private set; } = 1;
-    public int health { get; private set; } = 10;
-    public int maxHealth { get; private set; } = 10;
+    public int health { get; private set; } = 100;
+    public int maxHealth { get; private set; } = 100;
 
     public float healthRatio { get; private set; }  // 데미지 받을 때 체력바 줄어드는 값 저장용
     public float moveSpeed { get; private set; } = 2f;
@@ -49,6 +53,17 @@ public class Player : MonoBehaviour
 
         GameManager.SetComponent(this);
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void OnHit(int _dmg)
+    {
+        var playerPos = this.transform.position;
+        health -= _dmg;
+
+        GameManager.effect.Show(playerPos, "Blood");
+        GameManager.effect.FloorBlood(playerPos + bloodPos);
+        GameManager.effect.Damage(playerPos + textPos, _dmg);
+        //GameManager.sound.OnEffect("PlayerHit");
     }
 
     public void StateUp(StateCode _code, float _upValue)
