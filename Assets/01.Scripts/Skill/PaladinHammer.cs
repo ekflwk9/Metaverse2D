@@ -7,7 +7,9 @@ public class PaladinHammer : BaseSkill
    
     protected override void GetSkill()
     {
+        //스킬을 플레이어에게 추가
         GameManager.player.AddSkill(PaladinHammer_Skill);
+        //스킬이 플레이어 기본 공격력 증가 또는 감소
         DmgChange();
     }
 

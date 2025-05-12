@@ -5,32 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class UiManager : MonoBehaviour
 {
-    [SerializeField] private GameObject startButtonObject;
-    [SerializeField] private GameObject exitButtonObject;
-    [SerializeField] private GameObject settingButtonObject;
-    [SerializeField] private GameObject settingsPanelObject;
+    public Serialized serialized;
 
     public void MainUiAllToggle()
     {
-        bool isStartBtnActive = startButtonObject.activeSelf;
-        if (isStartBtnActive)
+        bool isUiBar = serialized.uiBar.activeSelf;
+        if (isUiBar)
         {
-            startButtonObject.SetActive(false);
-            exitButtonObject.SetActive(false);
-            settingButtonObject.SetActive(false);
+            serialized.uiBar.SetActive(false);
         }
         else
         {
-            startButtonObject.SetActive(true);
-            exitButtonObject.SetActive(true);
-            settingButtonObject.SetActive(true);
+            serialized.uiBar.SetActive(true);
         }
     }
 
     public void GameStart()
     {
         MainUiAllToggle();
-        GameManager.ChangeScene("DungeonStart");
+        SceneManager.LoadScene("DungeonStart");
     }
 
     public void GameExit()
@@ -49,10 +42,10 @@ public class UiManager : MonoBehaviour
 
     public void SettingToggle()
     {
-        bool isSettings = settingsPanelObject.activeSelf;
+        bool isSettings = serialized.settingUi.activeSelf;
         if (isSettings)
-            settingsPanelObject.SetActive(false);
+            serialized.settingUi.SetActive(false);
         else
-            settingsPanelObject.SetActive(true);
+            serialized.settingUi.SetActive(true);
     }
 }
