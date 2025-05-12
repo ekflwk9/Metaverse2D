@@ -32,6 +32,7 @@ public class EldenRing : BaseSkill
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
+            CoordinateOfSkill();
             SkillDmg();
             count = 0;
         }
