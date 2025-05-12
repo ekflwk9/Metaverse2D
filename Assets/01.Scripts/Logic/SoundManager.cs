@@ -37,13 +37,13 @@ public class SoundManager
     public void OnEffect(string _soundName) 
     {
         if (sound.ContainsKey(_soundName)) effect.On(sound[_soundName]);
-        else Debug.Log($"{_soundName}은 Resources/Sound에 추가되지 않은 사운드");
+        else Service.Log($"{_soundName}은 Resources/Sound에 추가되지 않은 사운드");
     }
 
     public void OnMusic(string _soundName)
     {
         if(string.IsNullOrEmpty(_soundName)) music.On(null);
         else if (sound.ContainsKey(_soundName)) music.On(sound[_soundName]);
-        else Debug.Log($"{_soundName}은 Resources/Sound에 추가되지 않은 사운드");
+        else Service.Log($"{_soundName}은 Resources/Sound에 추가되지 않은 사운드");
     }
 }

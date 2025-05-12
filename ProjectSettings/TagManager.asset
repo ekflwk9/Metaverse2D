@@ -7,6 +7,11 @@ TagManager:
   - Enemy
   - StartRoom
   - Door
+  - Decoration
+  - Door_L
+  - Door_D
+  - Door_U
+  - Door_R
   layers:
   - Default
   - TransparentFX

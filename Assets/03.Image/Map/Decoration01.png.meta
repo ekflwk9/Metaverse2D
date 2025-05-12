@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 25
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -134,7 +134,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Decoration01_15
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 160
+        width: 37
+        height: 27
+      alignment: 9
+      pivot: {x: 0.6756757, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c96e9139f02084498e1e113b58665b0
+      internalID: -1110682612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoration01_22
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 128
+        width: 37
+        height: 27
+      alignment: 9
+      pivot: {x: 0.3243243, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2abc9571e44a449a38914b719718ea
+      internalID: 2144610943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoration01_25
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 97
+        width: 37
+        height: 24
+      alignment: 9
+      pivot: {x: 0.6756757, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd649a3fc0967a2498daaa90ea7c1734
+      internalID: -1698135492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoration01_37
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 64
+        width: 37
+        height: 27
+      alignment: 9
+      pivot: {x: 0.6756757, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3511b3370169fbc4caecf4ca8cca7426
+      internalID: -1938508509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoration01_43
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 32
+        width: 37
+        height: 27
+      alignment: 9
+      pivot: {x: 0.6756757, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba31f8e7d0e75214d942a53b6d3143ab
+      internalID: 1778413997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decoration01_49
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 0
+        width: 37
+        height: 24
+      alignment: 9
+      pivot: {x: 0.6756757, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d61c28cd461ba0d4e81b0c817b800d1e
+      internalID: 1793280748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -145,7 +271,59 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Decoration01_0: -690952715
+      Decoration01_1: -884482419
+      Decoration01_10: 391114820
+      Decoration01_11: 72005829
+      Decoration01_12: -1813991781
+      Decoration01_13: 1661034607
+      Decoration01_14: -1422423110
+      Decoration01_15: -1110682612
+      Decoration01_16: -1946174772
+      Decoration01_17: 2102258577
+      Decoration01_18: 1228552490
+      Decoration01_19: -1708622410
+      Decoration01_2: -1240702522
+      Decoration01_20: -512052417
+      Decoration01_21: 979108392
+      Decoration01_22: 2144610943
+      Decoration01_23: -1639824850
+      Decoration01_24: -573789988
+      Decoration01_25: -1698135492
+      Decoration01_26: -1410461374
+      Decoration01_27: -830207005
+      Decoration01_28: -1238411779
+      Decoration01_29: -1792556226
+      Decoration01_3: -1399661618
+      Decoration01_30: 1423260106
+      Decoration01_31: -1508276742
+      Decoration01_32: -1048037426
+      Decoration01_33: -160004977
+      Decoration01_34: 720223502
+      Decoration01_35: -252288035
+      Decoration01_36: 1653570725
+      Decoration01_37: -1938508509
+      Decoration01_38: -433675523
+      Decoration01_39: -1791463810
+      Decoration01_4: 1942002844
+      Decoration01_40: -390566452
+      Decoration01_41: -942849490
+      Decoration01_42: 1916919346
+      Decoration01_43: 1778413997
+      Decoration01_44: 544713367
+      Decoration01_45: 1364932067
+      Decoration01_46: -265739630
+      Decoration01_47: 1811244302
+      Decoration01_48: 1399482963
+      Decoration01_49: 1793280748
+      Decoration01_5: -1922226611
+      Decoration01_50: -938191703
+      Decoration01_51: -82137942
+      Decoration01_6: -1513753385
+      Decoration01_7: 773716281
+      Decoration01_8: 2025681371
+      Decoration01_9: -891297960
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

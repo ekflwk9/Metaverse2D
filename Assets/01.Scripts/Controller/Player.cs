@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum StateCode
 {
@@ -15,6 +17,7 @@ public class Player : MonoBehaviour
     public int health { get; private set; } = 10;
     public int maxHealth { get; private set; } = 10;
 
+    public float healthRatio { get; private set; }  // 데미지 받을 때 체력바 줄어드는 값 저장용
     public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
 
@@ -23,17 +26,26 @@ public class Player : MonoBehaviour
     public Vector3 direction { get => fieldDirection; }
     private Vector3 fieldDirection = Vector3.zero;
     private Vector3 scale = Vector3.one;
+    private Vector3 healthScale;
 
     private event Func skill;
     private Rigidbody2D rigid;
     private Animator action;
     private Animator attack;
+    private Transform healthBarTrans;
+    private Canvas healthBarCanvas;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         attack = GetComponent<Animator>();
         action = Service.FindChild(this.transform, "Action").GetComponent<Animator>();
+
+
+        // transform 변수 선언하고 헬스바 오브젝트 찾아서 지정하기 transform.Find
+        healthBarTrans = transform.Find("HealthUi/Health");
+        // Vector3 변수 선언해서 트랜스폼변수이름.localScale로 지정하기
+        healthScale = healthBarTrans.localScale;
 
         GameManager.SetComponent(this);
         DontDestroyOnLoad(this.gameObject);
@@ -54,7 +66,7 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
+                Service.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
                 break;
         }
     }
@@ -76,7 +88,7 @@ public class Player : MonoBehaviour
                 break;
 
             default:
-                Debug.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
+                Service.Log("잘못된 추가 방식입니다 매개변수를 확인해주세요.");
                 break;
         }
     }
@@ -151,12 +163,17 @@ public class Player : MonoBehaviour
         {
             pos.x = -1f;
             scale.x = 1f;
+            // 벡터로 선언한 변수의 .x 값 바꾸기
+            healthScale.x = 1f;
+            healthBarTrans.localScale = healthScale;
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             pos.x = 1f;
             scale.x = -1f;
+            healthScale.x = -1f;
+            healthBarTrans.localScale = healthScale;
         }
 
         //애니메이션 재생
@@ -176,6 +193,7 @@ public class Player : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) inRange = true;
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
