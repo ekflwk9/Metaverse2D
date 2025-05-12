@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-    // Player 태그로 찾을 대상 Transform
-    private Transform target;
-
     // 카메라가 이동할 수 있는 맵의 최소 좌표와 최대 좌표 (경계 영역)
     public Vector2 minBounds;
     public Vector2 maxBounds;
-
-    // 카메라 컴포넌트 (orthographicSize 계산용)
-    private Camera cam;
 
     // 카메라의 절반 높이, 절반 너비 (화면 크기 절반, Clamp 계산용)
     private float halfHeight;
@@ -25,43 +19,36 @@ public class FollowCamera : MonoBehaviour
     void Start()
     {
         // Camera 컴포넌트 가져오기
-        cam = GetComponent<Camera>();
-        if (cam == null)
-        {
-            Debug.LogWarning("Camera 컴포넌트를 찾을 수 없습니다.");
-            return;
-        }
+        var cam = Service.FindChild(this.transform, "Main Camera").GetComponent<Camera>();
 
         // orthographicSize로 화면 절반 높이 계산
         halfHeight = cam.orthographicSize;
         // aspect로 화면 절반 너비 계산
         halfWidth = halfHeight * cam.aspect;
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     // Update는 매 프레임 실행 (플레이어 존재 확인 및 초기화)
     void Update()
     {
-        if (target == null)
+        if (!playerInitialized && GameManager.player != null)
         {
-            // Player 태그를 가진 오브젝트 찾아서 target에 할당
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                target = player.transform;
+            // 카메라를 플레이어 위치로 즉시 이동 [수정됨]
+            transform.position = new Vector3(GameManager.player.transform.position.x,
+                                             GameManager.player.transform.position.y,
+                                             transform.position.z);
 
-                // 카메라를 플레이어 위치로 즉시 이동
-                transform.position = new Vector3(target.position.x, target.position.y, transform.position.z);
-
-                // 플레이어 위치를 기준으로 경계 재설정
-                CenterBoundsOn(target.position);
-                playerInitialized = true; // 플레이어 초기화 완료
-            }
+            // 플레이어 위치를 기준으로 경계 재설정
+            CenterBoundsOn(GameManager.player.transform.position);
+            playerInitialized = true;
         }
-        else
+
+        if (GameManager.player != null)
         {
             // 플레이어 위치 좌표 가져오기
-            float desiredX = target.position.x;
-            float desiredY = target.position.y;
+            float desiredX = GameManager.player.transform.position.x;
+            float desiredY = GameManager.player.transform.position.y;
 
             // 현재 경계 계산 (카메라 외곽을 고려하여 계산)
             float minX = minBounds.x + halfWidth;
