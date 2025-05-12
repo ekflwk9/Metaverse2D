@@ -24,10 +24,9 @@ public class Player : MonoBehaviour
     private bool inRange = false;
     private bool isPickUp = false;
     public Vector3 direction { get => fieldDirection; }
-    private Vector3 fieldDirection = Vector3.one;
+    private Vector3 fieldDirection = Vector3.zero;
     private Vector3 scale = Vector3.one;
     private Vector3 healthScale;
-
 
     private event Func skill;
     private Rigidbody2D rigid;
@@ -146,25 +145,23 @@ public class Player : MonoBehaviour
         var pos = this.transform.position;
         pos.x = 0;
         pos.y = 0;
+        pos.z = 0;
 
         //상하
         if (Input.GetKey(KeyCode.W))
         {
             pos.y = 1f;
-            fieldDirection.y = 1f;
         }
 
         else if (Input.GetKey(KeyCode.S))
         {
             pos.y = -1f;
-            fieldDirection.y = 1f;
         }
 
         //좌우
         if (Input.GetKey(KeyCode.A))
         {
             pos.x = -1f;
-            fieldDirection.x = 1f;
             scale.x = 1f;
             // 벡터로 선언한 변수의 .x 값 바꾸기
             healthScale.x = 1f;
@@ -174,7 +171,6 @@ public class Player : MonoBehaviour
         else if (Input.GetKey(KeyCode.D))
         {
             pos.x = 1f;
-            fieldDirection.x = -1f;
             scale.x = -1f;
             healthScale.x = -1f;
             healthBarTrans.localScale = healthScale;
@@ -183,6 +179,11 @@ public class Player : MonoBehaviour
         //애니메이션 재생
         if (pos.x != 0 || pos.y != 0) action.SetBool("Move", true);
         else action.SetBool("Move", false);
+
+        if (pos != Vector3.zero)
+        {
+            fieldDirection = pos.normalized;
+        }
 
         //보는 방향
         this.transform.localScale = scale;

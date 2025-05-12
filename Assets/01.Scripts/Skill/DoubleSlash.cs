@@ -1,87 +1,82 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class DoubleSlash : BaseSkill
 {
-    protected override void GetSkill()
+    //조정 후 활성화
+    //private int getDmg = 0;
+    //private int skillCooldown = 4;
+    //private float skillSpeed = 0f;
+    //private float forward = 1f;
+
+    public override void GetSkill()
     {
+        //Test용 코드
+        GameManager.gameEvent.Add(GetSkill, true);
+        DontDestroyOnLoad(gameObject);
+
         GameManager.player.AddSkill(DoubleSlash_Skill);
+
         DmgChange();
+        SkillLocation(Skill_location.Player);
     }
 
     protected void DoubleSlash_Skill()
     {
         count++;
-        if (count >= 10)
+
+        if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            DmgApply();
-            CoordinateOfSkill();
+            SkillDmg();
             count = 0;
+            isPosFixed = false;
+        }
+
+        if (!isPosFixed)
+        {
+            isPosFixed = true;
+            CoordinateOfSkill();
+            RotateSkill();
         }
     }
 
-
-    protected override void DirectionOfSkill(Vector3 target)
+    protected override void DirectionOfProjectileSkill(Vector3 target)
     {
         direction = (target - GameManager.player.transform.position).normalized;
         rigid.velocity = direction * skillSpeed;
     }
 
-    protected override void CoordinateOfSkill()
-    {
-        direction = GameManager.player.direction;
-        var pos = GameManager.player.transform.position;
-
-        if (direction.x >= 0)
-        {
-            range.x = pos.x + forward;
-        }
-        else
-        {
-            range.x = pos.x - forward;
-        }
-
-        if (direction.y >= 0)
-        {
-            range.y = pos.y + forward;
-        }
-        else
-        {
-            range.y = pos.y - forward;
-        }
-
-        this.transform.position += range;
-    }
-
     protected override void DmgChange()
     {
-        //스킬 획득시 플레이어 데미지 조정
-        GameManager.player.StateUp(StateCode.Damage, 2);
+        GameManager.player.StateUp(StateCode.Damage, getDmg);
     }
 
-    protected override void DmgApply()
+    protected override void SkillDmg()
     {
-        //스킬의 데미지 = 플레이어 데미지의 1.5배 ~ 2배
-        randomState = Random.Range(5, 11);
+        randomState = UnityEngine.Random.Range(5, 11);
         skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
     }
 
-    //딜 넣는거
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            DirectionOfSkill(collision.transform.position);
-
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
         }
     }
 
-    protected override void AnimationOff()
+    private void RotateSkill()
     {
-        this.gameObject.SetActive(false);
+        if (GameManager.player.direction != Vector3.zero)
+        {
+            //transform.LookAt 알아보기 숙제
+            Vector3 dir = GameManager.player.direction;
+            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
+            transform.rotation = Quaternion.Euler(0, 0, angle);
+        }
     }
 }

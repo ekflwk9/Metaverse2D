@@ -4,83 +4,65 @@ using UnityEngine;
 
 public class BloodBlast : BaseSkill
 {
-    protected override void GetSkill()
+    //조정 후 활성화
+    //private int getDmg = 0;
+    //private int skillCooldown = 20;
+    //private float skillSpeed = 0f;
+    //private float forward = 0f;
+
+    public override void GetSkill()
     {
+        //Test용 코드
+        GameManager.gameEvent.Add(GetSkill, true);
         GameManager.player.AddSkill(BloodBlast_Skill);
+
+        SkillLocation(Skill_location.CloseEnemy);
         DmgChange();
+        DontDestroyOnLoad(gameObject);
     }
 
     protected void BloodBlast_Skill()
     {
         count++;
-        if (count >= 6)
+
+        if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            DmgApply();
-            CoordinateOfSkill();
+            SkillDmg();
             count = 0;
+            isPosFixed = false;
+        }
+
+        if (!isPosFixed)
+        {
+            isPosFixed = true;
+            CoordinateOfSkill();
         }
     }
 
-    protected override void DirectionOfSkill(Vector3 target)
+    protected override void DirectionOfProjectileSkill(Vector3 target)
     {
         direction = (target - GameManager.player.transform.position).normalized;
         rigid.velocity = direction * skillSpeed;
     }
 
-    protected override void CoordinateOfSkill()
-    {
-        direction = GameManager.player.direction;
-        var pos = GameManager.player.transform.position;
-
-        if (direction.x >= 0)
-        {
-            range.x = pos.x + forward;
-        }
-        else
-        {
-            range.x = pos.x - forward;
-        }
-
-        if (direction.y >= 0)
-        {
-            range.y = pos.y + forward;
-        }
-        else
-        {
-            range.y = pos.y - forward;
-        }
-
-        this.transform.position += range;
-    }
-
     protected override void DmgChange()
     {
-        //스킬 획득시 플레이어 데미지 조정
-        GameManager.player.StateUp(StateCode.Damage, 0);
+        GameManager.player.StateUp(StateCode.Damage, getDmg);
     }
 
-    protected override void DmgApply()
+    protected override void SkillDmg()
     {
-        //스킬의 데미지 = 플레이어 데미지의 1.5배 ~ 2배
         randomState = Random.Range(5, 11);
         skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
     }
 
-    //딜 넣는거
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            DirectionOfSkill(collision.transform.position);
-
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
         }
-    }
-
-    protected override void AnimationOff()
-    {
-        this.gameObject.SetActive(false);
     }
 }
