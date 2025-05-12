@@ -52,12 +52,6 @@ public class Fireball : BaseSkill
         }
     }
 
-    protected override void DirectionOfProjectileSkill(Vector3 target)
-    {
-        direction = (target - GameManager.player.transform.position).normalized;
-        rigid.velocity = direction * skillSpeed;
-    }
-
     protected override void DmgChange()
     {
         GameManager.player.StateUp(StateCode.Damage, getDmg);

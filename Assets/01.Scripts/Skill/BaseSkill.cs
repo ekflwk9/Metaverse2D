@@ -81,7 +81,7 @@ public abstract class BaseSkill : MonoBehaviour
     //즉발형 스킬은 사용 안함
     protected virtual void DirectionOfProjectileSkill(Vector3 target)
     {
-        direction = (target - GameManager.player.transform.position).normalized;
+        direction = (target - transform.position).normalized;
         rigid.velocity = direction * skillSpeed;
     }
 
@@ -136,7 +136,10 @@ public abstract class BaseSkill : MonoBehaviour
         return GameManager.player.transform.position;
     }
 
-    //말 그대로 가장 가까운 적 게임오브젝트를 찾는 메서드
+    /// <summary>
+    /// 가장 가까운 적 게임오브젝트를 찾는 메서드
+    /// </summary>
+    /// <returns></returns>
     private GameObject FindCloseEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -161,6 +164,10 @@ public abstract class BaseSkill : MonoBehaviour
         return closeEnemy;
     }
 
+    /// <summary>
+    /// 가장 멀리있는 적 게임오브젝트를 찾는 메서드
+    /// </summary>
+    /// <returns></returns>
     private GameObject FindFarEnemy()
     {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -185,7 +192,11 @@ public abstract class BaseSkill : MonoBehaviour
         return farEnemy;
     }
 
-    //델리게이트 컨트롤러 스킬을 발동시키고 싶은 위치를 Player 나 Enemy를 입력
+    /// <summary>
+    /// 델리게이트 컨트롤러. 스킬을 발동시키고 싶은 위치
+    /// Player CloseEnemy FarEnemy
+    /// </summary>
+    /// <param name="locationType"></param>
     protected void SkillLocation(Skill_location locationType)
     {
         switch (locationType)
@@ -205,13 +216,17 @@ public abstract class BaseSkill : MonoBehaviour
 
     }
 
-    //스킬 획득시 플레이어 데미지 조정
+    /// <summary>
+    /// 스킬 획득시 플레이어 데미지 조정
+    /// </summary>
     protected virtual void DmgChange()
     {
         GameManager.player.StateUp(StateCode.Damage, getDmg);
     }
 
-    //스킬의 데미지 = 플레이어 데미지의 1.5배 ~ 2배
+    /// <summary>
+    /// 스킬의 데미지 = 플레이어 데미지의 1.5배 ~ 2배
+    /// </summary>
     protected virtual void SkillDmg()
     {
         randomState = Random.Range(5, 11);
@@ -224,19 +239,22 @@ public abstract class BaseSkill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            //DirectionOfProjectileSkill(collision.transform.position);
-
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
         }
     }
 
-    //스킬 Collider2D 를 애니메이션 이벤트로 작동시키기 위한 메서드
+    /// <summary>
+    /// 스킬 Collider2D 를 애니메이션 이벤트로 작동시키기 위한 메서드
+    /// </summary>
     protected virtual void EnableCollider()
     {
         _collider.enabled = true;
     }
 
+    /// <summary>
+    /// 스킬 Collider2D 를 애니메이션 이벤트로 작동시키기 위한 메서드
+    /// </summary>
     protected virtual void DisableCollider()
     {
         _collider.enabled = false;
