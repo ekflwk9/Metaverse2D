@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum StateCode
@@ -33,12 +34,14 @@ public class Player : MonoBehaviour
     private Animator action;
     private Animator attack;
     private Transform healthBarTrans;
+    private Canvas healthBarCanvas;
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         attack = GetComponent<Animator>();
         action = Service.FindChild(this.transform, "Action").GetComponent<Animator>();
+
 
         // transform 변수 선언하고 헬스바 오브젝트 찾아서 지정하기 transform.Find
         healthBarTrans = transform.Find("HealthUi/Health");
