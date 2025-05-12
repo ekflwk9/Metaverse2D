@@ -17,17 +17,17 @@ public class CheatController : MonoBehaviour
         //    Service.SpawnMonster(transform, monster, 5);
         //}
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            var spawnPos = this.transform.position;
-            GameManager.effect.Show(spawnPos, "Blood");
-            GameManager.effect.FloorBlood(spawnPos);
-        }
+        //if (Input.GetKeyDown(KeyCode.V))
+        //{
+        //    var spawnPos = this.transform.position;
+        //    GameManager.effect.Show(spawnPos, "Blood");
+        //    GameManager.effect.FloorBlood(spawnPos);
+        //}
 
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            var spawnPos = this.transform.position;
-            GameManager.effect.Damage(spawnPos, 1512);
-        }
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    var spawnPos = this.transform.position;
+        //    GameManager.effect.Damage(spawnPos, 1512);
+        //}
     }
 }
