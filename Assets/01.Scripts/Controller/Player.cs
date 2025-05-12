@@ -14,9 +14,6 @@ public enum StateCode
 public class Player : MonoBehaviour,
 IHit
 {
-    [SerializeField] private Vector3 bloodPos; 
-    [SerializeField] private Vector3 textPos; 
-
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
@@ -58,11 +55,17 @@ IHit
     public void OnHit(int _dmg)
     {
         var playerPos = this.transform.position;
+        var bloodPos = playerPos;
+        var textPos = playerPos;
+
+        bloodPos.y += -0.5f;
+        textPos.y += 0.8f;
+
         health -= _dmg;
 
         GameManager.effect.Show(playerPos, "Blood");
-        GameManager.effect.FloorBlood(playerPos + bloodPos);
-        GameManager.effect.Damage(playerPos + textPos, _dmg);
+        GameManager.effect.FloorBlood(bloodPos);
+        //GameManager.effect.Damage(textPos, _dmg);
         //GameManager.sound.OnEffect("PlayerHit");
     }
 
@@ -149,6 +152,7 @@ IHit
         rigid.velocity = Vector3.zero;
     }
 
+
     private void Attack()
     {
         if (inRange) attack.SetFloat("AttackSpeed", attackSpeed);
@@ -205,10 +209,9 @@ IHit
         rigid.velocity = pos.normalized * moveSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")) inRange = true;
-
+        if (collision.gameObject.CompareTag("Enemy")) inRange = true;     
     }
 
     private void OnTriggerExit2D(Collider2D collision)

@@ -43,6 +43,8 @@ public class EffectManager
             var poolingEffect = MonoBehaviour.Instantiate(_resource);
             pooling[i] = poolingEffect;
             poolingEffect.SetActive(false);
+
+            MonoBehaviour.DontDestroyOnLoad(poolingEffect.gameObject);
         }
 
         effect.Add(_resource.name, pooling);
@@ -57,6 +59,8 @@ public class EffectManager
             var poolingEffect = MonoBehaviour.Instantiate(_resource);
             pooling[i] = poolingEffect;
             pooling[i].SetComponent();
+
+            MonoBehaviour.DontDestroyOnLoad(poolingEffect.gameObject);
         }
 
         damage.Add(_resource.name, pooling);
