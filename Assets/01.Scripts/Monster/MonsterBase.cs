@@ -33,11 +33,14 @@ public class MonsterBase : MonoBehaviour
 
     private bool isDead = false;
     public bool IsDead { get { return isDead; } }
+    private bool isDamaged = false;
+    public bool IsDamaged {  get { return isDamaged; } }
 
-    public float currentHealth;
+    private float currentHealth;
+    
 
-    public Collider2D _collider;
-    public Animator anim;
+    private Collider2D _collider;
+    private Animator anim;
 
     void Awake()
     {
@@ -45,8 +48,8 @@ public class MonsterBase : MonoBehaviour
 
         currentHealth = maxHealth;
 
-        anim = GetComponent<Animator>();
-        _collider = GetComponent<Collider2D>();
+        anim = GetComponentInChildren<Animator>();
+        _collider = GetComponentInChildren<Collider2D>();
     }
 
 
@@ -56,13 +59,16 @@ public class MonsterBase : MonoBehaviour
         {
             case MonsterType.BingerOfDeath:
                 moveSpeed = 1.4f;
+                currentHealth = 4f;
                 maxHealth = 4f;
+                attackSpeed = 3f;
                 attackDamage = 1;
-                attackRange = 1f;
+                attackRange = 1.5f;
                 break;
 
             case MonsterType.FireWorm:
                 moveSpeed = 1f;
+                currentHealth = 4f;
                 maxHealth = 4f;
                 attackDamage = 1;
                 attackSpeed = 1f;
@@ -71,6 +77,7 @@ public class MonsterBase : MonoBehaviour
 
             case MonsterType.Necromancer:
                 moveSpeed = 1f;
+                currentHealth = 6f;
                 maxHealth = 6f;
                 attackDamage = 1;
                 attackSpeed = 1.5f;
@@ -79,6 +86,7 @@ public class MonsterBase : MonoBehaviour
 
             case MonsterType.Shaman:
                 moveSpeed = 1.6f;
+                currentHealth = 6f;
                 maxHealth = 6f;
                 attackDamage = 1;
                 attackSpeed = 2f;
@@ -87,6 +95,7 @@ public class MonsterBase : MonoBehaviour
 
             case MonsterType.Boss:
                 moveSpeed = 2f;
+                currentHealth = 12f;
                 maxHealth = 12f;
                 attackDamage = 1;
                 attackSpeed = 2.5f;
@@ -101,9 +110,12 @@ public class MonsterBase : MonoBehaviour
         if (isDead) return;
 
         //플레이어 스킬과 충돌
+        isDamaged = true;
 
         currentHealth -= amount;
         anim.SetTrigger("isDamaged");
+
+        isDamaged = false;
 
         if (currentHealth <= 0)
         {

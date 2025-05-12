@@ -26,25 +26,30 @@ public abstract class MonsterAttackBase : MonoBehaviour
     protected virtual void Awake()
     {
         monsterBase = GetComponent<MonsterBase>();
-        player = GameManager.player.transform;
+        anim = GetComponentInChildren<Animator>();
     }
     private void Start()
     {
+        player = GameManager.player.transform;
+
         attackSpeed = monsterBase.AttackSpeed;
         attackDamage = monsterBase.AttackDamage;
         attackRange = monsterBase.AttackRange;
+
+        isAttacking = false;
     }
 
     private void Update()
     {
-        CanPerformAttack();
+        canAttack = CanPerformAttack();
     }
-   
 
     bool CanPerformAttack() 
     {
-        bool canAttack = ((Time.time - lastAttackTime) >= attackSpeed && distance <= attackRange);
-        return canAttack; 
+        direction = (player.position - transform.position).normalized;
+        distance = Vector2.Distance(transform.position, player.position);
+
+        return (!isAttacking && (Time.time - lastAttackTime) >= attackSpeed && distance <= attackRange);
     }
     public abstract void Attack();
 
@@ -52,31 +57,22 @@ public abstract class MonsterAttackBase : MonoBehaviour
     {
         if (monsterBase.IsDead) return;
 
-        Vector2 direction = (player.position - transform.position).normalized;
-        float distance = Vector2.Distance(transform.position, player.position);
-
         if (canAttack)
         {
+
             if (anim != null)
             {
-                anim.SetBool("isAttack", true);
+                anim.SetTrigger("isAttack");
             }
-
             Attack();
         }
         else
         {
             StopAttack();
         }
+
     }
 
-    public virtual void StopAttack()
-    {
-        isAttacking = false;
-
-        if (anim != null)
-        {
-            anim.SetBool("isAttack", false);
-        }
-    }
+    public abstract void StopAttack();
+    
 }

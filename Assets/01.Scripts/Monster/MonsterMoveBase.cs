@@ -26,7 +26,7 @@ public abstract class MonsterMoveBase : MonoBehaviour
     protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        anim = GetComponentInChildren<Animator>();
         monsterBase = GetComponent<MonsterBase>();
         attackBase = GetComponent<MonsterAttackBase>();
     }
@@ -40,46 +40,46 @@ public abstract class MonsterMoveBase : MonoBehaviour
 
     private void Update()
     {
-        CanPerformMove();
+        canMove = CanPerformMove();
     }
 
     bool CanPerformMove()
     {
-        bool canMove = !attackBase.IsAttacking;
-        return canMove;
+        return !attackBase.CanAttack;
     }
 
     public virtual void OnMove()
     {
         if (monsterBase.IsDead) return;
-
-        Vector2 direction = (player.position - transform.position).normalized;
-        float distance = direction.magnitude;
-
+        Debug.Log($"canMove: {canMove}");
         if (canMove)
         {
             if (anim != null)
             {
-                anim.SetBool("isMoving", true);
+                anim.SetBool("isMove", true);
             }
 
             Move();
+        }
+        else
+        {
+            StopMove();
         }
     }
     public abstract void Move();
 
     public virtual void StopMove()
     {
+        if (anim != null)
+        {
+            anim.SetBool("isMove", false);
+        }
+
         isMoving = false;
 
         if (rb != null)
         {
             rb.velocity = Vector2.zero;
-        }
-
-        if (anim != null)
-        {
-            anim.SetBool("isMove", false);
         }
     }
 }

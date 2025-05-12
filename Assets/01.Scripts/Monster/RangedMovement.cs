@@ -13,7 +13,10 @@ public class RangedMovement : MonsterMoveBase
     {
         if (distance > keepDistance)
         {
-            rb.velocity = direction * moveSpeed * Time.deltaTime;
+            Vector2 direction = (player.position - transform.position).normalized;
+            float distance = Vector2.Distance(player.position, transform.position);
+
+            rb.velocity = direction * moveSpeed;
             isMoving = true;
         }
         else if (distance <= keepDistance)

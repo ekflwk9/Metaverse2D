@@ -6,6 +6,7 @@ public enum MonsterState
     Idle,
     Move,
     Attack,
+    Damaged,
     Dead
 }
 
@@ -32,6 +33,8 @@ public class MonsterStateMachine : MonoBehaviour
 
     void Update()
     {
+        Debug.Log($"[StateMachine] Current State: {currentState}");
+
         switch (currentState)
         {
             case MonsterState.Idle:
@@ -46,64 +49,96 @@ public class MonsterStateMachine : MonoBehaviour
                 AttackUpdate();
                 break;
 
+            case MonsterState.Damaged:
+                DamagedUpdate();
+                break;
+
             case MonsterState.Dead:
                 DeadUpdate();
                 break;
         }
     }
-
     void IdleUpdate()
     {
         monsterBase.Idle();
 
-        if (moveBase.CanMove && !monsterBase.IsDead)
+        if (monsterBase.IsDead)
+        {
+            ChangeState(MonsterState.Dead);
+        }
+        else if (attackBase.CanAttack)
+        {
+            ChangeState(MonsterState.Attack);
+        }
+        else if (moveBase.CanMove)
         {
             ChangeState(MonsterState.Move);
         }
-        else if (attackBase.CanAttack && !monsterBase.IsDead)
+        else if (monsterBase.IsDamaged)
         {
-            ChangeState(MonsterState.Attack);
-        }
-        else if (monsterBase.IsDead)
-        {
-            ChangeState(MonsterState.Dead);
+            ChangeState(MonsterState.Damaged);
         }
     }
-
     void MoveUpdate()
     {
-        moveBase.Move();
+        moveBase.OnMove();
 
-        if (attackBase.CanAttack && !monsterBase.IsDead)
-        {
-            ChangeState(MonsterState.Attack);
-        }
-        else if(monsterBase.IsDead)
+        if (monsterBase.IsDead)
         {
             ChangeState(MonsterState.Dead);
         }
-        else if (!attackBase.CanAttack && !moveBase.CanMove && !monsterBase.IsDead)
+        else if (!moveBase.IsMoving)
         {
-            ChangeState(MonsterState.Idle);
+            ChangeState(MonsterState.Attack);
         }
-
+        else if (monsterBase.IsDamaged)
+        {
+            ChangeState(MonsterState.Damaged);
+        }
     }
 
     void AttackUpdate()
     {
-        attackBase.Attack();
-        if (!attackBase.CanAttack && moveBase.CanMove)
-        {
-            ChangeState(MonsterState.Move);
-        }
-        else if (monsterBase.IsDead)
+        attackBase.OnAttack();
+
+        if (monsterBase.IsDead)
         {
             ChangeState(MonsterState.Dead);
         }
-        else if (!attackBase.CanAttack && !moveBase.CanMove && !monsterBase.IsDead)
+        else if (monsterBase.IsDamaged)
         {
-            ChangeState(MonsterState.Idle);
+            ChangeState(MonsterState.Damaged);
         }
+        else if (!attackBase.IsAttacking)
+        {
+            if (moveBase.CanMove)
+            {
+                ChangeState(MonsterState.Move);
+            }
+            else if (!moveBase.CanMove && !attackBase.CanAttack)
+            {
+                ChangeState(MonsterState.Idle);
+            }
+        }
+    }
+
+    void DamagedUpdate()
+    {
+        monsterBase.TakeDamage(GameManager.player.dmg);
+
+        if (monsterBase.IsDead)
+        {
+            ChangeState(MonsterState.Dead);
+        }
+        else if (attackBase.CanAttack)
+        {
+            ChangeState(MonsterState.Attack);
+        }
+        else if (moveBase.CanMove)
+        {
+            ChangeState(MonsterState.Move);
+        }
+
     }
 
     void DeadUpdate()

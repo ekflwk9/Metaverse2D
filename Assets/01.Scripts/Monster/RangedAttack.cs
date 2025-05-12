@@ -16,4 +16,9 @@ public class RangedAttack : MonsterAttackBase
 
         lastAttackTime = Time.time;
     }
+
+    public override void StopAttack()
+    {
+        isAttacking = false;
+    }
 }
