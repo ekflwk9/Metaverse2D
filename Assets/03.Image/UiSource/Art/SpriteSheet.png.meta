@@ -530,7 +530,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Setting_SelectArrow
+      name: Setting_Select_Arrow_Left
       rect:
         serializedVersion: 2
         x: 57
@@ -551,7 +551,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Setting_ClickArrow
+      name: Setting_Click_Arrow_Left
       rect:
         serializedVersion: 2
         x: 104
@@ -614,7 +614,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Setting_Non_Highlight_Arrow
+      name: Main_Play
       rect:
         serializedVersion: 2
         x: 117
@@ -676,6 +676,174 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Setting_Char_Border
+      rect:
+        serializedVersion: 2
+        x: 627
+        y: 1906
+        width: 40
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be1db806eb626f549b2054605beb5d1d
+      internalID: 387342817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Select_Arrow_Right
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 1698
+        width: 23
+        height: 43
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1be19875de03c404f93634a1b24ed72b
+      internalID: -1690267352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Click_Arrow_Right
+      rect:
+        serializedVersion: 2
+        x: 163
+        y: 1697
+        width: 24
+        height: 44
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a4a764e8dacaf9459f4841afca7467d
+      internalID: 1698101728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main_Home
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 1826
+        width: 21
+        height: 21
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6e3cedb25e49104aadf77ecb2a45ac8
+      internalID: -992824519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main_UiBar
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 1967
+        width: 158
+        height: 66
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 503d7f499d52b0248bc336fe9477e250
+      internalID: -2078414391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main_Button
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 1236
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b367c4c713f38034f84ba61f914d5759
+      internalID: 1364506751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main_Button_Pressed
+      rect:
+        serializedVersion: 2
+        x: 194
+        y: 1236
+        width: 21
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a512c1eb15556264b9ff44d578c178d6
+      internalID: 1430860363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Main_Setting
+      rect:
+        serializedVersion: 2
+        x: 656
+        y: 1784
+        width: 19
+        height: 19
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39cf7756999316e45b0055a81233b37e
+      internalID: 1882975590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -687,10 +855,18 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Main_Button: 1364506751
+      Main_Button_Pressed: 1430860363
+      Main_Home: -992824519
+      Main_Play: 1697194921
+      Main_Setting: 1882975590
+      Main_UiBar: -2078414391
       Setting_Audio: -1892141771
       Setting_Button: -2091667679
+      Setting_Char_Border: 387342817
       Setting_Check_Slot: -1722441792
-      Setting_ClickArrow: -433789639
+      Setting_Click_Arrow_Left: -433789639
+      Setting_Click_Arrow_Right: 1698101728
       Setting_Click_Button: 833665065
       Setting_Controls: 700273367
       Setting_Display: 1902169955
@@ -701,12 +877,12 @@ TextureImporter:
       Setting_Main: 1014037515
       Setting_Main_Border: 195179396
       Setting_NonCheck: -1120998103
-      Setting_Non_Highlight_Arrow: 1697194921
       Setting_OnCheck: 562523939
       Setting_Option: -240249899
       Setting_Option_Border: 1277063037
       Setting_Pause: -115612847
-      Setting_SelectArrow: 977788220
+      Setting_Select_Arrow_Left: 977788220
+      Setting_Select_Arrow_Right: -1690267352
       Setting_Slot_0: 362749305
       Setting_Slot_1: 247781529
       Setting_Slot_2: 931976843

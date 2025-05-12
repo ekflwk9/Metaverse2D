@@ -27,7 +27,7 @@ public class UiManager : MonoBehaviour
     public void GameStart()
     {
         MainUiAllToggle();
-        GameManager.ChangeScene("DungeonStart");
+        SceneManager.LoadScene("DungeonStart");
     }
 
     public void GameExit()
