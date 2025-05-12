@@ -11,10 +11,10 @@ IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
     protected virtual void Awake()
     {
         touchImage = Service.FindChild(this.transform, "Touch").gameObject;
-        if (touchImage == null) Debug.Log($"{this.name}에 Tocuh오브젝트가 없음");
+        if (touchImage == null) Service.Log($"{this.name}에 Tocuh오브젝트가 없음");
 
         button = Service.FindChild(this.transform, "Text").GetComponent<TMP_Text>();
-        if (button == null) Debug.Log($"{this.name}에 Text오브젝트가 없음");
+        if (button == null) Service.Log($"{this.name}에 Text오브젝트가 없음");
     }
 
     protected abstract void Click();

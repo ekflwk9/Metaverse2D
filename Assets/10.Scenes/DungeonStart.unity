@@ -134,6 +134,8 @@ GameObject:
   - component: {fileID: 895349279}
   - component: {fileID: 895349278}
   - component: {fileID: 895349277}
+  - component: {fileID: 895349280}
+  - component: {fileID: 895349281}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -215,8 +217,127 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &895349280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895349276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
+--- !u!114 &895349281
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895349276}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc2a0a7a253c52f43b4801b40eee0be7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minBounds: {x: -10, y: -10}
+  maxBounds: {x: 10, y: 10}
+--- !u!1 &1163197396
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1163197398}
+  - component: {fileID: 1163197397}
+  m_Layer: 0
+  m_Name: MapManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1163197397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163197396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cdff3b7a84a411544b5278dccefe5da8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1484487418246572921, guid: 36e86fcf05e00d9439ba15b747c69258, type: 3}
+  decorationTag: Decoration
+  currentFloor: 1
+  StartRoom_1: {fileID: 4272612687681805950, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
+  BattleRoom_1: {fileID: 2770835059253848441, guid: c3d794798f84b314c96023bb27cf88a5, type: 3}
+  TreasureRoom_1: {fileID: 6099230493994633512, guid: bb829754aa3370940a9d82b449f8e0bb, type: 3}
+  BossRoom_1: {fileID: 6973667577966665240, guid: e547d6461af6e62459bb40c560caa3dd, type: 3}
+  StartRoom_2: {fileID: 7601849382737724866, guid: 9ed923c13616cf34e9a62a03f77f0af4, type: 3}
+  BattleRoom_2: {fileID: 3126169589375226857, guid: 2dad46e2f59f4754482337023f6c4a60, type: 3}
+  TreasureRoom_2: {fileID: 3216396509732140268, guid: facc357d5a3fd6d498336cffb88879d4, type: 3}
+  BossRoom_2: {fileID: 2738394164295503018, guid: 0bc94b65321dfb3499f30e34f3d78ffd, type: 3}
+  StartRoom_3: {fileID: 8761655879556233845, guid: e420aeec4fa089b4ba03fc8035b5db88, type: 3}
+  BattleRoom_3: {fileID: 1027730556067819701, guid: ad417595186218544ba3241a2e206141, type: 3}
+  TreasureRoom_3: {fileID: 3751049260258690874, guid: 4de9f0a1b883ebd46ac91d3091490363, type: 3}
+  BossRoom_3: {fileID: 3073571130452451067, guid: 7aa8a500e7e3e4b4789328a989b3b4fe, type: 3}
+  doorDirection: 
+--- !u!4 &1163197398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163197396}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 895349279}
+  - {fileID: 1163197398}
