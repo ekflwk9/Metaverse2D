@@ -304,14 +304,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdff3b7a84a411544b5278dccefe5da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startRoom: {fileID: 191185795387208813, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
   player: {fileID: 1484487418246572921, guid: 36e86fcf05e00d9439ba15b747c69258, type: 3}
   decorationTag: Decoration
   currentFloor: 1
-  StartRoom: {fileID: 3815617539575921457, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
-  BattleRoom: {fileID: 1665171427588141772, guid: c3d794798f84b314c96023bb27cf88a5, type: 3}
-  TreasureRoom: {fileID: 5034194882397345445, guid: bb829754aa3370940a9d82b449f8e0bb, type: 3}
-  BossRoom: {fileID: 3181467725201520583, guid: e547d6461af6e62459bb40c560caa3dd, type: 3}
+  StartRoom_1: {fileID: 4272612687681805950, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
+  BattleRoom_1: {fileID: 2770835059253848441, guid: c3d794798f84b314c96023bb27cf88a5, type: 3}
+  TreasureRoom_1: {fileID: 6099230493994633512, guid: bb829754aa3370940a9d82b449f8e0bb, type: 3}
+  BossRoom_1: {fileID: 6973667577966665240, guid: e547d6461af6e62459bb40c560caa3dd, type: 3}
+  StartRoom_2: {fileID: 7601849382737724866, guid: 9ed923c13616cf34e9a62a03f77f0af4, type: 3}
+  BattleRoom_2: {fileID: 3126169589375226857, guid: 2dad46e2f59f4754482337023f6c4a60, type: 3}
+  TreasureRoom_2: {fileID: 3216396509732140268, guid: facc357d5a3fd6d498336cffb88879d4, type: 3}
+  BossRoom_2: {fileID: 2738394164295503018, guid: 0bc94b65321dfb3499f30e34f3d78ffd, type: 3}
+  StartRoom_3: {fileID: 8761655879556233845, guid: e420aeec4fa089b4ba03fc8035b5db88, type: 3}
+  BattleRoom_3: {fileID: 1027730556067819701, guid: ad417595186218544ba3241a2e206141, type: 3}
+  TreasureRoom_3: {fileID: 3751049260258690874, guid: 4de9f0a1b883ebd46ac91d3091490363, type: 3}
+  BossRoom_3: {fileID: 3073571130452451067, guid: 7aa8a500e7e3e4b4789328a989b3b4fe, type: 3}
+  doorDirection: 
 --- !u!4 &1163197398
 Transform:
   m_ObjectHideFlags: 0
