@@ -16,12 +16,13 @@ IHit
 {
     [SerializeField] private Vector3 bloodPos; 
     [SerializeField] private Vector3 textPos; 
+    [SerializeField] private Image healthBarImg;
 
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
 
-    public float healthRatio { get; private set; }  // 데미지 받을 때 체력바 줄어드는 값 저장용
+    public float healthRatio;  // 데미지 받을 때 체력바 줄어드는 값 저장용
     public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
 
@@ -37,7 +38,6 @@ IHit
     private Animator action;
     private Animator attack;
     private Transform healthBarTrans;
-    private Canvas healthBarCanvas;
 
     private void Awake()
     {
@@ -53,6 +53,12 @@ IHit
 
         GameManager.SetComponent(this);
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    public void UpdateHealthBar()  // 헬스바
+    {
+        healthRatio = health / maxHealth;
+        healthBarImg.fillAmount = healthRatio;
     }
 
     public void OnHit(int _dmg)
