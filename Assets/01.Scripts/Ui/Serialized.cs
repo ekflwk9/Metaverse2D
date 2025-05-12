@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Serialized : MonoBehaviour
 {
-    [SerializeField] public GameObject startButtonObject;
-    [SerializeField] public GameObject settingButtonObject;
-    [SerializeField] public GameObject exitButtonObject;
-    [SerializeField] public GameObject settingsPanelObject;
+    public GameObject uiBar;
+    public GameObject settingUi;
 }

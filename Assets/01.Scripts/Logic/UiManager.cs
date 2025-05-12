@@ -9,18 +9,14 @@ public class UiManager : MonoBehaviour
 
     public void MainUiAllToggle()
     {
-        bool isStartBtnActive = serialized.startButtonObject.activeSelf;
-        if (isStartBtnActive)
+        bool isUiBar = serialized.uiBar.activeSelf;
+        if (isUiBar)
         {
-            serialized.startButtonObject.SetActive(false);
-            serialized.exitButtonObject.SetActive(false);
-            serialized.settingButtonObject.SetActive(false);
+            serialized.uiBar.SetActive(false);
         }
         else
         {
-            serialized.startButtonObject.SetActive(true);
-            serialized.exitButtonObject.SetActive(true);
-            serialized.settingButtonObject.SetActive(true);
+            serialized.uiBar.SetActive(true);
         }
     }
 
@@ -46,10 +42,10 @@ public class UiManager : MonoBehaviour
 
     public void SettingToggle()
     {
-        bool isSettings = serialized.settingsPanelObject.activeSelf;
+        bool isSettings = serialized.settingUi.activeSelf;
         if (isSettings)
-            serialized.settingsPanelObject.SetActive(false);
+            serialized.settingUi.SetActive(false);
         else
-            serialized.settingsPanelObject.SetActive(true);
+            serialized.settingUi.SetActive(true);
     }
 }
