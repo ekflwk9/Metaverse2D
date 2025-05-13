@@ -152,21 +152,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdff3b7a84a411544b5278dccefe5da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 214329756945493689, guid: d4caf34d1dda8584a907e70ce409c264, type: 3}
   decorationTag: Decoration
   currentFloor: 1
-  StartRoom_1: {fileID: 8535668419556115119, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
-  BattleRoom_1: {fileID: 6547352994957389133, guid: c3d794798f84b314c96023bb27cf88a5, type: 3}
-  TreasureRoom_1: {fileID: 8696637074676403508, guid: bb829754aa3370940a9d82b449f8e0bb, type: 3}
-  BossRoom_1: {fileID: 909326118946614576, guid: e547d6461af6e62459bb40c560caa3dd, type: 3}
-  StartRoom_2: {fileID: 5874123699950623291, guid: 9ed923c13616cf34e9a62a03f77f0af4, type: 3}
-  BattleRoom_2: {fileID: 2942498299641688125, guid: 2dad46e2f59f4754482337023f6c4a60, type: 3}
-  TreasureRoom_2: {fileID: 1140413591310053364, guid: facc357d5a3fd6d498336cffb88879d4, type: 3}
-  BossRoom_2: {fileID: 3853671882032812106, guid: 0bc94b65321dfb3499f30e34f3d78ffd, type: 3}
-  StartRoom_3: {fileID: 731055252945278423, guid: e420aeec4fa089b4ba03fc8035b5db88, type: 3}
-  BattleRoom_3: {fileID: 4157357868252795377, guid: ad417595186218544ba3241a2e206141, type: 3}
-  TreasureRoom_3: {fileID: 2880714418788599589, guid: 4de9f0a1b883ebd46ac91d3091490363, type: 3}
-  BossRoom_3: {fileID: 1479853352017082569, guid: 7aa8a500e7e3e4b4789328a989b3b4fe, type: 3}
-  bridgeDirection: 
+  StartRoom_1: {fileID: 4459774004530411143, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
+  BattleRoom_1: {fileID: 6261444557295838472, guid: c3d794798f84b314c96023bb27cf88a5, type: 3}
+  TreasureRoom_1: {fileID: 6270540054219655570, guid: bb829754aa3370940a9d82b449f8e0bb, type: 3}
+  BossRoom_1: {fileID: 5450735947225455660, guid: e547d6461af6e62459bb40c560caa3dd, type: 3}
+  StartRoom_2: {fileID: 1136291943642870432, guid: 9ed923c13616cf34e9a62a03f77f0af4, type: 3}
+  BattleRoom_2: {fileID: 2293475577793963039, guid: 2dad46e2f59f4754482337023f6c4a60, type: 3}
+  TreasureRoom_2: {fileID: 7417999374010806492, guid: facc357d5a3fd6d498336cffb88879d4, type: 3}
+  BossRoom_2: {fileID: 1079998858437706193, guid: 0bc94b65321dfb3499f30e34f3d78ffd, type: 3}
+  StartRoom_3: {fileID: 6603384363341244731, guid: e420aeec4fa089b4ba03fc8035b5db88, type: 3}
+  BattleRoom_3: {fileID: 2154361846428817173, guid: ad417595186218544ba3241a2e206141, type: 3}
+  TreasureRoom_3: {fileID: 7763917252737311490, guid: 4de9f0a1b883ebd46ac91d3091490363, type: 3}
+  BossRoom_3: {fileID: 3206162075935756845, guid: 7aa8a500e7e3e4b4789328a989b3b4fe, type: 3}
+  doorDirection: 
 --- !u!4 &1163197398
 Transform:
   m_ObjectHideFlags: 0

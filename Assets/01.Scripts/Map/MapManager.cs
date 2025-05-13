@@ -33,11 +33,11 @@ public class MapManager : MonoBehaviour
 
     private Room[,] grid; // 2D 배열에 방 배치
     private List<Room> rooms = new List<Room>(); // 생성된 방 목록
-    //private System.Random rng = new System.Random(); // 난수 생성기
+    private System.Random rng = new System.Random(); // 난수 생성기
 
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
     private Vector2Int currentRoomPos; // 현재 방 위치
-    public string bridgeDirection; // 외부에서 설정할 문 방향
+    public string doorDirection; // 외부에서 설정할 문 방향
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class MapManager : MonoBehaviour
         rooms.Clear();
 
         // 랜덤한 위치에 시작 방 생성
-        Vector2Int startPos = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
+        Vector2Int startPos = new Vector2Int(rng.Next(width), rng.Next(height));
         PlaceRoom(startPos, RoomType.Start);
         currentRoomPos = startPos; // 현재 방 위치 초기화
 
@@ -74,33 +74,37 @@ public class MapManager : MonoBehaviour
 
         if (currentFloor == 1)
         {
-            battleCount = Random.Range(7, 11);         // 7~10개
-            treasureCount = Random.Range(1, 4);        // 1~3개
+            battleCount = rng.Next(7, 11);
+            treasureCount = rng.Next(1, 4);
         }
         else if (currentFloor == 2)
         {
-            battleCount = Random.Range(7, 14);         // 7~13개
-            treasureCount = Random.Range(1, 5);        // 1~4개
+            battleCount = rng.Next(7, 14);
+            treasureCount = rng.Next(1, 5);
         }
         else if (currentFloor == 3)
         {
-            battleCount = Random.Range(9, 17);         // 9~16개
-            treasureCount = Random.Range(2, 6);        // 2~5개
+            battleCount = rng.Next(9, 17);
+            treasureCount = rng.Next(2, 6);
         }
 
-        // 전투방 랜덤 생성
+        // 1. 전투방 랜덤 생성
         RandomRooms(RoomType.Battle, battleCount, width, height);
 
-        // 보물방 랜덤 생성
+        // 2. 보물방 랜덤 생성
         RandomRooms(RoomType.Treasure, treasureCount, width, height);
 
-        // 보스방 1개 생성
+        // 3. 보스방 1개 생성
         RandomRooms(RoomType.Boss, 1, width, height);
 
-        // 모든 방 프리팹 스폰
+        // 4. 모든 방 프리팹 스폰
         SpawnRooms();
 
-        // 데코 오브젝트들 랜덤 On/Off
+        // 5. 플레이어를 스타트방에 배치
+        PlacePlayer();
+
+
+        // 6. 데코 오브젝트들 랜덤 On/Off
         RandomizeDecorations();
     }
 
@@ -118,7 +122,7 @@ public class MapManager : MonoBehaviour
         int placed = 0;
         while (placed < count)
         {
-            Room randomRoom = rooms[Random.Range(0, rooms.Count)]; // 기존 방 중 하나에서 확장
+            Room randomRoom = rooms[rng.Next(rooms.Count)]; // 기존 방 중 하나에서 확장
 
             foreach (Vector2Int dir in GetShuffledDirections()) // 상하좌우 랜덤 순서
             {
@@ -139,7 +143,7 @@ public class MapManager : MonoBehaviour
         List<Vector2Int> dirs = new List<Vector2Int> { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
         for (int i = 0; i < dirs.Count; i++)
         {
-            int j = Random.Range(i, dirs.Count);
+            int j = rng.Next(i, dirs.Count);
             Vector2Int temp = dirs[i];
             dirs[i] = dirs[j];
             dirs[j] = temp;
@@ -200,34 +204,34 @@ public class MapManager : MonoBehaviour
                 Room room = grid[x, y];
                 if (room != null)
                 {
-                    Vector3 worldPos = new Vector3(x * 20, y * 20, 0); // 방 간 간격 유지
+                    Vector3 worldPos = new Vector3(x * 20, y * 20, 0);
                     GameObject prefab = GetPrefab(room.Type);
                     GameObject roomObj = Instantiate(prefab, worldPos, Quaternion.identity, transform);
 
-                    // 방 간 연결을 위한 문 설정
-                    SetBridges(roomObj, x, y);
+                    room.RoomObject = roomObj; // 오브젝트 저장
+                    SetDoors(roomObj, x, y);
                 }
             }
         }
     }
 
     // 문 상태 설정 (상하좌우 연결된 방 확인)
-    void SetBridges(GameObject roomObj, int x, int y)
+    void SetDoors(GameObject roomObj, int x, int y)
     {
         bool hasUp = IsInBounds(new Vector2Int(x, y + 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y + 1] != null;
         bool hasDown = IsInBounds(new Vector2Int(x, y - 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y - 1] != null;
         bool hasLeft = IsInBounds(new Vector2Int(x - 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x - 1, y] != null;
         bool hasRight = IsInBounds(new Vector2Int(x + 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x + 1, y] != null;
 
-        Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
-        foreach (Transform bridge in allBridges)
+        Transform[] allDoors = roomObj.GetComponentsInChildren<Transform>(true);
+        foreach (Transform door in allDoors)
         {
-            if (bridge.CompareTag("Bridge"))
+            if (door.CompareTag("Door"))
             {
-                if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasUp);
-                else if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasDown);
-                else if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasLeft);
-                else if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasRight);
+                if (door.name.Contains("Door_U")) door.gameObject.SetActive(hasUp);
+                else if (door.name.Contains("Door_D")) door.gameObject.SetActive(hasDown);
+                else if (door.name.Contains("Door_L")) door.gameObject.SetActive(hasLeft);
+                else if (door.name.Contains("Door_R")) door.gameObject.SetActive(hasRight);
             }
         }
     }
@@ -263,16 +267,30 @@ public class MapManager : MonoBehaviour
             currentFloor++;
             GenerateMap(); // 새로운 층 맵 생성
 
-            GameObject go = GameObject.FindWithTag("StartRoom");
-            if (go != null)
+            // rooms 리스트에서 스타트룸을 직접 찾음
+            foreach (Room room in rooms)
             {
-                Vector3 centerPos = go.transform.position + new Vector3(2.5f, 4.3f, 0f); // 위치 보정
-                GameManager.player.transform.position = centerPos; // 플레이어를 StartRoom 위치로 이동
-            }
-            else
-            {
-                Debug.LogWarning("StartRoom 태그를 가진 오브젝트를 찾을 수 없습니다.");
+                if (room.Type == RoomType.Start && room.RoomObject != null)
+                {
+                    Vector3 centerPos = room.RoomObject.transform.position; //+ new Vector3(2.5f, 4.3f, 0f);
+                    GameManager.player.transform.position = centerPos;
+                    return;
+                }
             }
         }
+    }
+    void PlacePlayer()
+    {
+        foreach (Room room in rooms)
+        {
+            if (room.Type == RoomType.Start && room.RoomObject != null)
+            {
+                Vector3 centerPos = room.RoomObject.transform.position; //+ new Vector3(1f, 2.3f, 0f);
+                GameManager.player.transform.position = centerPos;
+                return;
+            }
+        }
+
+        Debug.LogWarning("스타트룸을 찾을 수 없습니다.");
     }
 }
