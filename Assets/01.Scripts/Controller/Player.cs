@@ -18,7 +18,7 @@ IHit
     [SerializeField] private Vector3 textPos; 
     [SerializeField] private Image healthBarImg;
 
-    public int dmg { get; private set; } = 1;
+    public int dmg { get; private set; } = 100;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
 

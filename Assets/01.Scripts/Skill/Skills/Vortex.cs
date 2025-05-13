@@ -1,25 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class PoisonGas : BaseSkill
+public class Vortex : BaseSkill
 {
     //조정 후 활성화
     //private int getDmg = 0;
-    //private int skillCooldown = 17;
-    //private float skillSpeed = 0f;
-    //private float forward = 0f;
+    //private int skillCooldown = 8;
+    //private float skillSpeed = 2f;
+    //private float forward = 0.3f;
 
     public override void GetSkill()
     {
         //Test용 코드
         GameManager.gameEvent.Add(GetSkill, true);
-        GameManager.player.AddSkill(PoisonGas_Skill);
-
-        SkillLocation(Skill_location.CloseEnemy);
-        DmgChange();
         DontDestroyOnLoad(gameObject);
+
+        GameManager.player.AddSkill(Vortex_Skill);
+
+        DmgChange();
+        SkillLocation(Skill_location.Player);
     }
 
-    protected void PoisonGas_Skill()
+    protected void Vortex_Skill()
     {
         count++;
 
@@ -34,13 +37,20 @@ public class PoisonGas : BaseSkill
         if (!isPosFixed)
         {
             isPosFixed = true;
-            CoordinateOfSkill();
+            LocationOfSkill();
+            DirectionOfProjectileSkill(GameManager.player.direction);
         }
     }
 
     protected override void DmgChange()
     {
         GameManager.player.StateUp(StateCode.Damage, getDmg);
+    }
+
+    protected override void DirectionOfProjectileSkill(Vector3 target)
+    {
+        direction = target;
+        rigid.velocity = direction * skillSpeed;
     }
 
     protected override void SkillDmg()

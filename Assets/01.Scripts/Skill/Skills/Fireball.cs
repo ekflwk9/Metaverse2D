@@ -1,12 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class EldenRing : BaseSkill
+public class Fireball : BaseSkill
 {
     //조정 후 활성화
     //private int getDmg = 0;
-    //private int skillCooldown = 14;
-    //private float skillSpeed = 0f;
-    //private float forward = 0f;
+    //private int skillCooldown = 0;
+    //private float skillSpeed = 2.5f;
+    //private float forward = 0.3f;
+    private bool isBoom;
 
     public override void GetSkill()
     {
@@ -14,7 +17,7 @@ public class EldenRing : BaseSkill
         GameManager.gameEvent.Add(GetSkill, true);
         DontDestroyOnLoad(gameObject);
 
-        GameManager.player.AddSkill(EldenRing_Skill);
+        GameManager.player.AddSkill(Fireball_Skill);
 
         DmgChange();
         SkillLocation(Skill_location.Player);
@@ -22,19 +25,30 @@ public class EldenRing : BaseSkill
 
     private void Update()
     {
-        CoordinateOfSkill();
+        if (!GameManager.stopGame && isBoom)
+        {
+            rigid.velocity = Vector3.zero;
+        }
     }
 
-    protected void EldenRing_Skill()
+    protected void Fireball_Skill()
     {
         count++;
 
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            CoordinateOfSkill();
             SkillDmg();
             count = 0;
+            isBoom = false;
+            isPosFixed = false;
+        }
+
+        if (!isPosFixed)
+        {
+            isPosFixed = true;
+            LocationOfSkill();
+            DirectionOfProjectileSkill(EnemyClosePosition());
         }
     }
 
@@ -53,8 +67,16 @@ public class EldenRing : BaseSkill
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            int x = (int)skillDamage;
-            GameManager.gameEvent.Hit(collision.gameObject.name, x);
+            if (!isBoom)
+            {
+                anim.Play("Fireball2", 0, 0);
+                isBoom = true;
+            }
+            else
+            {
+                int x = (int)skillDamage;
+                GameManager.gameEvent.Hit(collision.gameObject.name, x);
+            }
         }
     }
 }
