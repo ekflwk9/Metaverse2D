@@ -55,7 +55,7 @@ public class MonsterBase : MonoBehaviour
                 attackSpeed = 3.5f;
                 attackDamage = 1;
                 attackRange = 7f;
-                keepDistance = 5f;
+                keepDistance = 3f;
                 break;
 
             case MonsterType.Necromancer:
@@ -64,7 +64,7 @@ public class MonsterBase : MonoBehaviour
                 attackSpeed = 2f;
                 attackDamage = 1;
                 attackRange = 6f;
-                keepDistance = 7f;
+                keepDistance = 5f;
                 break;
 
             case MonsterType.Shaman:
@@ -73,7 +73,7 @@ public class MonsterBase : MonoBehaviour
                 attackSpeed = 3f;
                 attackDamage = 1;
                 attackRange = 5f;
-                keepDistance = 3f;
+                keepDistance = 2.5f;
 
                 break;
 
