@@ -33,11 +33,11 @@ public class MapManager : MonoBehaviour
 
     private Room[,] grid; // 2D 배열에 방 배치
     private List<Room> rooms = new List<Room>(); // 생성된 방 목록
-    private System.Random rng = new System.Random(); // 난수 생성기
+    //private System.Random rng = new System.Random(); // 난수 생성기
 
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
     private Vector2Int currentRoomPos; // 현재 방 위치
-    public string doorDirection; // 외부에서 설정할 문 방향
+    public string bridgeDirection; // 외부에서 설정할 문 방향
 
     private void Start()
     {
@@ -64,7 +64,7 @@ public class MapManager : MonoBehaviour
         rooms.Clear();
 
         // 랜덤한 위치에 시작 방 생성
-        Vector2Int startPos = new Vector2Int(rng.Next(width), rng.Next(height));
+        Vector2Int startPos = new Vector2Int(Random.Range(0, width), Random.Range(0, height));
         PlaceRoom(startPos, RoomType.Start);
         currentRoomPos = startPos; // 현재 방 위치 초기화
 
@@ -74,18 +74,18 @@ public class MapManager : MonoBehaviour
 
         if (currentFloor == 1)
         {
-            battleCount = rng.Next(7, 11);
-            treasureCount = rng.Next(1, 4);
+            battleCount = Random.Range(7, 11);         // 7~10개
+            treasureCount = Random.Range(1, 4);        // 1~3개
         }
         else if (currentFloor == 2)
         {
-            battleCount = rng.Next(7, 14);
-            treasureCount = rng.Next(1, 5);
+            battleCount = Random.Range(7, 14);         // 7~13개
+            treasureCount = Random.Range(1, 5);        // 1~4개
         }
         else if (currentFloor == 3)
         {
-            battleCount = rng.Next(9, 17);
-            treasureCount = rng.Next(2, 6);
+            battleCount = Random.Range(9, 17);         // 9~16개
+            treasureCount = Random.Range(2, 6);        // 2~5개
         }
 
         // 전투방 랜덤 생성
@@ -118,7 +118,7 @@ public class MapManager : MonoBehaviour
         int placed = 0;
         while (placed < count)
         {
-            Room randomRoom = rooms[rng.Next(rooms.Count)]; // 기존 방 중 하나에서 확장
+            Room randomRoom = rooms[Random.Range(0, rooms.Count)]; // 기존 방 중 하나에서 확장
 
             foreach (Vector2Int dir in GetShuffledDirections()) // 상하좌우 랜덤 순서
             {
@@ -139,7 +139,7 @@ public class MapManager : MonoBehaviour
         List<Vector2Int> dirs = new List<Vector2Int> { Vector2Int.up, Vector2Int.down, Vector2Int.left, Vector2Int.right };
         for (int i = 0; i < dirs.Count; i++)
         {
-            int j = rng.Next(i, dirs.Count);
+            int j = Random.Range(i, dirs.Count);
             Vector2Int temp = dirs[i];
             dirs[i] = dirs[j];
             dirs[j] = temp;
@@ -205,29 +205,29 @@ public class MapManager : MonoBehaviour
                     GameObject roomObj = Instantiate(prefab, worldPos, Quaternion.identity, transform);
 
                     // 방 간 연결을 위한 문 설정
-                    SetDoors(roomObj, x, y);
+                    SetBridges(roomObj, x, y);
                 }
             }
         }
     }
 
     // 문 상태 설정 (상하좌우 연결된 방 확인)
-    void SetDoors(GameObject roomObj, int x, int y)
+    void SetBridges(GameObject roomObj, int x, int y)
     {
         bool hasUp = IsInBounds(new Vector2Int(x, y + 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y + 1] != null;
         bool hasDown = IsInBounds(new Vector2Int(x, y - 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y - 1] != null;
         bool hasLeft = IsInBounds(new Vector2Int(x - 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x - 1, y] != null;
         bool hasRight = IsInBounds(new Vector2Int(x + 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x + 1, y] != null;
 
-        Transform[] allDoors = roomObj.GetComponentsInChildren<Transform>(true);
-        foreach (Transform door in allDoors)
+        Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
+        foreach (Transform bridge in allBridges)
         {
-            if (door.CompareTag("Door"))
+            if (bridge.CompareTag("Bridge"))
             {
-                if (door.name.Contains("Door_U")) door.gameObject.SetActive(hasUp);
-                else if (door.name.Contains("Door_D")) door.gameObject.SetActive(hasDown);
-                else if (door.name.Contains("Door_L")) door.gameObject.SetActive(hasLeft);
-                else if (door.name.Contains("Door_R")) door.gameObject.SetActive(hasRight);
+                if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasUp);
+                else if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasDown);
+                else if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasLeft);
+                else if (bridge.name.Contains("Bridge_U")) bridge.gameObject.SetActive(hasRight);
             }
         }
     }
