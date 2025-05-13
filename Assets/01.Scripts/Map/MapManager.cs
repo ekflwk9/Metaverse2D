@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour
 
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
     private Vector2Int currentRoomPos; // 현재 방 위치
-    public string doorDirection; // 외부에서 설정할 문 방향
+    public string bridgeDirection; // 외부에서 설정할 문 방향
 
     private void Start()
     {
@@ -51,6 +51,16 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
         {
             GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
+        }
+
+        // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+            if (currentRoom != null && currentRoom.RoomObject != null)
+            {
+                OpenBridge(currentRoom.RoomObject); 
+            }
         }
     }
 
@@ -88,19 +98,23 @@ public class MapManager : MonoBehaviour
             treasureCount = rng.Next(2, 6);
         }
 
-        // 전투방 랜덤 생성
+        // 1. 전투방 랜덤 생성
         RandomRooms(RoomType.Battle, battleCount, width, height);
 
-        // 보물방 랜덤 생성
+        // 2. 보물방 랜덤 생성
         RandomRooms(RoomType.Treasure, treasureCount, width, height);
 
-        // 보스방 1개 생성
+        // 3. 보스방 1개 생성
         RandomRooms(RoomType.Boss, 1, width, height);
 
-        // 모든 방 프리팹 스폰
+        // 4. 모든 방 프리팹 스폰
         SpawnRooms();
 
-        // 데코 오브젝트들 랜덤 On/Off
+        // 5. 플레이어를 스타트방에 배치
+        PlacePlayer();
+
+
+        // 6. 데코 오브젝트들 랜덤 On/Off
         RandomizeDecorations();
     }
 
@@ -200,35 +214,76 @@ public class MapManager : MonoBehaviour
                 Room room = grid[x, y];
                 if (room != null)
                 {
-                    Vector3 worldPos = new Vector3(x * 20, y * 20, 0); // 방 간 간격 유지
+                    Vector3 worldPos = new Vector3(x * 20, y * 20, 0);
                     GameObject prefab = GetPrefab(room.Type);
                     GameObject roomObj = Instantiate(prefab, worldPos, Quaternion.identity, transform);
 
-                    // 방 간 연결을 위한 문 설정
-                    SetDoors(roomObj, x, y);
+                    room.RoomObject = roomObj; // 오브젝트 저장
+                    SetBridge(roomObj, x, y);
                 }
             }
         }
     }
 
     // 문 상태 설정 (상하좌우 연결된 방 확인)
-    void SetDoors(GameObject roomObj, int x, int y)
+    void SetBridge(GameObject roomObj, int x, int y)
     {
         bool hasUp = IsInBounds(new Vector2Int(x, y + 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y + 1] != null;
         bool hasDown = IsInBounds(new Vector2Int(x, y - 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y - 1] != null;
         bool hasLeft = IsInBounds(new Vector2Int(x - 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x - 1, y] != null;
         bool hasRight = IsInBounds(new Vector2Int(x + 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x + 1, y] != null;
 
-        Transform[] allDoors = roomObj.GetComponentsInChildren<Transform>(true);
-        foreach (Transform door in allDoors)
+        Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
+        foreach (Transform bridge in allBridges)
         {
-            if (door.CompareTag("Door"))
+            if (!bridge.CompareTag("Bridge")) continue;
+
+            bool hasNeighbor = false;
+            if (bridge.name.Contains("Bridge_U")) hasNeighbor = hasUp;
+            else if (bridge.name.Contains("Bridge_D")) hasNeighbor = hasDown;
+            else if (bridge.name.Contains("Bridge_L")) hasNeighbor = hasLeft;
+            else if (bridge.name.Contains("Bridge_R")) hasNeighbor = hasRight;
+
+            bridge.gameObject.SetActive(hasNeighbor);
+
+            if (hasNeighbor)
             {
-                if (door.name.Contains("Door_U")) door.gameObject.SetActive(hasUp);
-                else if (door.name.Contains("Door_D")) door.gameObject.SetActive(hasDown);
-                else if (door.name.Contains("Door_L")) door.gameObject.SetActive(hasLeft);
-                else if (door.name.Contains("Door_R")) door.gameObject.SetActive(hasRight);
+                // 자식 Bridge 오브젝트 꺼두기 (명시적으로)
+                Transform bridgeVisual = bridge.Find("Bridge");
+                if (bridgeVisual != null) bridgeVisual.gameObject.SetActive(false);
+
+                // 벽 켜기
+                Transform wall = bridge.Find("Wall");
+                if (wall != null) wall.gameObject.SetActive(true);
+
+                // 콜라이더 끄기
+                Collider2D col = bridge.GetComponent<Collider2D>();
+                if (col != null) col.enabled = false;
             }
+        }
+    }
+
+    public void OpenBridge(GameObject roomObj)
+    {
+        Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
+        foreach (Transform bridge in allBridges)
+        {
+            if (!bridge.CompareTag("Bridge")) continue;
+
+            // 자식 Bridge 오브젝트 켜기
+            Transform bridgeVisual = bridge.Find("Bridge");
+            if (bridgeVisual != null)
+                bridgeVisual.gameObject.SetActive(true);
+
+            // 콜라이더 켜기
+            Collider2D col = bridge.GetComponent<Collider2D>();
+            if (col != null)
+                col.enabled = true;
+
+            // 벽 끄기
+            Transform wall = bridge.Find("Wall");
+            if (wall != null)
+                wall.gameObject.SetActive(false);
         }
     }
 
@@ -263,16 +318,30 @@ public class MapManager : MonoBehaviour
             currentFloor++;
             GenerateMap(); // 새로운 층 맵 생성
 
-            GameObject go = GameObject.FindWithTag("StartRoom");
-            if (go != null)
+            // rooms 리스트에서 스타트룸을 직접 찾음
+            foreach (Room room in rooms)
             {
-                Vector3 centerPos = go.transform.position + new Vector3(2.5f, 4.3f, 0f); // 위치 보정
-                GameManager.player.transform.position = centerPos; // 플레이어를 StartRoom 위치로 이동
-            }
-            else
-            {
-                Debug.LogWarning("StartRoom 태그를 가진 오브젝트를 찾을 수 없습니다.");
+                if (room.Type == RoomType.Start && room.RoomObject != null)
+                {
+                    Vector3 centerPos = room.RoomObject.transform.position; //+ new Vector3(2.5f, 4.3f, 0f);
+                    GameManager.player.transform.position = centerPos;
+                    return;
+                }
             }
         }
+    }
+    void PlacePlayer()
+    {
+        foreach (Room room in rooms)
+        {
+            if (room.Type == RoomType.Start && room.RoomObject != null)
+            {
+                Vector3 centerPos = room.RoomObject.transform.position; //+ new Vector3(1f, 2.3f, 0f);
+                GameManager.player.transform.position = centerPos;
+                return;
+            }
+        }
+
+        Debug.LogWarning("스타트룸을 찾을 수 없습니다.");
     }
 }

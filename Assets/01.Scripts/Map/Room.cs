@@ -17,6 +17,7 @@ public class Room
 {
     public Vector2Int Position; // 그리드상의 위치 
     public RoomType Type;       // 이 방의 타입
+    public GameObject RoomObject; // 생성된 방 오브젝트 저장
 
     // 상하좌우 방향 연결 여부 확인, 
     public Dictionary<Vector2Int, bool> Connections = new Dictionary<Vector2Int, bool>
