@@ -8,6 +8,9 @@ public class Serialized : MonoBehaviour
     // UI On/Off
     [SerializeField] protected GameObject uiBar;
     [SerializeField] protected GameObject settingUi;
+    [SerializeField] protected GameObject videoOnOff;
+    [SerializeField] protected GameObject audioOnOff;
+    [SerializeField] protected GameObject gameOnOff;
 
     // HP Gauge
     [SerializeField] protected Image healthBarImg;

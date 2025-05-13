@@ -717,7 +717,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 243745516}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: SettingToggle
+        m_MethodName: Setting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -993,7 +993,6 @@ GameObject:
   - component: {fileID: 243745514}
   - component: {fileID: 243745513}
   - component: {fileID: 243745512}
-  - component: {fileID: 243745517}
   - component: {fileID: 243745516}
   m_Layer: 5
   m_Name: Ui
@@ -1099,8 +1098,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3321c3eaa234584d9f3b36d1601bf68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serialized: {fileID: 243745517}
+  uiBar: {fileID: 1451376812}
+  settingUi: {fileID: 1959596559}
+  videoOnOff: {fileID: 1828783256}
+  audioOnOff: {fileID: 1758930045}
+  gameOnOff: {fileID: 1619053718}
   healthBarImg: {fileID: 1948827111}
+  videoSprite: {fileID: -909343194, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
   audioSprite: {fileID: -823593145, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
   gameSprite: {fileID: -227856316, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
   videoSelectSprite: {fileID: 1902169955, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
@@ -1109,21 +1113,6 @@ MonoBehaviour:
   video: {fileID: 75283421}
   audio: {fileID: 1614869590}
   game: {fileID: 1135565671}
---- !u!114 &243745517
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 243745511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ed4d445354d4fa4a9b0219876324b56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  uiBar: {fileID: 0}
-  settingUi: {fileID: 0}
-  videoSprite: {fileID: 0}
 --- !u!1 &285995713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1277,12 +1266,12 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 323314204}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 243745516}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
         m_MethodName: GameExit
         m_Mode: 1
@@ -1497,7 +1486,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &766083106
 Transform:
   m_ObjectHideFlags: 0
@@ -2722,7 +2711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1619053719
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3023,7 +3012,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1828783257
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3128,7 +3117,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 243745516}
         m_TargetAssemblyTypeName: UiManager, Assembly-CSharp
-        m_MethodName: SettingToggle
+        m_MethodName: Setting
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3386,7 +3375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1959596560
 RectTransform:
   m_ObjectHideFlags: 0

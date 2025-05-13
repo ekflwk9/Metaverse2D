@@ -7,6 +7,7 @@ public class UiManager : Serialized
     {
         if (video.sprite == videoSprite)
         {
+            VideoSetting();
             video.sprite = videoSelectSprite;
             audio.sprite = audioSprite;
             game.sprite = gameSprite;
@@ -17,6 +18,7 @@ public class UiManager : Serialized
     {
         if (audio.sprite == audioSprite)
         {
+            AudioSetting();
             audio.sprite = audioSelectSprite;
             video.sprite = videoSprite;
             game.sprite = gameSprite;
@@ -27,12 +29,12 @@ public class UiManager : Serialized
     {
         if (game.sprite == gameSprite)
         {
+            GameSetting();
             game.sprite = gameSelectSprite;
             video.sprite = videoSprite;
             audio.sprite = audioSprite;
         }
     }
-
 
     public void MainUiAllToggle()
     {
@@ -61,13 +63,14 @@ public class UiManager : Serialized
         Application.Quit();
     }
 
-    public void SettingToggle()
+    public void Setting()
     {
         MainUiAllToggle();
-        SettingScreen();
+        SettingToggle();
+        VideoBtn();
     }
 
-    public void SettingScreen()
+    public void SettingToggle()
     {
         bool isSettings = settingUi.activeSelf;
         if (isSettings)
@@ -76,18 +79,24 @@ public class UiManager : Serialized
             settingUi.SetActive(true);
     }
 
-    public void VideoSettingToggle()
+    public void VideoSetting()
     {
-
+        videoOnOff.SetActive(true);
+        audioOnOff.SetActive(false);
+        gameOnOff.SetActive(false);
     }
 
-    public void AudioSettingToggle()
+    public void AudioSetting()
     {
-
+        videoOnOff.SetActive(false);
+        audioOnOff.SetActive(true);
+        gameOnOff.SetActive(false);
     }
 
-    public void GameSettingToggle()
+    public void GameSetting()
     {
-
+        videoOnOff.SetActive(false);
+        audioOnOff.SetActive(false);
+        gameOnOff.SetActive(true);
     }
 }

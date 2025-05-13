@@ -949,6 +949,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Setting_Gauge
+      rect:
+        serializedVersion: 2
+        x: 515
+        y: 2068
+        width: 56
+        height: 8
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 3, y: 0, z: 3, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d66baf854598a614393fed8b1f21a3d0
+      internalID: -237221293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -977,6 +998,7 @@ TextureImporter:
       Setting_Display: 1902169955
       Setting_Game: -227856316
       Setting_Game_Selected: -1778515944
+      Setting_Gauge: -237221293
       Setting_Hp: 1942132562
       Setting_HpGauge: -1321865704
       Setting_Info: -684654908
