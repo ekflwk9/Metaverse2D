@@ -3,6 +3,7 @@ using UnityEngine;
 public delegate void Func();
 public interface IEnd { public void OnEnd(); }
 public interface IHit { public void OnHit(int _dmg); }
+public interface IItemEnter { public void OnItem(); }
 
 public class Service
 {

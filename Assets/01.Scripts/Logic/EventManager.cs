@@ -7,7 +7,9 @@ public class EventManager
     private StringBuilder eventName = new StringBuilder(40);
 
     private event Func end;
+
     private Dictionary<string, IHit> hit = new Dictionary<string, IHit>();
+    private Dictionary<string, IItemEnter> item = new Dictionary<string, IItemEnter>();
 
     private Dictionary<string, Func> gameEvent = new Dictionary<string, Func>();
     private Dictionary<string, Func> constEvent = new Dictionary<string, Func>();
@@ -22,6 +24,11 @@ public class EventManager
         if (_component is IEnd isEnd)
         {
             end += isEnd.OnEnd;
+        }
+
+        if (_component is IItemEnter isItem)
+        {
+            if (!item.ContainsKey(_component.name)) item.Add(_component.name, isItem);
         }
     }
 
@@ -74,5 +81,11 @@ public class EventManager
     {
         if (hit.ContainsKey(_hitObjectName)) hit[_hitObjectName].OnHit(_hitValue);
         else Service.Log($"{_hitObjectName}는 추가되지 않은 \"Hit Interface\"");
+    }
+
+    public void GetItem(string _itemName)
+    {
+        if (item.ContainsKey(_itemName)) item[_itemName].OnItem();
+        else Service.Log($"{_itemName}는 추가되지 않은 \"Item Interface\"");
     }
 }
