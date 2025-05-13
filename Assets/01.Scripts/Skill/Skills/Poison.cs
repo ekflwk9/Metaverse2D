@@ -37,4 +37,15 @@ public class PoisonGas : BaseSkill
             LocationOfSkill();
         }
     }
+
+    protected override void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            int x = (int)skillDamage;
+            GameManager.gameEvent.Hit(collision.gameObject.name, x);
+
+            collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
+        }
+    }
 }

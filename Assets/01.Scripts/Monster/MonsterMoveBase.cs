@@ -12,7 +12,7 @@ public abstract class MonsterMoveBase : MonoBehaviour
     protected MonsterAttackBase attackBase;
     protected SpriteRenderer spriteRenderer;
     
-    
+
     protected float moveSpeed;
 
     protected bool isMoving;

@@ -26,6 +26,7 @@ public abstract class BaseSkill : MonoBehaviour
     [SerializeField] protected int skillCooldown;
     [SerializeField] protected float skillSpeed = 0f;
     [SerializeField] protected float forward = 0.5f;
+    [SerializeField] protected float slowAmount;
 
     protected Vector3 direction = Vector3.zero;
     protected Vector3 generateLocation = Vector3.zero;
@@ -243,6 +244,7 @@ public abstract class BaseSkill : MonoBehaviour
         {
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
+
         }
     }
 

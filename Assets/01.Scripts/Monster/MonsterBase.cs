@@ -24,6 +24,7 @@ public class MonsterBase : MonoBehaviour
     protected private MonsterMoveBase moveBase;
 
     private float moveSpeed;
+    private float normalSpeed;
     public float MoveSpeed { get { return moveSpeed; } }
     private float maxHealth;
     public float MaxHealth { get { return maxHealth; } }
@@ -42,6 +43,7 @@ public class MonsterBase : MonoBehaviour
 
     private float currentHealth;
     
+    private Coroutine slowCoroutine;
 
     private Collider2D _collider;
     private Animator anim;
@@ -51,6 +53,7 @@ public class MonsterBase : MonoBehaviour
         InitializeStats(monsterType);
 
         currentHealth = maxHealth;
+        normalSpeed = moveSpeed;
 
         anim = GetComponentInChildren<Animator>();
         _collider = GetComponentInChildren<Collider2D>();
@@ -173,5 +176,22 @@ public class MonsterBase : MonoBehaviour
         }
 
         spritePivot.localScale = scale;
+    }
+
+    public void ApplySlow(float slowAmount)
+    {
+        if (slowCoroutine != null)
+        {
+            StopCoroutine(slowCoroutine);
+        }
+
+        slowCoroutine = StartCoroutine(CoroutineSlow(slowAmount));
+    }
+
+    private IEnumerator CoroutineSlow(float slowAmount)
+    {
+        moveSpeed = normalSpeed * (1f - slowAmount);
+        yield return Service.wait;
+        moveSpeed = normalSpeed;
     }
 }
