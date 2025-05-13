@@ -37,7 +37,7 @@ public class MapManager : MonoBehaviour
 
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
     private Vector2Int currentRoomPos; // 현재 방 위치
-    public string doorDirection; // 외부에서 설정할 문 방향
+    public string bridgeDirection; // 외부에서 설정할 문 방향
 
     private void Start()
     {
@@ -51,6 +51,16 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
         {
             GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
+        }
+
+        // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+            if (currentRoom != null && currentRoom.RoomObject != null)
+            {
+                OpenBridge(currentRoom.RoomObject); 
+            }
         }
     }
 
@@ -209,29 +219,81 @@ public class MapManager : MonoBehaviour
                     GameObject roomObj = Instantiate(prefab, worldPos, Quaternion.identity, transform);
 
                     room.RoomObject = roomObj; // 오브젝트 저장
-                    SetDoors(roomObj, x, y);
+                    SetBridge(roomObj, x, y);
                 }
             }
         }
     }
 
     // 문 상태 설정 (상하좌우 연결된 방 확인)
-    void SetDoors(GameObject roomObj, int x, int y)
+    void SetBridge(GameObject roomObj, int x, int y)
     {
         bool hasUp = IsInBounds(new Vector2Int(x, y + 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y + 1] != null;
         bool hasDown = IsInBounds(new Vector2Int(x, y - 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y - 1] != null;
         bool hasLeft = IsInBounds(new Vector2Int(x - 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x - 1, y] != null;
         bool hasRight = IsInBounds(new Vector2Int(x + 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x + 1, y] != null;
 
-        Transform[] allDoors = roomObj.GetComponentsInChildren<Transform>(true);
-        foreach (Transform door in allDoors)
+        Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
+        foreach (Transform bridge in allBridges)
         {
-            if (door.CompareTag("Door"))
+            if (!bridge.CompareTag("Bridge")) continue;
+
+            bool hasNeighbor = false;
+            if (bridge.name.Contains("Bridge_U")) hasNeighbor = hasUp;
+            else if (bridge.name.Contains("Bridge_D")) hasNeighbor = hasDown;
+            else if (bridge.name.Contains("Bridge_L")) hasNeighbor = hasLeft;
+            else if (bridge.name.Contains("Bridge_R")) hasNeighbor = hasRight;
+
+            bridge.gameObject.SetActive(hasNeighbor);
+
+            // 초기 상태: 벽은 켜고, 콜라이더는 끈다
+            if (hasNeighbor)
             {
-                if (door.name.Contains("Door_U")) door.gameObject.SetActive(hasUp);
-                else if (door.name.Contains("Door_D")) door.gameObject.SetActive(hasDown);
-                else if (door.name.Contains("Door_L")) door.gameObject.SetActive(hasLeft);
-                else if (door.name.Contains("Door_R")) door.gameObject.SetActive(hasRight);
+                // 벽 오브젝트 찾기
+                Transform wall = bridge.Find("Wall");
+                if (wall != null) wall.gameObject.SetActive(true);
+
+                // 콜라이더 끄기
+                Collider2D col = bridge.GetComponent<Collider2D>();
+                if (col != null) col.enabled = false;
+            }
+        }
+    }
+
+    // 배치 후 다리를 안보이게 하는 함수
+    public void OpenBridge(GameObject roomObj)
+    {
+        Debug.Log("OpenBridge 호출됨: " + roomObj.name);
+
+        Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
+        foreach (Transform bridge in allBridges)
+        {
+            if (!bridge.CompareTag("Bridge")) continue;
+
+            Debug.Log("Bridge 찾음: " + bridge.name);
+
+            // 콜라이더 켜기
+            Collider2D col = bridge.GetComponent<Collider2D>();
+            if (col != null)
+            {
+                col.enabled = true;
+                Debug.Log("Collider2D 활성화됨: " + bridge.name);
+            }
+            else
+            {
+                Debug.LogWarning("Collider2D 없음: " + bridge.name);
+            }
+
+            // 벽 끄기
+            Transform wall = bridge.Find("Wall");
+            if (wall != null)
+            {
+                wall.gameObject.SetActive(false);
+                Debug.Log("Wall 비활성화: " + wall.name);
+            }
+            else
+            {
+                Debug.LogWarning("Wall 오브젝트를 찾을 수 없음: " + bridge.name);
             }
         }
     }
