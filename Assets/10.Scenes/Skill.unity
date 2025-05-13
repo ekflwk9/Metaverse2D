@@ -6497,8 +6497,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getDmg: 0
   skillCooldown: 8
-  skillSpeed: 3
-  forward: 0.2
+  skillSpeed: 6
+  forward: 0.4
 --- !u!4 &1251662123
 Transform:
   m_ObjectHideFlags: 0
@@ -11889,7 +11889,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getDmg: 0
   skillCooldown: 17
-  skillSpeed: 3
+  skillSpeed: 5
   forward: 0
 --- !u!4 &1624882433
 Transform:

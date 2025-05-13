@@ -52,17 +52,6 @@ public class Fireball : BaseSkill
         }
     }
 
-    protected override void DmgChange()
-    {
-        GameManager.player.StateUp(StateCode.Damage, getDmg);
-    }
-
-    protected override void SkillDmg()
-    {
-        randomState = Random.Range(5, 11);
-        skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
-    }
-
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
