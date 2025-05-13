@@ -51,6 +51,18 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
         {
             GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
+            
+            // 플레이어를 시작 방 위치로 이동
+            GameObject go = GameObject.FindWithTag("StartRoom");
+            if (go != null)
+            {
+                Vector3 centerPos = go.transform.position + new Vector3(2.5f, 4.3f, 0f); // 위치 보정
+                GameManager.player.transform.position = centerPos;
+            }
+            else
+            {
+                Debug.LogWarning("StartRoom 태그를 가진 오브젝트를 찾을 수 없습니다.");
+            }
         }
     }
 
@@ -99,6 +111,9 @@ public class MapManager : MonoBehaviour
 
         // 모든 방 프리팹 스폰
         SpawnRooms();
+
+        // 플레이어 스폰
+        SpawnPlayer();
 
         // 데코 오브젝트들 랜덤 On/Off
         RandomizeDecorations();
@@ -209,6 +224,26 @@ public class MapManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    // 플레이어를 시작방 위치에 소환
+    public void SpawnPlayer()
+    {
+        GameObject go = GameObject.FindWithTag("StartRoom");
+        if (go == null)
+        {
+            Debug.LogWarning("StartRoom 태그를 가진 오브젝트를 찾을 수 없습니다.");
+            return;
+        }
+
+        Vector3 centerPos = go.transform.position + new Vector3(2.5f, 4.3f, 0f); // 위치 보정
+
+        if (playerInstance != null)
+        {
+            Destroy(playerInstance);
+        }
+
+        playerInstance = Instantiate(GameManager.player.gameObject, centerPos, Quaternion.identity);
     }
 
     // 문 상태 설정 (상하좌우 연결된 방 확인)
