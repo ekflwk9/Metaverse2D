@@ -1,19 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MeleeAttack : MonsterAttackBase
 {
-    protected override void Awake()
+    protected override void DoAttack()
     {
-        base.Awake();
-    }
-
-    public override void Attack()
-    {
-        isAttackEnd = false;
-        GameManager.gameEvent.Hit(player.name, attackDamage);
-
-        lastAttackTime = Time.time;
+        Collider2D hit = Physics2D.OverlapCircle(transform.position, 1f, LayerMask.GetMask("Player"));
+        if (hit != null)
+        {
+            GameManager.player.OnHit(attackDamage);
+        }
     }
 }

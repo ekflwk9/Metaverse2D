@@ -1,24 +1,39 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class RangedAttack : MonsterAttackBase
 {
-    protected override void Awake()
+    [SerializeField] private float projectileSpeed = 3f;
+
+    protected override void DoAttack()
     {
-        base.Awake();
+        if (projectilePrefab == null)
+        {
+            Service.Log($"{gameObject.name} 는 Projectile 프리팹을 갖고 있지 않습니다.");
+            return;
+        }
+
+        Vector2 dir = (GameManager.player.transform.position - transform.position).normalized;
+
+        float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.Euler(0f, 0f, angle);
+
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, rotation);
+
+        Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = dir * projectileSpeed;
+        }
+
+        Projectile projectileScript = projectile.GetComponent<Projectile>();
+        if (projectileScript != null)
+        {
+            projectileScript.SetDamage(attackDamage);
+        }
     }
 
-    private void Start()
+    public void SpawnProjectile()
     {
-        projectileController = GetComponent<MonsterProjectileController>();
-    }
-
-    public override void Attack()
-    {
-        isAttackEnd = false;
-        lastAttackTime = Time.time;
-
-        projectileController.Shoot(transform.position, direction, 3f, attackDamage);
+        DoAttack();
     }
 }

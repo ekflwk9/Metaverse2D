@@ -1,73 +1,52 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
+
+public enum MonsterType
+{
+    BringerOfDeath,
+    FireWorm,
+    Necromancer,
+    Shaman,
+    Boss
+}
 
 public class MonsterBase : MonoBehaviour
 {
-
-    public enum MonsterType
-    {
-        BingerOfDeath,
-        FireWorm,
-        Necromancer,
-        Shaman,
-        Boss
-    }
-
     [Header("Monster Type")]
     public MonsterType monsterType;
-
-    [SerializeField] private Transform spritePivot;
-
-    protected private MonsterAttackBase attackBase;
-    protected private MonsterMoveBase moveBase;
-
-    private float moveSpeed;
-    private float normalSpeed;
-    public float MoveSpeed { get { return moveSpeed; } }
-    private float maxHealth;
-    public float MaxHealth { get { return maxHealth; } }
-    private float attackSpeed;
-    public float AttackSpeed { get { return attackSpeed; } }
-
-    private int attackDamage;
-    public int AttackDamage { get { return attackDamage; } }
-    private float attackRange;
-    public float AttackRange { get { return attackRange; } }
-
-    private bool isDead = false;
-    public bool IsDead { get { return isDead; } }
-    private bool isDamaged = false;
-    public bool IsDamaged {  get { return isDamaged; } }
-
-    private float currentHealth;
     
+    private float normalSpeed;
+    public float moveSpeed { get; private set; }
+    public float maxHealth { get; private set; }
+    public float currentHealth { get; private set; }
+    public float attackSpeed { get; private set; }
+    public float attackRange { get; private set; }
+    public float keepDistance { get; private set; }
+    public int attackDamage { get; private set; }
+    
+    public bool IsDamaged { get; private set; }
+    public bool IsDead => currentHealth <= 0;
+
+    private SpriteRenderer spriteRenderer;
+    public Animator animator { get; private set; }
     private Coroutine slowCoroutine;
 
-    private Collider2D _collider;
-    private Animator anim;
 
-    void Awake()
+    protected virtual void Awake()
     {
-        InitializeStats(monsterType);
-
+        animator = GetComponentInChildren<Animator>();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        SetStatsByType();
         currentHealth = maxHealth;
         normalSpeed = moveSpeed;
-
-        anim = GetComponentInChildren<Animator>();
-        _collider = GetComponentInChildren<Collider2D>();
-        spritePivot = transform.Find("SpritePivot");
     }
 
-    void InitializeStats(MonsterType type)
+    private void SetStatsByType()
     {
-        Service.Log($"[MonsterBase] InitializeStats called for {type}");
-        switch (type)
+        switch (monsterType)
         {
-            case MonsterType.BingerOfDeath:
-                moveSpeed = 1.4f;
-                currentHealth = 4f;
+            case MonsterType.BringerOfDeath:
+                moveSpeed = 1.6f;
                 maxHealth = 4f;
                 attackSpeed = 2f;
                 attackDamage = 1;
@@ -75,107 +54,81 @@ public class MonsterBase : MonoBehaviour
                 break;
 
             case MonsterType.FireWorm:
-                moveSpeed = 1f;
-                currentHealth = 4f;
+                moveSpeed = 1.5f;
                 maxHealth = 4f;
+                attackSpeed = 3.5f;
                 attackDamage = 1;
-                attackSpeed = 6f;
-                attackRange = 6f;
+                attackRange = 7f;
+                keepDistance = 5f;
                 break;
 
             case MonsterType.Necromancer:
-                moveSpeed = 1f;
-                currentHealth = 6f;
+                moveSpeed = 1.2f;
                 maxHealth = 6f;
+                attackSpeed = 2f;
                 attackDamage = 1;
-                attackSpeed = 1.5f;
                 attackRange = 6f;
+                keepDistance = 7f;
                 break;
 
             case MonsterType.Shaman:
-                moveSpeed = 1.6f;
-                currentHealth = 6f;
+                moveSpeed = 2.2f;
                 maxHealth = 6f;
+                attackSpeed = 3f;
                 attackDamage = 1;
-                attackSpeed = 2f;
-                attackRange = 6f;
+                attackRange = 5f;
+                keepDistance = 3f;
+
                 break;
 
             case MonsterType.Boss:
                 moveSpeed = 2f;
-                currentHealth = 12f;
                 maxHealth = 12f;
+                attackSpeed = 2f;
                 attackDamage = 1;
-                attackSpeed = 2.5f;
-                attackRange = 6f;
+                attackRange = 4.5f;
+                keepDistance = 2f;
+
                 break;
-
         }
     }
 
-    public virtual void TakeDamage(float amount)
+    public virtual void TakeDamage(float damage)
     {
-        if (isDead) return;
+        if (IsDead) return;
+        currentHealth -= damage;
+        IsDamaged = true;
+        animator.SetTrigger("isDamaged");
+        StartCoroutine(ClearDamagedFlag());
+    }
 
-        //플레이어 스킬과 충돌
-        isDamaged = true;
+    private IEnumerator ClearDamagedFlag()
+    {
+        yield return new WaitForSeconds(0.5f);
+        IsDamaged = false;
+    }
 
-        currentHealth -= amount;
-        anim.Play("Damage");
-
-        isDamaged = false;
-
-        if (currentHealth <= 0)
+    public void Dead()
+    {
+        if (IsDead)
         {
-            Dead();
+            animator.SetBool("isDead", true);
+            gameObject.SetActive(false); // or Destroy(gameObject);
         }
     }
 
-    public virtual void Dead()
+    public void SetIdle()
     {
-        if (isDead) return;
-
-        isDead = true;
-        anim.Play("Dead");
-
-        _collider.enabled = false;
-
-        StartCoroutine(DisableAfterDeath());
+        animator.SetBool("isMoving", false);
+        animator.SetBool("isAttacking", false);
     }
 
-    private IEnumerator DisableAfterDeath()
+    public void FlipMainSprite()
     {
-        yield return new WaitForSeconds(2f);
-        gameObject.SetActive(false);
-    }
-
-    public virtual void SetIdle()
-    {
-        if (isDead) return;
-
-        if(anim != null)
-        {
-            anim.SetBool("isMoving", false);
-        }
-    }
-
-    public virtual void FlipMainSprite()
-    {
-        //if (attackBase.canAttack) 
-        //    return;
-
-        Vector3 scale = spritePivot.localScale;
-
-        if (GameManager.player.transform.position.x < transform.position.x)
-        {
-            scale.x = 1;
-        }
-        else
-        {
-            scale.x = -1;
-        }
-
-        spritePivot.localScale = scale;
+        if (spriteRenderer == null) return;
+        Vector3 scale = transform.localScale;
+        scale.x = (GameManager.player.transform.position.x > transform.position.x) ? 1 : -1;
+        transform.localScale = scale;
     }
 
     public void ApplySlow(float slowAmount)

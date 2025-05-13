@@ -1,4 +1,4 @@
-using Unity.VisualScripting;
+﻿using System.Collections;
 using UnityEngine;
 
 public enum MonsterState
@@ -13,32 +13,26 @@ public enum MonsterState
 public class MonsterStateMachine : MonoBehaviour
 {
     private MonsterState currentState;
-    private MonsterState previousState;
+
     private MonsterMoveBase moveBase;
     private MonsterAttackBase attackBase;
     private MonsterBase monsterBase;
-    //protected MeleeAttacking meleeAttacking;
-
-    bool isAttackEnd;
 
     void Awake()
     {
         moveBase = GetComponent<MonsterMoveBase>();
         attackBase = GetComponent<MonsterAttackBase>();
         monsterBase = GetComponent<MonsterBase>();
-        //meleeAttacking = GetComponentInChildren<MeleeAttacking>();
     }
 
     void Start()
     {
-        currentState = MonsterState.Idle;
-        //isAttackEnd = meleeAttacking.isAttackEnd;
+        ChangeState(MonsterState.Idle);
     }
 
     void Update()
     {
-        Service.Log($"[StateMachine] Current State: {currentState}");
-
+        Service.Log($"현재 상태: {currentState}");
         switch (currentState)
         {
             case MonsterState.Idle:
@@ -46,11 +40,12 @@ public class MonsterStateMachine : MonoBehaviour
                 break;
 
             case MonsterState.Move:
+                Service.Log("MoveUpdate 호출");
                 MoveUpdate();
                 break;
 
             case MonsterState.Attack:
-                AttackUpdate();
+                // 공격 중에는 Update에서 아무것도 안 함. 공격 종료 시 콜백으로 상태 전이
                 break;
 
             case MonsterState.Damaged:
@@ -58,22 +53,14 @@ public class MonsterStateMachine : MonoBehaviour
                 break;
 
             case MonsterState.Dead:
-                DeadUpdate();
+                // 죽었으면 아무것도 하지 않음
                 break;
         }
     }
 
     void ChangeState(MonsterState newState)
     {
-        if (currentState == newState)
-            return;
-
-        previousState = currentState;
-
-        if (previousState == MonsterState.Move)
-        {
-            moveBase.StopMove();
-        }
+        if (currentState == newState) return;
 
         currentState = newState;
         OnStateEnter(newState);
@@ -87,21 +74,26 @@ public class MonsterStateMachine : MonoBehaviour
                 monsterBase.SetIdle();
                 break;
 
-            case MonsterState.Attack:
-                attackBase.OnAttack();
-                break;
-
             case MonsterState.Move:
+                break; // OnMove는 Update에서 실행
+
+            case MonsterState.Attack:
+                monsterBase.animator.SetBool("isMoving", false);
+                monsterBase.animator.SetTrigger("isAttacking");
+                Service.Log("isAttacking이 true가 맞나용?: " + monsterBase.animator.GetBool("isAttacking"));
+
+                moveBase.StopMove();
+
+                attackBase.StartAttack(OnAttackEnd);
                 break;
 
             case MonsterState.Damaged:
-                monsterBase.TakeDamage(GameManager.player.dmg);
+                monsterBase.TakeDamage(GameManager.player.dmg); // 데미지 처리
                 break;
 
             case MonsterState.Dead:
-                monsterBase.Dead();
+                monsterBase.Dead(); // 사망 처리
                 break;
-
         }
     }
 
@@ -110,98 +102,72 @@ public class MonsterStateMachine : MonoBehaviour
         monsterBase.FlipMainSprite();
 
         if (monsterBase.IsDead)
-        {
             ChangeState(MonsterState.Dead);
-        }
-        if (attackBase.canAttack && attackBase.isAttackEnd)
-        {
-            ChangeState(MonsterState.Attack);
-        }
-        else if (moveBase.CanMove)
-        {
-            ChangeState(MonsterState.Move);
-        }
         else if (monsterBase.IsDamaged)
-        {
             ChangeState(MonsterState.Damaged);
-        }
+        else if (attackBase.CanPerformAttack())
+            ChangeState(MonsterState.Attack);
+        else if (moveBase.CanMove)
+            ChangeState(MonsterState.Move);
     }
+
     void MoveUpdate()
     {
-        moveBase.OnMove();
         monsterBase.FlipMainSprite();
+        moveBase.OnMove();
+        monsterBase.animator.SetBool("isMoving", true);
 
         if (monsterBase.IsDead)
-        {
             ChangeState(MonsterState.Dead);
-        }
-        if (attackBase.canAttack && attackBase.isAttackEnd)
-        {
-            ChangeState(MonsterState.Attack);
-        }
         else if (monsterBase.IsDamaged)
-        {
             ChangeState(MonsterState.Damaged);
-        }
-    }
-
-    void AttackUpdate()
-    {
-        if (monsterBase.IsDead)
-        {
-            ChangeState(MonsterState.Dead);
-            return;
-        }
-
-        if (monsterBase.IsDamaged)
-        {
-            ChangeState(MonsterState.Damaged);
-            return;
-        }
-
-        // ������ ��������...
-        if (attackBase.isAttackEnd)
-        {
-            if (attackBase.CanPerformAttack())
-            {
-                // ���� ������ ���´ϱ� �ݺ� ����
-                attackBase.OnAttack();
-                attackBase.Attack();
-            }
-            else
-            {
-                // ���ݵ� ���ϰ� �������� �� �ٸ� ���·� ����
-                if (moveBase.CanMove)
-                    ChangeState(MonsterState.Move);
-                else
-                    ChangeState(MonsterState.Idle);
-            }
-        }
+        else if (
+            attackBase.CanPerformAttack() &&
+            Vector2.Distance(transform.position, GameManager.player.transform.position) <= monsterBase.attackRange
+            )
+            ChangeState(MonsterState.Attack);
     }
 
     void DamagedUpdate()
     {
         if (monsterBase.IsDead)
+            ChangeState(MonsterState.Dead);
+        else
+            ChangeState(MonsterState.Idle); // 피격 후 Idle 복귀
+    }
+
+    void OnAttackEnd()
+    {
+        Service.Log("공격 끝!");
+        
+        //monsterBase.animator.SetBool("isAttacking", false);
+        // 공격 애니메이션이 끝날 때까지 기다린 후 상태 전환
+        StartCoroutine(WaitForAttackEnd());
+    }
+
+    private IEnumerator WaitForAttackEnd()
+    {
+        yield return new WaitForSeconds(attackBase.attackCooldown); // 공격 애니메이션이 끝날 때까지 대기
+
+        if (monsterBase.IsDead)
         {
+            Service.Log("Dead 상태로 전환");
             ChangeState(MonsterState.Dead);
         }
         else if (monsterBase.IsDamaged)
         {
+            Service.Log("Damaged 상태로 전환");
             ChangeState(MonsterState.Damaged);
-        }
-        if (attackBase.canAttack && attackBase.isAttackEnd)
-        {
-            ChangeState(MonsterState.Attack);
         }
         else if (moveBase.CanMove)
         {
+            Service.Log("Move 상태로 전환");
             ChangeState(MonsterState.Move);
         }
-
-    }
-
-    void DeadUpdate()
-    {
-        monsterBase.Dead();
+        else
+        {
+            Service.Log("Idle 상태로 전환");
+            ChangeState(MonsterState.Idle);
+        }
     }
 }
