@@ -131,55 +131,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Setting_Audio
+      name: Setting_Video_Selected
       rect:
         serializedVersion: 2
-        x: 210
-        y: 138
-        width: 65
-        height: 17
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 7db5a18eb8b6ee74988d03023dad2287
-      internalID: 1084138886
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Setting_Video
-      rect:
-        serializedVersion: 2
-        x: 306
-        y: 139
-        width: 65
-        height: 16
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6fa3e935a81e6f44b827d0939990b305
-      internalID: 1523860794
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Setting_Controls
-      rect:
-        serializedVersion: 2
-        x: 398
-        y: 138
-        width: 105
-        height: 17
+        x: 380
+        y: 132
+        width: 69
+        height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -791,7 +749,7 @@ TextureImporter:
         height: 23
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 4, y: 7, z: 4, w: 4}
+      border: {x: 5, y: 8, z: 5, w: 5}
       outline: []
       physicsShape: []
       tessellationDetail: 0
@@ -849,7 +807,7 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 591
-        y: 1755
+        y: 1753
         width: 21
         height: 21
       alignment: 0
@@ -886,6 +844,111 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: Setting_Game_Selected
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 81
+        width: 58
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a38808fd5f2e6634faf2de03cf994b66
+      internalID: -1778515944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Audio_Selected
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 103
+        width: 70
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abe602f289fb8a245bbcc2dd4bdc8f8e
+      internalID: 270583647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Audio
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 132
+        width: 70
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5443b4e4817a9a244a182fe4a2e80b74
+      internalID: -823593145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Game
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 104
+        width: 58
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c49a6f27aaea73d4cad0e2e64b6a3e9d
+      internalID: -227856316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Setting_Video
+      rect:
+        serializedVersion: 2
+        x: 304
+        y: 132
+        width: 69
+        height: 23
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40403570e568e2d40828369cc5ee1e43
+      internalID: -909343194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -904,14 +967,16 @@ TextureImporter:
       Main_Play: 1697194921
       Main_Setting: 1882975590
       Main_UiBar: -2078414391
-      Setting_Audio: -1892141771
+      Setting_Audio: -823593145
+      Setting_Audio_Selected: 270583647
       Setting_Button: -2091667679
       Setting_Check_Slot: -1722441792
       Setting_Click_Arrow_Left: -433789639
       Setting_Click_Arrow_Right: 1698101728
       Setting_Click_Button: 833665065
-      Setting_Controls: 700273367
       Setting_Display: 1902169955
+      Setting_Game: -227856316
+      Setting_Game_Selected: -1778515944
       Setting_Hp: 1942132562
       Setting_HpGauge: -1321865704
       Setting_Info: -684654908
@@ -930,7 +995,8 @@ TextureImporter:
       Setting_Slot_3: -1168154229
       Setting_Slot_4: -1399508773
       Setting_Turn_Page: 529194819
-      Setting_Video: -1401496782
+      Setting_Video: -909343194
+      Setting_Video_Selected: 1902169955
       Setting_X: -1344022969
       Skill_Card: -240249899
       Skill_Card_Border: 1277063037
