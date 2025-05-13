@@ -677,7 +677,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Setting_Char_Border
+      name: Char_Border
       rect:
         serializedVersion: 2
         x: 627
@@ -897,6 +897,7 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Char_Border: 387342817
       Main_Button: 1364506751
       Main_Button_Pressed: 1430860363
       Main_Home: -992824519
@@ -905,7 +906,6 @@ TextureImporter:
       Main_UiBar: -2078414391
       Setting_Audio: -1892141771
       Setting_Button: -2091667679
-      Setting_Char_Border: 387342817
       Setting_Check_Slot: -1722441792
       Setting_Click_Arrow_Left: -433789639
       Setting_Click_Arrow_Right: 1698101728
