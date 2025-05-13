@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
-    [SerializeField] private GameObject player; // 플레이어 프리팹
     public string decorationTag = "Decoration"; // 데코레이션 태그 설정
 
     public int currentFloor = 1; // 현재 층 정보 (1부터 시작)
@@ -100,9 +99,6 @@ public class MapManager : MonoBehaviour
 
         // 모든 방 프리팹 스폰
         SpawnRooms();
-
-        // 플레이어 스폰
-        SpawnPlayer();
 
         // 데코 오브젝트들 랜덤 On/Off
         RandomizeDecorations();
@@ -215,26 +211,6 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // 플레이어를 시작방 위치에 소환
-    public void SpawnPlayer()
-    {
-        GameObject go = GameObject.FindWithTag("StartRoom");
-        if (go == null)
-        {
-            Debug.LogWarning("StartRoom 태그를 가진 오브젝트를 찾을 수 없습니다.");
-            return;
-        }
-
-        Vector3 centerPos = go.transform.position + new Vector3(2.5f, 4.3f, 0f); // 위치 보정
-
-        if (playerInstance != null)
-        {
-            Destroy(playerInstance);
-        }
-
-        playerInstance = Instantiate(player, centerPos, Quaternion.identity);
-    }
-
     // 문 상태 설정 (상하좌우 연결된 방 확인)
     void SetDoors(GameObject roomObj, int x, int y)
     {
@@ -291,7 +267,7 @@ public class MapManager : MonoBehaviour
             if (go != null)
             {
                 Vector3 centerPos = go.transform.position + new Vector3(2.5f, 4.3f, 0f); // 위치 보정
-                player.transform.position = centerPos; // 플레이어를 StartRoom 위치로 이동
+                GameManager.player.transform.position = centerPos; // 플레이어를 StartRoom 위치로 이동
             }
             else
             {
