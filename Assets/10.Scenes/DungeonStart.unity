@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdff3b7a84a411544b5278dccefe5da8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 214329756945493689, guid: d4caf34d1dda8584a907e70ce409c264, type: 3}
   decorationTag: Decoration
   currentFloor: 1
   StartRoom_1: {fileID: 4459774004530411143, guid: 7c348aa1f5e56aa499cbd936093b13ec, type: 3}
@@ -166,7 +167,7 @@ MonoBehaviour:
   BattleRoom_3: {fileID: 2154361846428817173, guid: ad417595186218544ba3241a2e206141, type: 3}
   TreasureRoom_3: {fileID: 7763917252737311490, guid: 4de9f0a1b883ebd46ac91d3091490363, type: 3}
   BossRoom_3: {fileID: 3206162075935756845, guid: 7aa8a500e7e3e4b4789328a989b3b4fe, type: 3}
-  bridgeDirection: 
+  doorDirection: 
 --- !u!4 &1163197398
 Transform:
   m_ObjectHideFlags: 0
