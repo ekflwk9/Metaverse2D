@@ -9,6 +9,7 @@ TagManager:
   - Decoration
   - Wall
   - Bridge
+  - Item
   layers:
   - Default
   - TransparentFX
