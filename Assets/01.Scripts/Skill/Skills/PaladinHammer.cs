@@ -2,26 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BloodBlast : BaseSkill
+public class PaladinHammer : BaseSkill
 {
     //조정 후 활성화
-    //private int getDmg = 0;
-    //private int skillCooldown = 20;
+    //private int getDmg = 2;
+    //private int skillCooldown = 6;
     //private float skillSpeed = 0f;
-    //private float forward = 0f;
+    //private float forward = 1.5f;
 
     public override void GetSkill()
     {
         //Test용 코드
         GameManager.gameEvent.Add(GetSkill, true);
-        GameManager.player.AddSkill(BloodBlast_Skill);
-
-        SkillLocation(Skill_location.CloseEnemy);
-        DmgChange();
         DontDestroyOnLoad(gameObject);
+
+        GameManager.player.AddSkill(PaladinHammer_Skill);
+
+        DmgChange();
+        SkillLocation(Skill_location.FarEnemy);
     }
 
-    protected void BloodBlast_Skill()
+    protected void PaladinHammer_Skill()
     {
         count++;
 
@@ -36,7 +37,7 @@ public class BloodBlast : BaseSkill
         if (!isPosFixed)
         {
             isPosFixed = true;
-            CoordinateOfSkill();
+            LocationOfSkill();
         }
     }
 
@@ -59,4 +60,5 @@ public class BloodBlast : BaseSkill
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
         }
     }
+
 }

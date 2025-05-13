@@ -36,7 +36,7 @@ public class IceAge : BaseSkill
         if (!isPosFixed)
         {
             isPosFixed = true;
-            CoordinateOfSkill();
+            LocationOfSkill();
         }
     }
 

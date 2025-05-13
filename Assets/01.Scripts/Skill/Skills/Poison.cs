@@ -1,40 +1,25 @@
 using UnityEngine;
 
-public class Kaboom : BaseSkill
+public class PoisonGas : BaseSkill
 {
     //조정 후 활성화
     //private int getDmg = 0;
-    //private int skillCooldown = 16;
-    //private float skillSpeed = 1.5f;
+    //private int skillCooldown = 17;
+    //private float skillSpeed = 0f;
     //private float forward = 0f;
-    private bool isBoom;
 
     public override void GetSkill()
     {
         //Test용 코드
         GameManager.gameEvent.Add(GetSkill, true);
-        DontDestroyOnLoad(gameObject);
+        GameManager.player.AddSkill(PoisonGas_Skill);
 
-        GameManager.player.AddSkill(Kaboom_Skill);
-
+        SkillLocation(Skill_location.CloseEnemy);
         DmgChange();
-        SkillLocation(Skill_location.Player);
+        DontDestroyOnLoad(gameObject);
     }
 
-    private void Update()
-    {
-        if (!GameManager.stopGame && !isBoom)
-        {
-            DirectionOfProjectileSkill(EnemyClosePosition());
-        }
-        else if (!GameManager.stopGame && isBoom)
-        {
-            rigid.velocity = Vector3.zero;
-        }
-
-    }
-
-    protected void Kaboom_Skill()
+    protected void PoisonGas_Skill()
     {
         count++;
 
@@ -43,14 +28,13 @@ public class Kaboom : BaseSkill
             this.gameObject.SetActive(true);
             SkillDmg();
             count = 0;
-            isBoom = false;
             isPosFixed = false;
         }
 
         if (!isPosFixed)
         {
             isPosFixed = true;
-            CoordinateOfSkill();
+            LocationOfSkill();
         }
     }
 
@@ -69,16 +53,8 @@ public class Kaboom : BaseSkill
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            if (!isBoom)
-            {
-                anim.Play("Kaboom", 0, 0);
-                isBoom = true;
-            }
-            else
-            {
-                int x = (int)skillDamage;
-                GameManager.gameEvent.Hit(collision.gameObject.name, x);
-            }
+            int x = (int)skillDamage;
+            GameManager.gameEvent.Hit(collision.gameObject.name, x);
         }
     }
 }

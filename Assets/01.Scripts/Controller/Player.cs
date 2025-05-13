@@ -17,7 +17,7 @@ IHit
     [SerializeField] private Vector3 bloodPos; 
     [SerializeField] private Vector3 textPos; 
 
-    public int dmg { get; private set; } = 1;
+    public int dmg { get; private set; } = 100;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
 
@@ -205,7 +205,7 @@ IHit
         rigid.velocity = pos.normalized * moveSpeed;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) inRange = true;
 

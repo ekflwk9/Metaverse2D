@@ -1,15 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
 
-public class DoubleSlash : BaseSkill
+public class Cristalize : BaseSkill
 {
     //조정 후 활성화
     //private int getDmg = 0;
-    //private int skillCooldown = 4;
+    //private int skillCooldown = 10;
     //private float skillSpeed = 0f;
-    //private float forward = 1f;
+    //private float forward = 0f;
 
     public override void GetSkill()
     {
@@ -17,13 +16,13 @@ public class DoubleSlash : BaseSkill
         GameManager.gameEvent.Add(GetSkill, true);
         DontDestroyOnLoad(gameObject);
 
-        GameManager.player.AddSkill(DoubleSlash_Skill);
+        GameManager.player.AddSkill(Cristalize_Skill);
 
         DmgChange();
-        SkillLocation(Skill_location.Player);
+        SkillLocation(Skill_location.CloseEnemy);
     }
 
-    protected void DoubleSlash_Skill()
+    protected void Cristalize_Skill()
     {
         count++;
 
@@ -38,8 +37,7 @@ public class DoubleSlash : BaseSkill
         if (!isPosFixed)
         {
             isPosFixed = true;
-            CoordinateOfSkill();
-            RotateSkill();
+            LocationOfSkill();
         }
     }
 
@@ -50,7 +48,7 @@ public class DoubleSlash : BaseSkill
 
     protected override void SkillDmg()
     {
-        randomState = UnityEngine.Random.Range(5, 11);
+        randomState = Random.Range(5, 11);
         skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
     }
 
@@ -60,17 +58,6 @@ public class DoubleSlash : BaseSkill
         {
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
-        }
-    }
-
-    private void RotateSkill()
-    {
-        if (GameManager.player.direction != Vector3.zero)
-        {
-            //transform.LookAt 알아보기 숙제
-            Vector3 dir = GameManager.player.direction;
-            float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 90;
-            transform.rotation = Quaternion.Euler(0, 0, angle);
         }
     }
 }
