@@ -343,6 +343,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bloodPos: {x: 0, y: 0, z: 0}
   textPos: {x: 0, y: 0, z: 0}
+  healthBarImg: {fileID: 1790451837}
+  healthRatio: 0
 --- !u!61 &119752317
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -767,6 +769,7 @@ GameObject:
   - component: {fileID: 1420056611}
   - component: {fileID: 1420056610}
   - component: {fileID: 1420056609}
+  - component: {fileID: 1420056612}
   m_Layer: 0
   m_Name: HealthUi
   m_TagString: Untagged
@@ -858,6 +861,20 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
+--- !u!114 &1420056612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1420056607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 720a9612f07c48b46b1bcc21b10f22b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthScale: {x: 0, y: 0, z: 0}
+  healthBarTrans: {fileID: 0}
 --- !u!1 &1759789644
 GameObject:
   m_ObjectHideFlags: 0

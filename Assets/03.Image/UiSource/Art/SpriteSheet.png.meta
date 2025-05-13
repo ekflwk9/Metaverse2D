@@ -236,7 +236,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Setting_Option
+      name: Skill_Card
       rect:
         serializedVersion: 2
         x: 31
@@ -257,7 +257,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Setting_Option_Border
+      name: Skill_Card_Border
       rect:
         serializedVersion: 2
         x: 267
@@ -874,7 +874,7 @@ TextureImporter:
         width: 23
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -920,8 +920,6 @@ TextureImporter:
       Setting_Main_Border: 195179396
       Setting_NonCheck: -1120998103
       Setting_OnCheck: 562523939
-      Setting_Option: -240249899
-      Setting_Option_Border: 1277063037
       Setting_Pause: -115612847
       Setting_Power: -1790357653
       Setting_Select_Arrow_Left: 977788220
@@ -934,6 +932,8 @@ TextureImporter:
       Setting_Turn_Page: 529194819
       Setting_Video: -1401496782
       Setting_X: -1344022969
+      Skill_Card: -240249899
+      Skill_Card_Border: 1277063037
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
