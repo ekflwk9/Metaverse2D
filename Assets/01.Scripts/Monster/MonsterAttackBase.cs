@@ -14,12 +14,14 @@ public abstract class MonsterAttackBase : MonoBehaviour
     protected Transform player;
     protected Animator anim;
 
-    protected bool isAttacking;
-    public bool IsAttacking => isAttacking;
-    protected bool canAttack;
-    public bool CanAttack => canAttack;
+    public bool canAttack;
+    
+    public bool isAttackEnd;
+    
 
     protected float lastAttackTime;
+    public float LastAttackTime => lastAttackTime;
+
     protected Vector2 direction;
     protected float distance;
 
@@ -36,7 +38,8 @@ public abstract class MonsterAttackBase : MonoBehaviour
         attackDamage = monsterBase.AttackDamage;
         attackRange = monsterBase.AttackRange;
 
-        isAttacking = false;
+        lastAttackTime = -attackSpeed;
+        isAttackEnd = true;
     }
 
     private void Update()
@@ -44,12 +47,20 @@ public abstract class MonsterAttackBase : MonoBehaviour
         canAttack = CanPerformAttack();
     }
 
-    bool CanPerformAttack() 
+    bool CanPerformAttack()
     {
         direction = (player.position - transform.position).normalized;
         distance = Vector2.Distance(transform.position, player.position);
+        // 거리가 멀면 무조건 false
+        if (distance > attackRange)
+            return false;
 
-        return (!isAttacking && (Time.time - lastAttackTime) >= attackSpeed && distance <= attackRange);
+        // 공격 중이면 거리만 맞으면 true (쿨타임 무시)
+        if (!isAttackEnd)
+            return true;
+
+        // 공격 끝났으면 거리 + 쿨타임 모두 만족해야 true
+        return (Time.time - lastAttackTime) >= attackSpeed;
     }
     public abstract void Attack();
 
@@ -57,22 +68,9 @@ public abstract class MonsterAttackBase : MonoBehaviour
     {
         if (monsterBase.IsDead) return;
 
-        if (canAttack)
+        if (anim != null)
         {
-
-            if (anim != null)
-            {
-                anim.SetTrigger("isAttack");
-            }
-            Attack();
+            anim.SetTrigger("isAttacking");
         }
-        else
-        {
-            StopAttack();
-        }
-
     }
-
-    public abstract void StopAttack();
-    
 }

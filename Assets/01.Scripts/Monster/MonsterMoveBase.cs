@@ -10,6 +10,7 @@ public abstract class MonsterMoveBase : MonoBehaviour
     protected Animator anim;
     protected MonsterBase monsterBase;
     protected MonsterAttackBase attackBase;
+    protected SpriteRenderer spriteRenderer;
     
     
     protected float moveSpeed;
@@ -18,7 +19,6 @@ public abstract class MonsterMoveBase : MonoBehaviour
     public bool IsMoving => isMoving;
     protected bool canMove;
     public bool CanMove => canMove;
-    protected bool isAttacking;
 
     protected Vector2 direction;
     protected float distance;
@@ -35,7 +35,6 @@ public abstract class MonsterMoveBase : MonoBehaviour
     {
         player = GameManager.player.transform;
         moveSpeed = monsterBase.MoveSpeed;
-        isAttacking = attackBase.IsAttacking;
     }
 
     private void Update()
@@ -45,18 +44,18 @@ public abstract class MonsterMoveBase : MonoBehaviour
 
     bool CanPerformMove()
     {
-        return !attackBase.CanAttack;
+        return !attackBase.canAttack;
     }
 
     public virtual void OnMove()
     {
         if (monsterBase.IsDead) return;
-        Debug.Log($"canMove: {canMove}");
+
         if (canMove)
         {
             if (anim != null)
             {
-                anim.SetBool("isMove", true);
+                anim.SetBool("isMoving", true);
             }
 
             Move();
@@ -72,10 +71,10 @@ public abstract class MonsterMoveBase : MonoBehaviour
     {
         if (anim != null)
         {
-            anim.SetBool("isMove", false);
+            anim.SetBool("isMoving", false);
         }
 
-        isMoving = false;
+        //isMoving = false;
 
         if (rb != null)
         {

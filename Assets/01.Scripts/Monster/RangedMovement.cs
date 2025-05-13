@@ -17,7 +17,7 @@ public class RangedMovement : MonsterMoveBase
             float distance = Vector2.Distance(player.position, transform.position);
 
             rb.velocity = direction * moveSpeed;
-            isMoving = true;
+            //isMoving = true;
         }
         else if (distance <= keepDistance)
         {

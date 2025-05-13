@@ -15,10 +15,10 @@ public class MeleeMovement : MonsterMoveBase
         Vector2 direction = (player.position - transform.position).normalized;
         float distance = Vector2.Distance(player.position, transform.position);
 
-        if (distance > keepDistance)
+        if (distance > keepDistance && (Time.time - attackBase.LastAttackTime) >= monsterBase.AttackSpeed)
         {
             rb.velocity = direction * moveSpeed;
-            isMoving = true;
+            //isMoving = true;
         }
         else
         {

@@ -11,14 +11,9 @@ public class MeleeAttack : MonsterAttackBase
 
     public override void Attack()
     {
-        isAttacking = true;
+        isAttackEnd = false;
         GameManager.gameEvent.Hit(player.name, attackDamage);
 
         lastAttackTime = Time.time;
-    }
-
-    public override void StopAttack()
-    {
-        isAttacking = false;
     }
 }

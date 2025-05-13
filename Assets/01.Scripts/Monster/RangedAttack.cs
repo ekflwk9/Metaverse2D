@@ -11,14 +11,8 @@ public class RangedAttack : MonsterAttackBase
 
     public override void Attack()
     {
-        isAttacking = true;
         progectile.Shoot(transform.position, direction, attackSpeed, attackDamage);
 
         lastAttackTime = Time.time;
-    }
-
-    public override void StopAttack()
-    {
-        isAttacking = false;
     }
 }
