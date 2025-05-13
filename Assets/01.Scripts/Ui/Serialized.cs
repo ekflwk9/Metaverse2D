@@ -1,9 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Serialized : MonoBehaviour
 {
-    public GameObject uiBar;
-    public GameObject settingUi;
+    // UI On/Off
+    [SerializeField] protected GameObject uiBar;
+    [SerializeField] protected GameObject settingUi;
+
+    // HP Gauge
+    [SerializeField] protected Image healthBarImg;
+
+
+    [SerializeField] protected Sprite videoSprite;
+    [SerializeField] protected Sprite audioSprite;
+    [SerializeField] protected Sprite gameSprite;
+    [SerializeField] protected Sprite videoSelectSprite;
+    [SerializeField] protected Sprite audioSelectSprite;
+    [SerializeField] protected Sprite gameSelectSprite;
+    [SerializeField] protected Image video;
+    [SerializeField] protected Image audio;
+    [SerializeField] protected Image game;
+
 }

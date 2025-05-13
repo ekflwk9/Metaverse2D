@@ -1,21 +1,8 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UiManager : MonoBehaviour
+public class UiManager : Serialized
 {
-    public Serialized serialized;
-    [SerializeField] public Image healthBarImg;
-
-    [SerializeField] private Sprite videoSprite;
-    [SerializeField] private Sprite audioSprite;
-    [SerializeField] private Sprite gameSprite;
-    [SerializeField] private Sprite videoSelectSprite;
-    [SerializeField] private Sprite audioSelectSprite;
-    [SerializeField] private Sprite gameSelectSprite;
-    [SerializeField] private Image video;
-    [SerializeField] private Image audio;
-    [SerializeField] private Image game;
-
     public void VideoBtn()
     {
         if (video.sprite == videoSprite)
@@ -49,14 +36,14 @@ public class UiManager : MonoBehaviour
 
     public void MainUiAllToggle()
     {
-        bool isUiBar = serialized.uiBar.activeSelf;
+        bool isUiBar = uiBar.activeSelf;
         if (isUiBar)
         {
-            serialized.uiBar.SetActive(false);
+            uiBar.SetActive(false);
         }
         else
         {
-            serialized.uiBar.SetActive(true);
+            uiBar.SetActive(true);
         }
     }
 
@@ -69,7 +56,7 @@ public class UiManager : MonoBehaviour
     public void GameExit()
     {
 #if UNITY_EDITOR
-    UnityEditor.EditorApplication.isPlaying = false;
+        UnityEditor.EditorApplication.isPlaying = false;
 #endif
         Application.Quit();
     }
@@ -82,11 +69,11 @@ public class UiManager : MonoBehaviour
 
     public void SettingScreen()
     {
-        bool isSettings = serialized.settingUi.activeSelf;
+        bool isSettings = settingUi.activeSelf;
         if (isSettings)
-            serialized.settingUi.SetActive(false);
+            settingUi.SetActive(false);
         else
-            serialized.settingUi.SetActive(true);
+            settingUi.SetActive(true);
     }
 
     public void VideoSettingToggle()

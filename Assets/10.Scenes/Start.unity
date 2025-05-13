@@ -1101,7 +1101,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   serialized: {fileID: 243745517}
   healthBarImg: {fileID: 1948827111}
-  videoSprite: {fileID: -909343194, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
   audioSprite: {fileID: -823593145, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
   gameSprite: {fileID: -227856316, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
   videoSelectSprite: {fileID: 1902169955, guid: 14d3a3a993121ac488d38142ce4ee05c, type: 3}
@@ -1122,8 +1121,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ed4d445354d4fa4a9b0219876324b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiBar: {fileID: 1451376812}
-  settingUi: {fileID: 1959596559}
+  uiBar: {fileID: 0}
+  settingUi: {fileID: 0}
+  videoSprite: {fileID: 0}
 --- !u!1 &285995713
 GameObject:
   m_ObjectHideFlags: 0
