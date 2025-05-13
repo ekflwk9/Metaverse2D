@@ -1,6 +1,5 @@
+using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public enum StateCode
 {
@@ -14,6 +13,33 @@ public enum StateCode
 public class Player : MonoBehaviour,
 IHit
 {
+    public int fieldLevel = 0;
+
+    public int level 
+    {
+        get
+        {
+            return fieldLevel;
+        }
+
+        set
+        {
+            if (value > 100) fieldLevel = 0;
+            else fieldLevel += value;
+        }
+    }
+
+    private void ASD()
+    {
+        level += 50;
+    }
+
+
+
+
+
+
+
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
@@ -211,7 +237,7 @@ IHit
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")) inRange = true;     
+        if (collision.gameObject.CompareTag("Enemy")) inRange = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
