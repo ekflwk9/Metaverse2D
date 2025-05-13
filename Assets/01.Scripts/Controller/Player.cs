@@ -16,7 +16,7 @@ IHit
 {
     [SerializeField] private Vector3 bloodPos; 
     [SerializeField] private Vector3 textPos; 
-    [SerializeField] private Image healthBarImg;
+    //[SerializeField] private Image healthBarImg;
 
     public int dmg { get; private set; } = 1;
     public int health { get; private set; } = 100;
@@ -49,11 +49,11 @@ IHit
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void UpdateHealthBar()  // 헬스바
-    {
-        healthRatio = (float)health / maxHealth;
-        healthBarImg.fillAmount = healthRatio;
-    }
+    //public void UpdateHealthBar()  // 헬스바
+    //{
+    //    healthRatio = (float)health / maxHealth;
+    //    healthBarImg.fillAmount = healthRatio;
+    //}
 
     public void OnHit(int _dmg)
     {
