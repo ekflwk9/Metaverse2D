@@ -50,4 +50,19 @@ public class UiManager : MonoBehaviour
         else
             serialized.settingUi.SetActive(true);
     }
+
+    public void VideoSettingToggle()
+    {
+
+    }
+
+    public void AudioSettingToggle()
+    {
+
+    }
+
+    public void GameSettingToggle()
+    {
+
+    }
 }

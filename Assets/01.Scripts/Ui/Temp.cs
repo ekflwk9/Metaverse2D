@@ -14,4 +14,6 @@ public class Temp : MonoBehaviour
     {
         GameObject SkillPrefabs = Instantiate(skillCardPrefab, skillCardParent);
     }
+
+    
 }
