@@ -11,6 +11,8 @@ public class EffectTime : MonoBehaviour
     {
         var anim = GetComponent<Animator>();
         anim.SetFloat("Speed", offTime);
+
+        DontDestroyOnLoad(this.gameObject);
     }
 
     private void SetOff()

@@ -1,6 +1,4 @@
-using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
 
 public enum StateCode
 {
@@ -14,30 +12,21 @@ public enum StateCode
 public class Player : MonoBehaviour,
 IHit
 {
-    [SerializeField] private Vector3 bloodPos; 
-    [SerializeField] private Vector3 textPos; 
-    [SerializeField] private Image healthBarImg;
-
-    public int dmg { get; private set; } = 1;
+    public int dmg { get; private set; } = 100;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
-
-    public float healthRatio = 1f;  // 데미지 받을 때 체력바 줄어드는 값 저장용
     public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
 
     private bool inRange = false;
     private bool isPickUp = false;
-    public Vector3 direction { get => fieldDirection; }
-    private Vector3 fieldDirection = Vector3.zero;
-    private Vector3 scale = Vector3.one;
-    
+
+    public Vector3 direction { get; private set; }
 
     private event Func skill;
     private Rigidbody2D rigid;
     private Animator action;
     private Animator attack;
-    private Transform healthBarTrans;
 
     private void Awake()
     {
@@ -49,26 +38,16 @@ IHit
         DontDestroyOnLoad(this.gameObject);
     }
 
-    public void UpdateHealthBar()  // 헬스바
-    {
-        healthRatio = (float)health / maxHealth;
-        healthBarImg.fillAmount = healthRatio;
-    }
-
     public void OnHit(int _dmg)
     {
         var playerPos = this.transform.position;
         var bloodPos = playerPos;
-        var textPos = playerPos;
 
-        bloodPos.y += -0.5f;
-        textPos.y += 0.8f;
-
+        bloodPos.y += 0.5f;
         health -= _dmg;
 
-        GameManager.effect.Show(playerPos, "Blood");
-        GameManager.effect.FloorBlood(bloodPos);
-        //GameManager.effect.Damage(textPos, _dmg);
+        GameManager.effect.Show(bloodPos, "Blood");
+        GameManager.effect.FloorBlood(playerPos);
         //GameManager.sound.OnEffect("PlayerHit");
     }
 
@@ -155,7 +134,6 @@ IHit
         rigid.velocity = Vector3.zero;
     }
 
-
     private void Attack()
     {
         if (inRange) attack.SetFloat("AttackSpeed", attackSpeed);
@@ -164,47 +142,50 @@ IHit
 
     private void Move()
     {
-        var pos = this.transform.position;
-        pos.x = 0;
-        pos.y = 0;
-        pos.z = 0;
+        var pos = Vector3.zero;
+        var filp = Vector3.one;
 
         //상하
         if (Input.GetKey(KeyCode.W))
         {
             pos.y = 1f;
+            filp = this.transform.localScale;
         }
 
         else if (Input.GetKey(KeyCode.S))
         {
             pos.y = -1f;
+            filp = this.transform.localScale;
         }
 
         //좌우
         if (Input.GetKey(KeyCode.A))
         {
             pos.x = -1f;
-            scale.x = 1f;
+            filp.x = 1f;
             // 벡터로 선언한 변수의 .x 값 바꾸기
         }
 
         else if (Input.GetKey(KeyCode.D))
         {
             pos.x = 1f;
-            scale.x = -1f;
+            filp.x = -1f;
         }
 
         //애니메이션 재생
-        if (pos.x != 0 || pos.y != 0) action.SetBool("Move", true);
-        else action.SetBool("Move", false);
-
         if (pos != Vector3.zero)
         {
-            fieldDirection = pos.normalized;
+            action.SetBool("Move", true);
+            direction = pos.normalized;
+            this.transform.localScale = filp;
+        }
+
+        else
+        {
+            action.SetBool("Move", false);
         }
 
         //보는 방향
-        this.transform.localScale = scale;
         rigid.velocity = pos.normalized * moveSpeed;
     }
 
