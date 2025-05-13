@@ -1,69 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using System.Collections;
+using System;
 
 public abstract class MonsterAttackBase : MonoBehaviour
 {
-    protected MonsterBase monsterBase;
-    protected MonsterProjectileController projectileController;
-    protected float attackSpeed;
+    [SerializeField] protected GameObject projectilePrefab;
+
+    public float attackCooldown { get; private set; }
+
     protected int attackDamage;
-    protected float attackRange;
+    protected bool isAttacking = false;
+    protected Action onAttackComplete;
 
-    protected Transform player;
-    protected Animator anim;
+    protected MonsterBase monsterBase;
 
-    public bool canAttack;
-    
-    public bool isAttackEnd;
-    
+    public bool IsAttackEnd => !isAttacking;
 
-    protected float lastAttackTime;
-    public float LastAttackTime => lastAttackTime;
-
-    protected Vector2 direction;
-    protected float distance;
-
-    protected virtual void Awake()
+    protected virtual void Start()
     {
         monsterBase = GetComponent<MonsterBase>();
-        anim = GetComponentInChildren<Animator>();
-
-        Service.Log($"[MonsterAttackBase] monsterBase.AttackRange: {monsterBase.AttackRange}");
-        attackSpeed = monsterBase.AttackSpeed;
-        attackDamage = monsterBase.AttackDamage;
-        attackRange = monsterBase.AttackRange;
-
-        lastAttackTime = -attackSpeed;
-        isAttackEnd = true;
+        attackCooldown = monsterBase.attackSpeed;
+        attackDamage = monsterBase.attackDamage;
     }
 
-    private void Update()
+    public void StartAttack(Action onComplete)
     {
-        canAttack = CanPerformAttack();
+        Service.Log($"StartAttack 호출됨? isAttacking: {isAttacking}");
+        if (!isAttacking)
+            StartCoroutine(AttackRoutine(onComplete));
     }
 
-    public virtual bool CanPerformAttack()
+    private IEnumerator AttackRoutine(Action onComplete)
     {
-        player = GameManager.player.transform;
-        direction = (player.position - transform.position).normalized;
-        distance = Vector2.Distance(transform.position, player.position);
+        isAttacking = true; // 쿨타임 시작
+        Service.Log($"[AttackRoutine] 쿨타임: {attackCooldown}");
 
-        if (distance > attackRange) return false;
+        yield return new WaitForSeconds(attackCooldown); // 쿨타임 대기
+        isAttacking = false;
 
-        // 공격이 끝났고 쿨타임도 지났을 때만 가능
-        return isAttackEnd && (Time.time - lastAttackTime) >= attackSpeed;
+        onComplete?.Invoke(); // 공격 종료 알림
     }
-    public abstract void Attack();
 
-    public virtual void OnAttack()
-    {
-        if (monsterBase.IsDead) return;
+    protected abstract void DoAttack();
 
-        if (anim != null)
-        {
-            anim.SetTrigger("isAttacking");
-        }
-    }
+    public bool CanPerformAttack() => !isAttacking;
 }
