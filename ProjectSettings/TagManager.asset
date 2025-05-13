@@ -6,13 +6,9 @@ TagManager:
   tags:
   - Enemy
   - StartRoom
-  - Door
   - Decoration
-  - Door_L
-  - Door_D
-  - Door_U
-  - Door_R
   - Wall
+  - Bridge
   layers:
   - Default
   - TransparentFX
