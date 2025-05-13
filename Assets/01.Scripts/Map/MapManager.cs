@@ -246,10 +246,13 @@ public class MapManager : MonoBehaviour
 
             bridge.gameObject.SetActive(hasNeighbor);
 
-            // 초기 상태: 벽은 켜고, 콜라이더는 끈다
             if (hasNeighbor)
             {
-                // 벽 오브젝트 찾기
+                // 자식 Bridge 오브젝트 꺼두기 (명시적으로)
+                Transform bridgeVisual = bridge.Find("Bridge");
+                if (bridgeVisual != null) bridgeVisual.gameObject.SetActive(false);
+
+                // 벽 켜기
                 Transform wall = bridge.Find("Wall");
                 if (wall != null) wall.gameObject.SetActive(true);
 
@@ -260,41 +263,27 @@ public class MapManager : MonoBehaviour
         }
     }
 
-    // 배치 후 다리를 안보이게 하는 함수
     public void OpenBridge(GameObject roomObj)
     {
-        Debug.Log("OpenBridge 호출됨: " + roomObj.name);
-
         Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
         foreach (Transform bridge in allBridges)
         {
             if (!bridge.CompareTag("Bridge")) continue;
 
-            Debug.Log("Bridge 찾음: " + bridge.name);
+            // 자식 Bridge 오브젝트 켜기
+            Transform bridgeVisual = bridge.Find("Bridge");
+            if (bridgeVisual != null)
+                bridgeVisual.gameObject.SetActive(true);
 
             // 콜라이더 켜기
             Collider2D col = bridge.GetComponent<Collider2D>();
             if (col != null)
-            {
                 col.enabled = true;
-                Debug.Log("Collider2D 활성화됨: " + bridge.name);
-            }
-            else
-            {
-                Debug.LogWarning("Collider2D 없음: " + bridge.name);
-            }
 
             // 벽 끄기
             Transform wall = bridge.Find("Wall");
             if (wall != null)
-            {
                 wall.gameObject.SetActive(false);
-                Debug.Log("Wall 비활성화: " + wall.name);
-            }
-            else
-            {
-                Debug.LogWarning("Wall 오브젝트를 찾을 수 없음: " + bridge.name);
-            }
         }
     }
 
