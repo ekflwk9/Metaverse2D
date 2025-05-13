@@ -27,6 +27,7 @@ IHit
     private event Func skill;
     private Rigidbody2D rigid;
     private Animator action;
+    public Ghost ghost;
 
     private StringBuilder itemName = new StringBuilder(30);
     private readonly WaitForSeconds attackTime = new WaitForSeconds(0.4f);
@@ -121,6 +122,7 @@ IHit
         {
             Move();
             PickUp();
+            Dash();
         }
     }
 
@@ -166,49 +168,82 @@ IHit
     {
         var pos = Vector3.zero;
         var filp = Vector3.one;
-
-        //상하
-        if (Input.GetKey(KeyCode.W))
+        if (isDash == false)
         {
-            pos.y = 1f;
-            filp = this.transform.localScale;
+            //상하
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                pos.y = 1f;
+                filp = this.transform.localScale;
+            }
+
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                pos.y = -1f;
+                filp = this.transform.localScale;
+            }
+
+            //좌우
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                pos.x = -1f;
+                filp.x = 1f;
+                // 벡터로 선언한 변수의 .x 값 바꾸기
+            }
+
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                pos.x = 1f;
+                filp.x = -1f;
+            }
+
+            //애니메이션 재생
+            if (pos != Vector3.zero)
+            {
+                action.SetBool("Move", true);
+                direction = pos.normalized;
+                this.transform.localScale = filp;
+            }
+
+            else
+            {
+                action.SetBool("Move", false);
+            }
+
+            //보는 방향
+            rigid.velocity = pos.normalized * moveSpeed;
+        }
+    }
+
+    private float dashTime;
+    private float maxDashTime = 0.5f;
+    private bool isDash = false;
+
+    private void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isDash)
+        {
+            ghost.makeGhost = true;
+            isDash = true;
+
+            if (direction != Vector3.zero)
+            {
+                rigid.velocity = direction * (moveSpeed * 5);
+            }
         }
 
-        else if (Input.GetKey(KeyCode.S))
+        if (isDash)
         {
-            pos.y = -1f;
-            filp = this.transform.localScale;
-        }
+            dashTime += Time.deltaTime;
 
-        //좌우
-        if (Input.GetKey(KeyCode.A))
-        {
-            pos.x = -1f;
-            filp.x = 1f;
-            // 벡터로 선언한 변수의 .x 값 바꾸기
+            if (dashTime >= maxDashTime)
+            {
+                rigid.velocity = Vector3.zero;
+                dashTime = 0;
+                isDash = false;
+                ghost.makeGhost = false;
+            }
         }
-
-        else if (Input.GetKey(KeyCode.D))
-        {
-            pos.x = 1f;
-            filp.x = -1f;
-        }
-
-        //애니메이션 재생
-        if (pos != Vector3.zero)
-        {
-            action.SetBool("Move", true);
-            direction = pos.normalized;
-            this.transform.localScale = filp;
-        }
-
-        else
-        {
-            action.SetBool("Move", false);
-        }
-
-        //보는 방향
-        rigid.velocity = pos.normalized * moveSpeed;
     }
 
     private void OnTriggerStay2D(Collider2D collision)

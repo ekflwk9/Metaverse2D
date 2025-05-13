@@ -28,6 +28,7 @@ public class IceAge : BaseSkill
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
+            FlipSkill();
             SkillDmg();
             count = 0;
             isPosFixed = false;
@@ -39,6 +40,19 @@ public class IceAge : BaseSkill
             LocationOfSkill();
         }
     }
+
+    private void FlipSkill()
+    {
+        var pos = EnemyClosePosition();
+        var sca = transform.localScale;
+
+        if (pos.x < GameManager.player.transform.position.x) 
+            sca.x = -sca.x;
+        //var flip = pos.x > GameManager.player.transform.position.x ? 1 : -1;
+        //sca.x = flip
+        transform.localScale = sca;
+    }
+
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -49,4 +63,11 @@ public class IceAge : BaseSkill
             collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
         }
     }
+    //[SerializeField] Vector3 size;
+    //private void OnDrawGizmos()
+    //{
+
+    //    Gizmos.color = Color.red;
+    //    Gizmos.DrawWireCube(this.transform.position, size);
+    //}
 }
