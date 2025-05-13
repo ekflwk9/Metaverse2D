@@ -43,4 +43,9 @@ public static class GameManager
         //¾À ·Îµå
         SceneManager.LoadScene(_sceneName);
     }
+
+    public static void GamePause()
+    {
+
+    }
 }
