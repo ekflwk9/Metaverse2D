@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class MonsterAttackBase : MonoBehaviour
 {
     protected MonsterBase monsterBase;
-    protected MonsterProgectileController progectile;
+    protected MonsterProjectileController projectileController;
     protected float attackSpeed;
     protected int attackDamage;
     protected float attackRange;
@@ -29,11 +29,8 @@ public abstract class MonsterAttackBase : MonoBehaviour
     {
         monsterBase = GetComponent<MonsterBase>();
         anim = GetComponentInChildren<Animator>();
-    }
-    private void Start()
-    {
-        player = GameManager.player.transform;
 
+        Service.Log($"[MonsterAttackBase] monsterBase.AttackRange: {monsterBase.AttackRange}");
         attackSpeed = monsterBase.AttackSpeed;
         attackDamage = monsterBase.AttackDamage;
         attackRange = monsterBase.AttackRange;
@@ -47,20 +44,16 @@ public abstract class MonsterAttackBase : MonoBehaviour
         canAttack = CanPerformAttack();
     }
 
-    bool CanPerformAttack()
+    public virtual bool CanPerformAttack()
     {
+        player = GameManager.player.transform;
         direction = (player.position - transform.position).normalized;
         distance = Vector2.Distance(transform.position, player.position);
-        // 거리가 멀면 무조건 false
-        if (distance > attackRange)
-            return false;
 
-        // 공격 중이면 거리만 맞으면 true (쿨타임 무시)
-        if (!isAttackEnd)
-            return true;
+        if (distance > attackRange) return false;
 
-        // 공격 끝났으면 거리 + 쿨타임 모두 만족해야 true
-        return (Time.time - lastAttackTime) >= attackSpeed;
+        // 공격이 끝났고 쿨타임도 지났을 때만 가능
+        return isAttackEnd && (Time.time - lastAttackTime) >= attackSpeed;
     }
     public abstract void Attack();
 

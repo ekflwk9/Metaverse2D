@@ -17,7 +17,7 @@ public class MonsterStateMachine : MonoBehaviour
     private MonsterMoveBase moveBase;
     private MonsterAttackBase attackBase;
     private MonsterBase monsterBase;
-    protected MeleeAttacking meleeAttacking;
+    //protected MeleeAttacking meleeAttacking;
 
     bool isAttackEnd;
 
@@ -26,13 +26,13 @@ public class MonsterStateMachine : MonoBehaviour
         moveBase = GetComponent<MonsterMoveBase>();
         attackBase = GetComponent<MonsterAttackBase>();
         monsterBase = GetComponent<MonsterBase>();
-        meleeAttacking = GetComponentInChildren<MeleeAttacking>();
+        //meleeAttacking = GetComponentInChildren<MeleeAttacking>();
     }
 
     void Start()
     {
         currentState = MonsterState.Idle;
-        isAttackEnd = meleeAttacking.isAttackEnd;
+        //isAttackEnd = meleeAttacking.isAttackEnd;
     }
 
     void Update()
@@ -88,10 +88,7 @@ public class MonsterStateMachine : MonoBehaviour
                 break;
 
             case MonsterState.Attack:
-                if (attackBase.canAttack)
-                {
-                    attackBase.OnAttack();
-                }
+                attackBase.OnAttack();
                 break;
 
             case MonsterState.Move:
@@ -116,7 +113,7 @@ public class MonsterStateMachine : MonoBehaviour
         {
             ChangeState(MonsterState.Dead);
         }
-        else if (attackBase.canAttack)
+        if (attackBase.canAttack && attackBase.isAttackEnd)
         {
             ChangeState(MonsterState.Attack);
         }
@@ -138,7 +135,7 @@ public class MonsterStateMachine : MonoBehaviour
         {
             ChangeState(MonsterState.Dead);
         }
-        else if (attackBase.canAttack)
+        if (attackBase.canAttack && attackBase.isAttackEnd)
         {
             ChangeState(MonsterState.Attack);
         }
@@ -150,32 +147,34 @@ public class MonsterStateMachine : MonoBehaviour
 
     void AttackUpdate()
     {
-        if (isAttackEnd)
-        {
-            attackBase.canAttack = false;
-        }
-
         if (monsterBase.IsDead)
         {
             ChangeState(MonsterState.Dead);
+            return;
         }
-        else if (monsterBase.IsDamaged)
+
+        if (monsterBase.IsDamaged)
         {
             ChangeState(MonsterState.Damaged);
+            return;
         }
-        else if (attackBase.canAttack)
+
+        // 공격이 끝났으면...
+        if (attackBase.isAttackEnd)
         {
-            ChangeState(MonsterState.Attack);
-        }
-        else if (!attackBase.canAttack)
-        {
-            if (moveBase.CanMove)
+            if (attackBase.CanPerformAttack())
             {
-                ChangeState(MonsterState.Move);
+                // 공격 가능한 상태니까 반복 공격
+                attackBase.OnAttack();
+                attackBase.Attack();
             }
-            else if (!moveBase.CanMove)
+            else
             {
-                ChangeState(MonsterState.Idle);
+                // 공격도 못하고 끝났으면 → 다른 상태로 전이
+                if (moveBase.CanMove)
+                    ChangeState(MonsterState.Move);
+                else
+                    ChangeState(MonsterState.Idle);
             }
         }
     }
@@ -190,7 +189,7 @@ public class MonsterStateMachine : MonoBehaviour
         {
             ChangeState(MonsterState.Damaged);
         }
-        else if (attackBase.canAttack)
+        if (attackBase.canAttack && attackBase.isAttackEnd)
         {
             ChangeState(MonsterState.Attack);
         }

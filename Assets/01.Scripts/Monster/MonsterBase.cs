@@ -52,17 +52,15 @@ public class MonsterBase : MonoBehaviour
 
         currentHealth = maxHealth;
 
-        attackBase = GetComponent<MonsterAttackBase>();
-        moveBase = GetComponent<MonsterMoveBase>();
         anim = GetComponentInChildren<Animator>();
         _collider = GetComponentInChildren<Collider2D>();
         spritePivot = transform.Find("SpritePivot");
     }
 
-
     void InitializeStats(MonsterType type)
     {
-        switch(type)
+        Service.Log($"[MonsterBase] InitializeStats called for {type}");
+        switch (type)
         {
             case MonsterType.BingerOfDeath:
                 moveSpeed = 1.4f;
@@ -78,7 +76,7 @@ public class MonsterBase : MonoBehaviour
                 currentHealth = 4f;
                 maxHealth = 4f;
                 attackDamage = 1;
-                attackSpeed = 1f;
+                attackSpeed = 6f;
                 attackRange = 6f;
                 break;
 
@@ -160,8 +158,8 @@ public class MonsterBase : MonoBehaviour
 
     public virtual void FlipMainSprite()
     {
-        if (attackBase.canAttack) 
-            return;
+        //if (attackBase.canAttack) 
+        //    return;
 
         Vector3 scale = spritePivot.localScale;
 

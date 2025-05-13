@@ -2,33 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeAttacking : MonoBehaviour
+public class RangedAttacking : MonoBehaviour
 {
-    private MeleeAttack meleeAttack;
+    private RangedAttack rangedAttack;
     private MonsterAttackBase attackBase;
-    protected bool isAttackEnd;
     protected bool canAttack;
-    
+
 
     private void Awake()
     {
-        meleeAttack = GetComponentInParent<MeleeAttack>();
+        rangedAttack = GetComponentInParent<RangedAttack>();
         attackBase = GetComponentInParent<MonsterAttackBase>();
-        isAttackEnd = attackBase.isAttackEnd;
         canAttack = attackBase.canAttack;
 
     }
 
     public void Attack()
     {
-        if (meleeAttack != null)
+        if (rangedAttack != null)
         {
-            meleeAttack.Attack();
+            rangedAttack.Attack();
         }
     }
 
     public void AttackEnd()
     {
-        isAttackEnd = true;
+        attackBase.isAttackEnd = true;
     }
 }
