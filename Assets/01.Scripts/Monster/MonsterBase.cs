@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,10 @@ public class MonsterBase : MonoBehaviour
     [Header("Monster Type")]
     public MonsterType monsterType;
 
-    [SerializeField] private SpriteRenderer characterRenderer;
+    [SerializeField] private Transform spritePivot;
+
+    protected private MonsterAttackBase attackBase;
+    protected private MonsterMoveBase moveBase;
 
     private float moveSpeed;
     public float MoveSpeed { get { return moveSpeed; } }
@@ -50,18 +54,19 @@ public class MonsterBase : MonoBehaviour
 
         anim = GetComponentInChildren<Animator>();
         _collider = GetComponentInChildren<Collider2D>();
+        spritePivot = transform.Find("SpritePivot");
     }
-
 
     void InitializeStats(MonsterType type)
     {
-        switch(type)
+        Service.Log($"[MonsterBase] InitializeStats called for {type}");
+        switch (type)
         {
             case MonsterType.BingerOfDeath:
                 moveSpeed = 1.4f;
                 currentHealth = 4f;
                 maxHealth = 4f;
-                attackSpeed = 3f;
+                attackSpeed = 2f;
                 attackDamage = 1;
                 attackRange = 1.5f;
                 break;
@@ -71,7 +76,7 @@ public class MonsterBase : MonoBehaviour
                 currentHealth = 4f;
                 maxHealth = 4f;
                 attackDamage = 1;
-                attackSpeed = 1f;
+                attackSpeed = 6f;
                 attackRange = 6f;
                 break;
 
@@ -113,7 +118,7 @@ public class MonsterBase : MonoBehaviour
         isDamaged = true;
 
         currentHealth -= amount;
-        anim.SetTrigger("isDamaged");
+        anim.Play("Damage");
 
         isDamaged = false;
 
@@ -128,7 +133,7 @@ public class MonsterBase : MonoBehaviour
         if (isDead) return;
 
         isDead = true;
-        anim.SetTrigger("isDead");
+        anim.Play("Dead");
 
         _collider.enabled = false;
 
@@ -141,21 +146,32 @@ public class MonsterBase : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public virtual void Idle()
+    public virtual void SetIdle()
     {
         if (isDead) return;
 
         if(anim != null)
         {
-            anim.SetBool("isIdle", true);
+            anim.SetBool("isMoving", false);
         }
     }
 
-    public virtual void StopIdle()
+    public virtual void FlipMainSprite()
     {
-        if (anim != null)
+        //if (attackBase.canAttack) 
+        //    return;
+
+        Vector3 scale = spritePivot.localScale;
+
+        if (GameManager.player.transform.position.x < transform.position.x)
         {
-            anim.SetBool("isIdle", false);
+            scale.x = 1;
         }
+        else
+        {
+            scale.x = -1;
+        }
+
+        spritePivot.localScale = scale;
     }
 }

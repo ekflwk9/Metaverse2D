@@ -6,7 +6,7 @@ using UnityEngine;
 public abstract class MonsterAttackBase : MonoBehaviour
 {
     protected MonsterBase monsterBase;
-    protected MonsterProgectileController progectile;
+    protected MonsterProjectileController projectileController;
     protected float attackSpeed;
     protected int attackDamage;
     protected float attackRange;
@@ -14,12 +14,14 @@ public abstract class MonsterAttackBase : MonoBehaviour
     protected Transform player;
     protected Animator anim;
 
-    protected bool isAttacking;
-    public bool IsAttacking => isAttacking;
-    protected bool canAttack;
-    public bool CanAttack => canAttack;
+    public bool canAttack;
+    
+    public bool isAttackEnd;
+    
 
     protected float lastAttackTime;
+    public float LastAttackTime => lastAttackTime;
+
     protected Vector2 direction;
     protected float distance;
 
@@ -27,16 +29,14 @@ public abstract class MonsterAttackBase : MonoBehaviour
     {
         monsterBase = GetComponent<MonsterBase>();
         anim = GetComponentInChildren<Animator>();
-    }
-    private void Start()
-    {
-        player = GameManager.player.transform;
 
+        Service.Log($"[MonsterAttackBase] monsterBase.AttackRange: {monsterBase.AttackRange}");
         attackSpeed = monsterBase.AttackSpeed;
         attackDamage = monsterBase.AttackDamage;
         attackRange = monsterBase.AttackRange;
 
-        isAttacking = false;
+        lastAttackTime = -attackSpeed;
+        isAttackEnd = true;
     }
 
     private void Update()
@@ -44,12 +44,16 @@ public abstract class MonsterAttackBase : MonoBehaviour
         canAttack = CanPerformAttack();
     }
 
-    bool CanPerformAttack() 
+    public virtual bool CanPerformAttack()
     {
+        player = GameManager.player.transform;
         direction = (player.position - transform.position).normalized;
         distance = Vector2.Distance(transform.position, player.position);
 
-        return (!isAttacking && (Time.time - lastAttackTime) >= attackSpeed && distance <= attackRange);
+        if (distance > attackRange) return false;
+
+        // 공격이 끝났고 쿨타임도 지났을 때만 가능
+        return isAttackEnd && (Time.time - lastAttackTime) >= attackSpeed;
     }
     public abstract void Attack();
 
@@ -57,22 +61,9 @@ public abstract class MonsterAttackBase : MonoBehaviour
     {
         if (monsterBase.IsDead) return;
 
-        if (canAttack)
+        if (anim != null)
         {
-
-            if (anim != null)
-            {
-                anim.SetTrigger("isAttack");
-            }
-            Attack();
+            anim.SetTrigger("isAttacking");
         }
-        else
-        {
-            StopAttack();
-        }
-
     }
-
-    public abstract void StopAttack();
-    
 }

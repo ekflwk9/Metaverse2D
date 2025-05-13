@@ -11,13 +11,13 @@ public class RangedMovement : MonsterMoveBase
 
     public override void Move()
     {
+        Vector2 direction = (player.position - transform.position).normalized;
+        float distance = Vector2.Distance(player.position, transform.position);
+
         if (distance > keepDistance)
         {
-            Vector2 direction = (player.position - transform.position).normalized;
-            float distance = Vector2.Distance(player.position, transform.position);
-
             rb.velocity = direction * moveSpeed;
-            isMoving = true;
+            //isMoving = true;
         }
         else if (distance <= keepDistance)
         {

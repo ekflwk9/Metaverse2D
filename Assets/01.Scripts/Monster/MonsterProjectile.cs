@@ -1,11 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterProjectile : MonoBehaviour
 {
-    // 이동, 충돌, 파괴
-    
     [SerializeField] private GameObject destroyFxPrefab;
 
     private float speed;
@@ -17,7 +13,7 @@ public class MonsterProjectile : MonoBehaviour
 
     private System.Action<MonsterProjectile> returnToPoolCallback;
 
-    void Start()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
@@ -29,26 +25,26 @@ public class MonsterProjectile : MonoBehaviour
         this.damage = damage;
         this.returnToPoolCallback = returnToPool;
 
+        isHit = false;
         rb.velocity = direction.normalized * speed;
-
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isHit) return;
         isHit = true;
 
         if (collision.CompareTag("Player"))
         {
-            GameManager.gameEvent.Hit(collision.gameObject.name,damage);
-            ReturnToPool();
-        }
-        else if (collision.CompareTag("Level"))
-        {
-            ReturnToPool();
-        }
-
+            GameManager.gameEvent.Hit(collision.gameObject.name, damage);
             SpawnDestroyFx();
+            ReturnToPool();
+        }
+        //else if (collision.CompareTag("Level"))
+        //{
+        //    SpawnDestroyFx();
+        //    ReturnToPool();
+        //}
     }
 
     private void SpawnDestroyFx()

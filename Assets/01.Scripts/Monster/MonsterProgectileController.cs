@@ -1,20 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterProgectileController : MonoBehaviour
+public class MonsterProjectileController : MonoBehaviour
 {
+    [Header("Projectile Settings")]
     [SerializeField] private MonsterProjectile projectilePrefab;
-    private int poolSize = 20;
+    [SerializeField] private int poolSize = 20;
 
     private Queue<MonsterProjectile> pool = new Queue<MonsterProjectile>();
     private List<MonsterProjectile> activeProjectiles = new List<MonsterProjectile>();
 
     private void Awake()
     {
+        if (projectilePrefab == null)
+        {
+            Debug.LogError("Projectile Prefab is not assigned!");
+            return;
+        }
+
         for (int i = 0; i < poolSize; i++)
         {
-            MonsterProjectile proj = Instantiate(projectilePrefab, transform);
+            MonsterProjectile proj = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             proj.gameObject.SetActive(false);
             pool.Enqueue(proj);
         }
@@ -29,7 +35,6 @@ public class MonsterProgectileController : MonoBehaviour
         }
         else
         {
-            // 풀에 발사체 소진
             proj = Instantiate(projectilePrefab, transform);
             proj.gameObject.SetActive(false);
         }
@@ -57,7 +62,6 @@ public class MonsterProgectileController : MonoBehaviour
         proj.Initialize(direction, speed, damage, ReturnProjectile);
     }
 
-    // 클리어 할 때 호출
     public void ClearAllProjectiles()
     {
         foreach (var proj in activeProjectiles)
@@ -67,6 +71,4 @@ public class MonsterProgectileController : MonoBehaviour
         }
         activeProjectiles.Clear();
     }
-
 }
-

@@ -9,16 +9,16 @@ public class RangedAttack : MonsterAttackBase
         base.Awake();
     }
 
-    public override void Attack()
+    private void Start()
     {
-        isAttacking = true;
-        progectile.Shoot(transform.position, direction, attackSpeed, attackDamage);
-
-        lastAttackTime = Time.time;
+        projectileController = GetComponent<MonsterProjectileController>();
     }
 
-    public override void StopAttack()
+    public override void Attack()
     {
-        isAttacking = false;
+        isAttackEnd = false;
+        lastAttackTime = Time.time;
+
+        projectileController.Shoot(transform.position, direction, 3f, attackDamage);
     }
 }
