@@ -9,6 +9,7 @@ public class MeleeAttack : MonsterAttackBase
         if (distanceToPlayer <= monsterBase.attackRange)
         {
             GameManager.player.OnHit(attackDamage);
+            isAttacking = false;
         }
         else
         {

@@ -36,9 +36,9 @@ public abstract class MonsterAttackBase : MonoBehaviour
         Service.Log($"[AttackRoutine] 쿨타임: {attackCooldown}");
 
         yield return new WaitForSeconds(attackCooldown); // 쿨타임 대기
-        isAttacking = false;
+        //isAttacking = false;
 
-        onComplete?.Invoke(); // 공격 종료 알림
+        onComplete?.Invoke();
     }
 
     protected abstract void DoAttack();

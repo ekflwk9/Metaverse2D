@@ -32,6 +32,9 @@ public class MonsterStateMachine : MonoBehaviour
 
     void Update()
     {
+        if (currentState == MonsterState.Dead)
+            return;
+
         Service.Log($"현재 상태: {currentState}");
         switch (currentState)
         {
@@ -44,7 +47,7 @@ public class MonsterStateMachine : MonoBehaviour
                 MoveUpdate();
                 break;
 
-            case MonsterState.Attack:
+            case MonsterState.Attack:   
                 break;
 
             case MonsterState.Damaged:
@@ -78,7 +81,6 @@ public class MonsterStateMachine : MonoBehaviour
             case MonsterState.Attack:
                 monsterBase.animator.SetBool("isMoving", false);
                 monsterBase.animator.SetTrigger("isAttacking");
-                Service.Log("isAttacking이 true가 맞나용?: " + monsterBase.animator.GetBool("isAttacking"));
 
                 moveBase.StopMove();
 

@@ -29,7 +29,6 @@ public class MonsterBase : MonoBehaviour, IHit
     public bool IsDamaged { get; private set; }
     public bool IsDead => currentHealth <= 0;
 
-    private Room room;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     public Animator animator { get; private set; }
@@ -59,7 +58,7 @@ public class MonsterBase : MonoBehaviour, IHit
             case MonsterType.BringerOfDeath:
                 moveSpeed = 2f;
                 maxHealth = 4f;
-                attackSpeed = 1.5f;
+                attackSpeed = 4f;
                 attackDamage = 1;
                 attackRange = 1f;
                 break;
@@ -67,7 +66,7 @@ public class MonsterBase : MonoBehaviour, IHit
             case MonsterType.FireWorm:
                 moveSpeed = 1.5f;
                 maxHealth = 4f;
-                attackSpeed = 3.5f;
+                attackSpeed = 6f;
                 attackDamage = 1;
                 attackRange = 7f;
                 keepDistance = 3f;
@@ -76,7 +75,7 @@ public class MonsterBase : MonoBehaviour, IHit
             case MonsterType.Necromancer:
                 moveSpeed = 1.2f;
                 maxHealth = 6f;
-                attackSpeed = 2f;
+                attackSpeed = 5f;
                 attackDamage = 1;
                 attackRange = 6f;
                 keepDistance = 5f;
@@ -85,7 +84,7 @@ public class MonsterBase : MonoBehaviour, IHit
             case MonsterType.Shaman:
                 moveSpeed = 2.2f;
                 maxHealth = 6f;
-                attackSpeed = 3f;
+                attackSpeed = 6f;
                 attackDamage = 1;
                 attackRange = 4f;
                 keepDistance = 2.5f;
@@ -95,7 +94,7 @@ public class MonsterBase : MonoBehaviour, IHit
             case MonsterType.Boss:
                 moveSpeed = 2f;
                 maxHealth = 12f;
-                attackSpeed = 2f;
+                attackSpeed = 4f;
                 attackDamage = 1;
                 attackRange = 4.5f;
                 keepDistance = 2f;
@@ -109,8 +108,8 @@ public class MonsterBase : MonoBehaviour, IHit
         if (IsDead)
         {
             rb.velocity = Vector2.zero;
-            animator.SetBool("isDead", true);
-            room.EnemyDefeated();
+            if (animator != null)
+                animator.SetBool("isDead", true);
         }
     }
 
