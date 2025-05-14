@@ -61,7 +61,7 @@ public class Service
         return findObject;
     }
 
-    public static void SpawnMonster(Transform _mapPos, string[] _monsterNameArray, int _maxSpawnCount)
+    public static int SpawnMonster(Transform _mapPos, string[] _monsterNameArray, int _maxSpawnCount)
     {
         if (_maxSpawnCount < 3) Log($"{_maxSpawnCount} 스폰 최대 수치가 3보다 이하일 수는 없습니다.");
 
@@ -95,7 +95,10 @@ public class Service
             spawnMonster.transform.position = _mapPos.transform.position + monsterPos;
             spawnMonster.gameObject.SetActive(true);
         }
+
+        return ranSpawnCount;
     }
+
 
 #if UNITY_EDITOR
     /// <summary>

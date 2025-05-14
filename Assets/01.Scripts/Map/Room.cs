@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 // 방의 종류를 구분하는 열거형 (enum)
@@ -27,16 +28,4 @@ public class Room
         { Vector2Int.left, false },
         { Vector2Int.right, false }
     };
-
-    public int RemainingEnemies;
-
-    public void SetEnemies(int count)
-    {
-        RemainingEnemies = count;
-    }
-
-    public void EnemyDefeated()
-    {
-        RemainingEnemies--;
-    }
 }
