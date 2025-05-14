@@ -47,12 +47,12 @@ public class MonsterStateMachine : MonoBehaviour
             case MonsterState.Attack:
                 break;
 
-            case MonsterState.Damaged:
-                DamagedUpdate();
-                break;
+            //case MonsterState.Damaged:
+            //    DamagedUpdate();
+            //    break;
 
-            case MonsterState.Dead:
-                break;
+            //case MonsterState.Dead:
+            //    break;
         }
     }
 
@@ -85,13 +85,13 @@ public class MonsterStateMachine : MonoBehaviour
                 attackBase.StartAttack(OnAttackEnd);
                 break;
 
-            case MonsterState.Damaged:
-                monsterBase.TakeDamage(GameManager.player.dmg);
-                break;
+            //case MonsterState.Damaged:
+            //    monsterBase.TakeDamage(GameManager.player.dmg);
+            //    break;
 
-            case MonsterState.Dead:
-                monsterBase.Dead();
-                break;
+            //case MonsterState.Dead:
+            //    monsterBase.Dead();
+            //    break;
         }
     }
 
@@ -99,11 +99,11 @@ public class MonsterStateMachine : MonoBehaviour
     {
         monsterBase.FlipMainSprite();
 
-        if (monsterBase.IsDead)
-            ChangeState(MonsterState.Dead);
-        else if (monsterBase.IsDamaged)
-            ChangeState(MonsterState.Damaged);
-        else if (
+        //if (monsterBase.IsDead)
+        //    ChangeState(MonsterState.Dead);
+        //else if (monsterBase.IsDamaged)
+        //    ChangeState(MonsterState.Damaged);
+        if (
     attackBase.CanPerformAttack() &&
     Vector2.Distance(transform.position, GameManager.player.transform.position) <= monsterBase.attackRange
 )
@@ -120,24 +120,24 @@ public class MonsterStateMachine : MonoBehaviour
         moveBase.OnMove();
         monsterBase.animator.SetBool("isMoving", true);
 
-        if (monsterBase.IsDead)
-            ChangeState(MonsterState.Dead);
-        else if (monsterBase.IsDamaged)
-            ChangeState(MonsterState.Damaged);
-        else if (
+        //if (monsterBase.IsDead)
+        //    ChangeState(MonsterState.Dead);
+        //else if (monsterBase.IsDamaged)
+        //    ChangeState(MonsterState.Damaged);
+        if (
             attackBase.CanPerformAttack() &&
             Vector2.Distance(transform.position, GameManager.player.transform.position) <= monsterBase.attackRange
             )
             ChangeState(MonsterState.Attack);
     }
 
-    void DamagedUpdate()
-    {
-        if (monsterBase.IsDead)
-            ChangeState(MonsterState.Dead);
-        else
-            ChangeState(MonsterState.Idle);
-    }
+    //void DamagedUpdate()
+    //{
+    //    if (monsterBase.IsDead)
+    //        ChangeState(MonsterState.Dead);
+    //    else
+    //        ChangeState(MonsterState.Idle);
+    //}
 
     void OnAttackEnd()
     {
@@ -151,17 +151,17 @@ public class MonsterStateMachine : MonoBehaviour
     {
         yield return new WaitForSeconds(attackBase.attackCooldown);
 
-        if (monsterBase.IsDead)
-        {
-            Service.Log("Dead 상태로 전환");
-            ChangeState(MonsterState.Dead);
-        }
-        else if (monsterBase.IsDamaged)
-        {
-            Service.Log("Damaged 상태로 전환");
-            ChangeState(MonsterState.Damaged);
-        }
-        else if (moveBase.CanMove)
+        //if (monsterBase.IsDead)
+        //{
+        //    Service.Log("Dead 상태로 전환");
+        //    ChangeState(MonsterState.Dead);
+        //}
+        //else if (monsterBase.IsDamaged)
+        //{
+        //    Service.Log("Damaged 상태로 전환");
+        //    ChangeState(MonsterState.Damaged);
+        //}
+        if (moveBase.CanMove)
         {
             Service.Log("Move 상태로 전환");
             ChangeState(MonsterState.Move);

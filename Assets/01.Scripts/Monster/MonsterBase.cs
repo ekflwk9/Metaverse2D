@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public enum MonsterType
@@ -10,7 +10,7 @@ public enum MonsterType
     Boss
 }
 
-public class MonsterBase : MonoBehaviour
+public class MonsterBase : MonoBehaviour, IHit
 {
     [Header("Monster Type")]
     public MonsterType monsterType;
@@ -33,8 +33,12 @@ public class MonsterBase : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        GameManager.SetComponent(this);
+
         SetStatsByType();
         currentHealth = maxHealth;
+
     }
 
     private void SetStatsByType()
@@ -89,28 +93,18 @@ public class MonsterBase : MonoBehaviour
         }
     }
 
-    public virtual void TakeDamage(float damage)
-    {
-        if (IsDead) return;
-        currentHealth -= damage;
-        IsDamaged = true;
-        animator.SetTrigger("isDamaged");
-        StartCoroutine(ClearDamagedFlag());
-    }
-
-    private IEnumerator ClearDamagedFlag()
-    {
-        yield return new WaitForSeconds(0.5f);
-        IsDamaged = false;
-    }
-
     public void Dead()
     {
         if (IsDead)
         {
             animator.SetBool("isDead", true);
-            gameObject.SetActive(false);
+            StartCoroutine(DeactivateAfterDelay(1.0f));
         }
+    }
+    private IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
     }
 
     public void SetIdle()
@@ -125,5 +119,29 @@ public class MonsterBase : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x = (GameManager.player.transform.position.x > transform.position.x) ? 1 : -1;
         transform.localScale = scale;
+    }
+
+    public void OnHit(int _dmg)
+    {
+        if (IsDead) return;
+
+        currentHealth -= _dmg;
+        IsDamaged = true;
+
+        animator.SetTrigger("isDamaged");
+
+        if (IsDead)
+        {
+            Dead();
+            return;
+        }
+
+        StartCoroutine(ClearDamagedFlag());
+    }
+
+    private IEnumerator ClearDamagedFlag()
+    {
+        yield return new WaitForSeconds(0.3f);
+        IsDamaged = false;
     }
 }
