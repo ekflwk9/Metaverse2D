@@ -239,8 +239,9 @@ public abstract class BaseSkill : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             int x = (int)skillDamage;
+            CamAction();
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
-
+            GameManager.effect.Damage(collision.transform.position, x, DmgTypeCode.CriticalDamage);
         }
     }
 
@@ -266,6 +267,11 @@ public abstract class BaseSkill : MonoBehaviour
     protected virtual void DisableCollider()
     {
         _collider.enabled = false;
+    }
+
+    private void CamAction()
+    {
+        GameManager.cam.Action("Shake");
     }
 
     //스킬 종료 메서드
