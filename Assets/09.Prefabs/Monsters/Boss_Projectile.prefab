@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2805237536632317657}
   - component: {fileID: 1725296528648393169}
   - component: {fileID: 1572123960648436580}
+  - component: {fileID: 2723751735792949103}
   m_Layer: 0
   m_Name: Boss_Projectile
   m_TagString: Untagged
@@ -66,9 +67,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.21434438, y: -0.010717154}
+  m_Offset: {x: 0.26415214, y: 0.17428344}
   serializedVersion: 2
-  m_Radius: 1.2394874
+  m_Radius: 0.89083236
 --- !u!114 &1572123960648436580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,6 +82,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f558ed8f0b27ac74390a12e437479643, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!50 &2723751735792949103
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1601032002429970148}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!1 &3880303352410703844
 GameObject:
   m_ObjectHideFlags: 0
@@ -208,7 +236,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 19
-  m_Sprite: {fileID: 1967549475, guid: ce302c64a1c73cf47ab2fd68eb2173fd, type: 3}
+  m_Sprite: {fileID: 1967549475, guid: 2e4dda1cc852c0c4cbc43d892d40778c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
