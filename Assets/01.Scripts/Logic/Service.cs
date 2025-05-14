@@ -1,11 +1,15 @@
 using UnityEngine;
 
+
 public delegate void Func();
 public interface IEnd { public void OnEnd(); }
 public interface IHit { public void OnHit(int _dmg); }
+public interface IItemEnter { public void OnItem(); }
 
 public class Service
 {
+    public static readonly WaitForSeconds wait = new WaitForSeconds(1f);
+
     /// <summary>
     /// _parent 하위 오브젝트 중 특정 이름의 오브젝트 정보를 가져오는 메서드
     /// </summary>

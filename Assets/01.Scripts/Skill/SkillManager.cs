@@ -5,8 +5,4 @@ using UnityEngine;
 public class SkillManager : MonoBehaviour
 {
 
-    public void ShowSkills()
-    {
-
-    }
 }

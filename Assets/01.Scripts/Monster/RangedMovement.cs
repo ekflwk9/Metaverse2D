@@ -2,26 +2,26 @@ using UnityEngine;
 
 public class RangedMovement : MonsterMoveBase
 {
-    private float keepDistance = 5f;
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
     public override void Move()
     {
+        Service.Log("Move 호출 완료");
+        float distance = Vector2.Distance(player.position, transform.position);
+        Vector2 dir = (player.position - transform.position).normalized;
+
+        Service.Log($"[Move] 몬스터 위치: {transform.position}, 플레이어 위치: {player.position}, 방향: {dir}");
+
         if (distance > keepDistance)
         {
-            Vector2 direction = (player.position - transform.position).normalized;
-            float distance = Vector2.Distance(player.position, transform.position);
-
-            rb.velocity = direction * moveSpeed;
-            isMoving = true;
+            rb.velocity = dir * moveSpeed;
         }
-        else if (distance <= keepDistance)
+        else if (distance < keepDistance - 0.1f)
         {
-            base.StopMove();
+            rb.velocity = -dir * moveSpeed * 0.5f;
         }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
+        Service.Log($"[Move] 최종 rb.velocity: {rb.velocity}");
     }
 }

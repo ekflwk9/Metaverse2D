@@ -19,7 +19,7 @@ public class CheatController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.V))
         {
-            GameManager.gameEvent.Hit(GameManager.player.name, 9999);
+            GameManager.gameEvent.Hit(GameManager.player.name, 20);
         }
     }
 }
