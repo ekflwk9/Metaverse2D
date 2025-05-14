@@ -39,18 +39,15 @@ public class BridgeTrigger : MonoBehaviour
             var ranMonster = Random.Range(mapManager.currentFloor - 1, mapManager.currentFloor);
 
             // 몬스터 수 계산
-            int enemyCount = mapManager.currentFloor * 5;
-
-            // 몬스터 생성
-            Service.SpawnMonster(
-                nextRoom.RoomObject.transform,
+            int enemyCount = Service.SpawnMonster
+                (nextRoom.RoomObject.transform,
                 mapManager.monsterName[ranMonster],
-                enemyCount
-            );
+                mapManager.currentFloor * 5);
 
             // 몬스터 카운트 증가
             spawnedMonsterCount++;
 
+            Debug.Log($"[Room] 다음 방에 설정할 몬스터 수: {enemyCount}");
             // Room 클래스에 몬스터 수 기록
             nextRoom.SetEnemies(enemyCount);
 

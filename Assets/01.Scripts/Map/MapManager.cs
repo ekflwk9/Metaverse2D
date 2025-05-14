@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+    public static MapManager Instance { get; private set; }
     public HashSet<string> battleRoomName = new HashSet<string>();
     public string[][] monsterName =
     {
@@ -46,7 +47,7 @@ public class MapManager : MonoBehaviour
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
     public Vector2Int currentRoomPos; // 현재 방 위치
     public string bridgeDirection; // 외부에서 설정할 문 방향
-    public RoomClear roomClear;
+
 
     private void Awake()
     {
@@ -64,6 +65,14 @@ public class MapManager : MonoBehaviour
     // 다음층 생성 임시코드
     void Update()
     {
+        Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+
+        if (currentRoom != null && currentRoom.Type == RoomType.Battle && currentRoom.RemainingEnemies <= 0 && !currentRoom.IsCleared)
+        {
+            ClearBattleRoom(currentRoom);
+        }
+
+
         // 예시: 특정 키를 눌러서 GoToNextFloor 호출 테스트
         if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
         {
@@ -75,7 +84,7 @@ public class MapManager : MonoBehaviour
         // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
         if (Input.GetKeyDown(KeyCode.B))
         {
-            Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+            //Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
             if (currentRoom != null && currentRoom.RoomObject != null)
             {
                 OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
@@ -436,4 +445,14 @@ public class MapManager : MonoBehaviour
             OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
         }
     }
+
+    public void ClearBattleRoom(Room room)
+    {
+        if (room.Type == RoomType.Battle && room.RemainingEnemies <= 0 && !room.IsCleared)
+        {
+            OpenBridge(room.RoomObject, room.Position.x, room.Position.y);
+            room.IsCleared = true;
+        }
+    }
+
 }
