@@ -1,4 +1,7 @@
-﻿public enum MonsterType
+﻿using UnityEngine;
+using System.Collections;
+
+public enum MonsterType
 {
     BringerOfDeath,
     FireWorm,
@@ -9,6 +12,9 @@
 
 public class MonsterBase : MonoBehaviour, IHit
 {
+    [SerializeField] private Vector2 bloodPos;
+    [SerializeField] private Vector2 floorPos;
+
     [Header("Monster Type")]
     public MonsterType monsterType;
 
@@ -28,8 +34,10 @@ public class MonsterBase : MonoBehaviour, IHit
     public Animator animator { get; private set; }
     private Coroutine slowCoroutine;
 
-
-    protected virtual void Awake()
+    /// <summary>
+    /// 몬스터 Awake
+    /// </summary>
+    public virtual void SetMonster()
     {
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -98,7 +106,7 @@ public class MonsterBase : MonoBehaviour, IHit
         if (IsDead)
         {
             animator.SetBool("isDead", true);
-            StartCoroutine(DeactivateAfterDelay(1.0f));
+            StartCoroutine(DeactivateAfterDelay(10f));
         }
     }
     private IEnumerator DeactivateAfterDelay(float delay)
@@ -145,6 +153,8 @@ public class MonsterBase : MonoBehaviour, IHit
         currentHealth -= _dmg;
         IsDamaged = true;
 
+        GameManager.effect.Show(bloodPos, "Blood");
+        GameManager.effect.FloorBlood(floorPos);
         animator.SetTrigger("isDamaged");
 
         if (IsDead)
