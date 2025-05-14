@@ -5,14 +5,17 @@ public class MusicSlider : MonoBehaviour
 {
     private Slider slider;
 
-    private void Awake()
-    {
-        slider = GetComponent<Slider>();
-        slider.value = 0.5f;
-    }
-
     public void SetMusicVolume()
     {
-        GameManager.sound.SetMusicVolume(slider.value);
+        if (slider != null)
+        {
+            GameManager.sound.SetMusicVolume(slider.value);
+        }
+
+        else
+        {
+            slider = GetComponent<Slider>();
+            slider.value = 0.5f;
+        }
     }
 }

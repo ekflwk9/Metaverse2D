@@ -26,7 +26,7 @@ public class EffectSound : MonoBehaviour
         //º¼·ý ¼³Á¤
         for (int i = 0; i < soundCount; i++)
         {
-            source[i].volume = GameManager.sound.volume;
+            source[i].volume = GameManager.sound.effectVolume;
         }
     }
 
@@ -35,7 +35,7 @@ public class EffectSound : MonoBehaviour
         soundCount++;
         if (soundCount >= source.Length) soundCount = 0;
 
-        source[soundCount].volume = GameManager.sound.volume;
+        source[soundCount].volume = GameManager.sound.effectVolume;
         source[soundCount].clip = _sound;
         source[soundCount].Play();
     }

@@ -8,6 +8,7 @@ public class StartButton : UiButton
     {
         base.Awake();
         GameManager.gameEvent.Call("CardWindowOff");
+        GameManager.gameEvent.Call("MenuOff");
     }
 
     protected override void Click()
