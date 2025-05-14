@@ -188,4 +188,8 @@ MonoBehaviour:
   moveSpeed: 2.5
   knockback: 0.5
   attackRange: 2.3
+  soundName:
+  - BringerOfDeath01
+  - BringerOfDeath02
+  - BringerOfDeath03
   bloodPos: {x: 0, y: 0, z: 0}

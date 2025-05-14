@@ -193,9 +193,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8136c2d01dff80409291388831c4a35, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 0
-  health: 0
-  moveSpeed: 0
-  knockback: 0
-  attackRange: 0
+  dmg: 20
+  health: 4500
+  moveSpeed: 3
+  knockback: 0.1
+  attackRange: 10
+  soundName:
+  - Boss01
+  - Boss02
+  - Boss03
   bloodPos: {x: 0, y: 0, z: 0}

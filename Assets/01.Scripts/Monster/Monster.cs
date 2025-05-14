@@ -9,6 +9,7 @@ IHit
     [SerializeField] protected float moveSpeed;
     [SerializeField] protected float knockback;
     [SerializeField] protected float attackRange;
+    [SerializeField] protected string[] soundName;
 
     [Space(10f)]
     [Header("블러드 임펙트 스폰 위치 조정")]
@@ -49,6 +50,7 @@ IHit
     public virtual void OnHit(int _dmg)
     {
         health -= _dmg;
+        PlaySound();
 
         var effectPos = this.transform.position + bloodPos;
         GameManager.effect.Show(effectPos, "Blood");
@@ -99,5 +101,12 @@ IHit
             var movePos = target.position - transform.position;
             rigid.velocity = movePos.normalized * moveSpeed;
         }
+    }
+
+    public void PlaySound()
+    {
+        var randomSound = Random.Range(0, soundName.Length);
+
+        GameManager.sound.OnEffect(soundName[randomSound]);
     }
 }

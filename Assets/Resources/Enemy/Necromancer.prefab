@@ -193,9 +193,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242bdca38508c114d86f822d7eefe8d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 10
+  dmg: 14
   health: 700
   moveSpeed: 2
   knockback: 2
   attackRange: 7
+  soundName:
+  - Necromancer01
+  - Necromancer02
+  - Necromancer03
   bloodPos: {x: 0, y: 0, z: 0}

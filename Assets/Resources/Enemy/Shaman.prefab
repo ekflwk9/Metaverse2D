@@ -193,9 +193,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f2c6204cd4fb8944a764fcdbd96234b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 15
+  dmg: 10
   health: 800
   moveSpeed: 1
   knockback: 1.3
   attackRange: 9
+  soundName:
+  - Shaman01
+  - Shaman02
+  - Shaman03
+  - Shaman04
   bloodPos: {x: 0, y: 0, z: 0}

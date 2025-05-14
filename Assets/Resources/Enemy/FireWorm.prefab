@@ -198,4 +198,8 @@ MonoBehaviour:
   moveSpeed: 0.8
   knockback: 1.7
   attackRange: 8
+  soundName:
+  - FireWorm01
+  - FireWorm02
+  - FireWorm03
   bloodPos: {x: 0, y: 0, z: 0}
