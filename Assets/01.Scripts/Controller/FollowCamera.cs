@@ -26,6 +26,8 @@ public class FollowCamera : MonoBehaviour
         // aspect로 화면 절반 너비 계산
         halfWidth = halfHeight * cam.aspect;
 
+        this.gameObject.SetActive(false);
+        GameManager.gameEvent.Add(On, true);
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -116,4 +118,6 @@ public class FollowCamera : MonoBehaviour
         // WireCube로 경계 박스 그리기
         Gizmos.DrawWireCube(center, size);
     }
+
+    private void On() => this.gameObject.SetActive(true); 
 }

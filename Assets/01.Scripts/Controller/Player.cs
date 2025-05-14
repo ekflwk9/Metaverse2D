@@ -51,9 +51,18 @@ IHit
         bloodPos.y += 0.5f;
         health -= _dmg;
 
+        GameManager.gameEvent.Call("HpSliderUpdate");
         GameManager.effect.Show(bloodPos, "Blood");
         GameManager.effect.FloorBlood(playerPos);
         //GameManager.sound.OnEffect("PlayerHit");
+
+        if (health <= 0)
+        {
+            maxHealth = 100;
+            health = maxHealth;
+            this.gameObject.SetActive(false);
+            GameManager.gameEvent.Call("DeadWindowOn");
+        }
     }
 
     public void StateUp(StateCode _code, float _upValue)
@@ -168,6 +177,7 @@ IHit
     {
         var pos = Vector3.zero;
         var filp = Vector3.one;
+
         if (isDash == false)
         {
             //상하

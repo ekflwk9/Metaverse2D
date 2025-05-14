@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/02.Animation/Monsters/FireWorm/Attack.anim.meta
 guid: aaef3f7b6b45f454c8251d5f997c7863
+========
+guid: c186a571fa0a1fe468b2136b62c6ca29
+>>>>>>>> Jang_1:Assets/02.Animation/Item/BossTrigger/Idle.anim.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000

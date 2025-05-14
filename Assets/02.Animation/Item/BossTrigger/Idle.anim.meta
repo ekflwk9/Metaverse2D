@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/02.Animation/Item/BossTrigger/Idle.anim.meta
 guid: c186a571fa0a1fe468b2136b62c6ca29
+========
+guid: 324f9814c0c06ae48885c57c8f7b0a41
+>>>>>>>> Jang_1:Assets/10.Scenes/Test/StartVolume.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000

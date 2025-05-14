@@ -253,6 +253,27 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
+    - serializedVersion: 2
+      name: _side idle_5
+      rect:
+        serializedVersion: 2
+        x: 26
+        y: 97
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 760ffb332f3469a43bcce7c1815d6ba5
+      internalID: -195343914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -269,6 +290,7 @@ TextureImporter:
       _side idle_2: 973633614
       _side idle_3: -1842891955
       _side idle_4: -1508475494
+      _side idle_5: -195343914
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
