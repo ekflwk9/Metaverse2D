@@ -110,6 +110,11 @@ public class MonsterBase : MonoBehaviour, IHit
             rb.velocity = Vector2.zero;
             if (animator != null)
                 animator.SetBool("isDead", true);
+
+            GetComponent<MonsterStateMachine>().enabled = false;
+
+            GameManager.map.EnemyDefeated();
+
         }
     }
 
