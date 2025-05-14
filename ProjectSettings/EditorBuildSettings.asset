@@ -23,4 +23,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/10.Scenes/Test.unity
     guid: 6211e8ea3378831418f419ddbc9aabf0
+  - enabled: 1
+    path: Assets/10.Scenes/Monsters.unity
+    guid: 81df86b95f9d4ad41a9689a28bb47665
   m_configObjects: {}
