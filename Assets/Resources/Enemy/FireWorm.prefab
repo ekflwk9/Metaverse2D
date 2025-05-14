@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3231880162793465071}
   - component: {fileID: 2624143121714275694}
   - component: {fileID: 8261238200280009272}
+  - component: {fileID: 7724990188350043230}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -119,6 +120,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &7724990188350043230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2197019453963051471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649bb051bab8ffb41b09d3d2529510a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2920671897684001068
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,8 +286,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorPos: {x: -0.135, y: -0.34}
-  monsterType: 0
+  bloodPos: {x: 0, y: 0}
+  floorPos: {x: 0, y: 0}
+  monsterType: 1
 --- !u!114 &5072985119310977845
 MonoBehaviour:
   m_ObjectHideFlags: 0
