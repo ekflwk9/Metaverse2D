@@ -31,12 +31,12 @@ public class MapManager : MonoBehaviour
     public GameObject TreasureRoom_3;
     public GameObject BossRoom_3;
 
-    private Room[,] grid; // 2D 배열에 방 배치
+    public Room[,] grid; // 2D 배열에 방 배치
     private List<Room> rooms = new List<Room>(); // 생성된 방 목록
     private System.Random rng = new System.Random(); // 난수 생성기
 
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
-    private Vector2Int currentRoomPos; // 현재 방 위치
+    public Vector2Int currentRoomPos; // 현재 방 위치
     public string bridgeDirection; // 외부에서 설정할 문 방향
 
     private void Start()
