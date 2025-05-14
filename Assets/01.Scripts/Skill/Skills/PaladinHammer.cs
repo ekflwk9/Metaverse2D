@@ -12,10 +12,6 @@ public class PaladinHammer : BaseSkill
 
     public override void GetSkill()
     {
-        //Test¿ë ÄÚµå
-        GameManager.gameEvent.Add(GetSkill, true);
-        DontDestroyOnLoad(gameObject);
-
         GameManager.player.AddSkill(PaladinHammer_Skill);
 
         DmgChange();
