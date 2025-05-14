@@ -103,8 +103,13 @@ public class MonsterStateMachine : MonoBehaviour
             ChangeState(MonsterState.Dead);
         else if (monsterBase.IsDamaged)
             ChangeState(MonsterState.Damaged);
-        else if (attackBase.CanPerformAttack())
+        else if (
+    attackBase.CanPerformAttack() &&
+    Vector2.Distance(transform.position, GameManager.player.transform.position) <= monsterBase.attackRange
+)
+        {
             ChangeState(MonsterState.Attack);
+        }
         else if (moveBase.CanMove)
             ChangeState(MonsterState.Move);
     }
