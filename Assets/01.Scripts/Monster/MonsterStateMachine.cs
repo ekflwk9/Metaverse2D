@@ -5,9 +5,7 @@ public enum MonsterState
 {
     Idle,
     Move,
-    Attack,
-    Damaged,
-    Dead
+    Attack
 }
 
 public class MonsterStateMachine : MonoBehaviour
@@ -32,7 +30,6 @@ public class MonsterStateMachine : MonoBehaviour
 
     void Update()
     {
-        Service.Log($"현재 상태: {currentState}");
         switch (currentState)
         {
             case MonsterState.Idle:
@@ -40,14 +37,12 @@ public class MonsterStateMachine : MonoBehaviour
                 break;
 
             case MonsterState.Move:
-                Service.Log("MoveUpdate 호출");
                 MoveUpdate();
                 break;
 
             case MonsterState.Attack:
+                // 대기 (공격 중엔 별도 로직 필요 없음)
                 break;
-
-            
         }
     }
 
@@ -68,18 +63,16 @@ public class MonsterStateMachine : MonoBehaviour
                 break;
 
             case MonsterState.Move:
+                monsterBase.animator.SetBool("isMoving", true);
                 break;
 
             case MonsterState.Attack:
                 monsterBase.animator.SetBool("isMoving", false);
                 monsterBase.animator.SetTrigger("isAttacking");
-                Service.Log("isAttacking이 true가 맞나용?: " + monsterBase.animator.GetBool("isAttacking"));
 
                 moveBase.StopMove();
-
                 attackBase.StartAttack(OnAttackEnd);
                 break;
-                          
         }
     }
 
@@ -87,13 +80,17 @@ public class MonsterStateMachine : MonoBehaviour
     {
         monsterBase.FlipMainSprite();
 
-               if (
-    attackBase.CanPerformAttack() &&
-    Vector2.Distance(transform.position, GameManager.player.transform.position) <= monsterBase.attackRange
-)
+        if (monsterBase.IsDead)
         {
-            ChangeState(MonsterState.Attack);
+            monsterBase.Dead();
+            enabled = false; // 상태머신 멈춤
+            return;
         }
+
+        float distanceToPlayer = Vector2.Distance(transform.position, GameManager.player.transform.position);
+
+        if (attackBase.CanPerformAttack() && distanceToPlayer <= monsterBase.attackRange)
+            ChangeState(MonsterState.Attack);
         else if (moveBase.CanMove)
             ChangeState(MonsterState.Move);
     }
@@ -102,36 +99,32 @@ public class MonsterStateMachine : MonoBehaviour
     {
         monsterBase.FlipMainSprite();
         moveBase.OnMove();
-        monsterBase.animator.SetBool("isMoving", true);
 
-        if (
-            attackBase.CanPerformAttack() &&
-            Vector2.Distance(transform.position, GameManager.player.transform.position) <= monsterBase.attackRange
-            )
+        if (monsterBase.IsDead)
+        {
+            monsterBase.Dead();
+            enabled = false;
+            return;
+        }
+
+        float distanceToPlayer = Vector2.Distance(transform.position, GameManager.player.transform.position);
+
+        if (attackBase.CanPerformAttack() && distanceToPlayer <= monsterBase.attackRange)
             ChangeState(MonsterState.Attack);
     }
 
     void OnAttackEnd()
     {
-        Service.Log("공격 끝!");
-
-
-        StartCoroutine(WaitForAttackEnd());
-    }
-
-    private IEnumerator WaitForAttackEnd()
-    {
-        yield return new WaitForSeconds(attackBase.attackCooldown);
+        if (monsterBase.IsDead)
+        {
+            monsterBase.Dead();
+            enabled = false;
+            return;
+        }
 
         if (moveBase.CanMove)
-        {
-            Service.Log("Move 상태로 전환");
             ChangeState(MonsterState.Move);
-        }
         else
-        {
-            Service.Log("Idle 상태로 전환");
             ChangeState(MonsterState.Idle);
-        }
     }
 }
