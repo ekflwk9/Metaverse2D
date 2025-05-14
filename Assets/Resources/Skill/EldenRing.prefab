@@ -50,8 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getDmg: 0
   skillCooldown: 0
-  skillSpeed: 0
+  changeDamage: 0.1
   forward: 0
+  skillSpeed: 0
   slowAmount: 0
 --- !u!212 &5020801069908225893
 SpriteRenderer:

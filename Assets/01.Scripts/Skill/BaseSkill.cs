@@ -24,8 +24,9 @@ public abstract class BaseSkill : MonoBehaviour
 
     [SerializeField] protected int getDmg;
     [SerializeField] protected int skillCooldown;
-    [SerializeField] protected float skillSpeed = 0f;
-    [SerializeField] protected float forward = 0.5f;
+    [SerializeField] protected float changeDamage;
+    [SerializeField] protected float forward;
+    [SerializeField] protected float skillSpeed;
     [SerializeField] protected float slowAmount;
 
     protected Vector3 direction = Vector3.zero;
@@ -229,7 +230,7 @@ public abstract class BaseSkill : MonoBehaviour
     protected virtual void SkillDmg()
     {
         randomState = Random.Range(5, 11);
-        skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
+        skillDamage = ((randomState * 0.1f) + GameManager.player.dmg) * changeDamage;
     }
 
     //스킬 오브젝트의 Collider에 적이 감지되면

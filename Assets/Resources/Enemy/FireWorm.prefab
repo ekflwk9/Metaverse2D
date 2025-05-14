@@ -193,9 +193,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912e75745464a314fb6a0d0c787fd9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dmg: 10
-  health: 400
-  moveSpeed: 0.3
-  knockback: 0.5
-  attackRange: 6
+  dmg: 8
+  health: 380
+  moveSpeed: 0.8
+  knockback: 1.7
+  attackRange: 8
   bloodPos: {x: 0, y: 0, z: 0}
