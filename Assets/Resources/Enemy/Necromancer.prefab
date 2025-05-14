@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterType: 0
+  monsterType: 2
 --- !u!114 &1764277296831071085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,8 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988b95aea688eaf418b8e1cec990bffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1408280977734662453, guid: 786ea0c19f403e047955e6f2d0b01816, type: 3}
-  projectileSpeed: 3
+  projectilePrefab: {fileID: 6635427155633505980, guid: a18286be7bc9b0e4494cbd6f5082e03f, type: 3}
+  projectileSpeed: 5
 --- !u!114 &7975047711335617904
 MonoBehaviour:
   m_ObjectHideFlags: 0
