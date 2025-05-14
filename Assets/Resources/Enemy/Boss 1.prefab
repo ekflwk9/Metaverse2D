@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 2182340755170621984}
   - component: {fileID: 5829422080373970394}
   - component: {fileID: 5604217617582871001}
+  - component: {fileID: -759542562821323568}
   m_Layer: 0
-  m_Name: Boss
+  m_Name: Boss 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -147,7 +148,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: -1041241018, guid: ce302c64a1c73cf47ab2fd68eb2173fd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -180,3 +181,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-759542562821323568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6718814206692111989}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8136c2d01dff80409291388831c4a35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dmg: 0
+  health: 0
+  moveSpeed: 0
+  knockback: 0
+  attackRange: 0
+  bloodPos: {x: 0, y: 0, z: 0}
