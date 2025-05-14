@@ -241,7 +241,7 @@ public abstract class BaseSkill : MonoBehaviour
             int x = (int)skillDamage;
             CamAction();
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
-            GameManager.effect.Damage(collision.transform.position, x, DmgTypeCode.CriticalDamage);
+            GameManager.effect.Damage(collision.transform.position + Vector3.up, x, DmgTypeCode.CriticalDamage);
         }
     }
 

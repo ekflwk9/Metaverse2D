@@ -35,6 +35,7 @@ public class EffectSound : MonoBehaviour
         soundCount++;
         if (soundCount >= source.Length) soundCount = 0;
 
+        source[soundCount].volume = GameManager.sound.volume;
         source[soundCount].clip = _sound;
         source[soundCount].Play();
     }

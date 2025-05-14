@@ -85,8 +85,8 @@ public class Service
             else ranMonsterType = 0;
 
             var monsterPos = _mapPos.transform.position;
-            monsterPos.x = Random.Range(0, 8);
-            monsterPos.y = Random.Range(0, 8);
+            monsterPos.x = Random.Range(0, 5);
+            monsterPos.y = Random.Range(0, 5);
 
             var spawnMonster = MonoBehaviour.Instantiate(monster[ranMonsterType]);
             spawnMonster.name = $"{monster[ranMonsterType].name}_{i}";

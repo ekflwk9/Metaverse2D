@@ -25,7 +25,7 @@ public class SpriteManager
     /// <returns></returns>
     public Sprite GetImage(string _imageName)
     {
-        if (image.ContainsKey(_imageName))
+        if (!image.ContainsKey(_imageName))
         {
             Service.Log($"{_imageName}은 Image파일에 존재하지 않는 이미지임");
             return default;

@@ -10,6 +10,8 @@ public class PoisonGas : BaseSkill
 
     public override void GetSkill()
     {
+        GameManager.player.AddSkill(PoisonGas_Skill);
+
         SkillLocation(Skill_location.CloseEnemy);
         DmgChange();
         DontDestroyOnLoad(gameObject);

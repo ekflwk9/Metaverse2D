@@ -1,10 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardButton : UiButton
 {
     private TMP_Text title;
     private TMP_Text info;
+    private Image icon;
 
     private int cardNumber;
 
@@ -41,6 +43,7 @@ public class CardButton : UiButton
         base.Awake();
         title = Service.FindChild(this.transform, "Title").GetComponent<TMP_Text>();
         info = Service.FindChild(this.transform, "Info").GetComponent<TMP_Text>();
+        icon = Service.FindChild(this.transform, "Icon").GetComponent<Image>();
 
         GameManager.gameEvent.Add(SetSkill, true);
     }
@@ -50,6 +53,7 @@ public class CardButton : UiButton
         cardNumber = Random.Range(0, skill.Length);
         title.text = skill[cardNumber];
         info.text = skillInfo[cardNumber];
+        icon.sprite = GameManager.sprite.GetImage(skill[cardNumber]);
     }
 
     protected override void Click()

@@ -20,11 +20,15 @@ public class SoundManager
         }
     }
 
-    public void SetVolume(float _volume)
+    public void SetMusicVolume(float _volume)
     {
         //º¼·ý ¼³Á¤
-        volume = _volume;
         music.SetVolume();
+    }
+
+    public void SetEffectVolume(float _volume)
+    {
+        volume = _volume;
         effect.SetVolume();
     }
 
