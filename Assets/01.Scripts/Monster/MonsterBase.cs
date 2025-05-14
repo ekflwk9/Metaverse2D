@@ -27,12 +27,14 @@ public class MonsterBase : MonoBehaviour, IHit
     public bool IsDead => currentHealth <= 0;
 
     private SpriteRenderer spriteRenderer;
+    private Rigidbody2D rb;
     public Animator animator { get; private set; }
 
     protected virtual void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        rb = GetComponent<Rigidbody2D>();
 
         GameManager.SetComponent(this);
 
@@ -97,6 +99,7 @@ public class MonsterBase : MonoBehaviour, IHit
     {
         if (IsDead)
         {
+            rb.velocity = Vector2.zero;
             animator.SetBool("isDead", true);
             StartCoroutine(DeactivateAfterDelay(1.0f));
         }
