@@ -28,23 +28,4 @@ public class Room
         { Vector2Int.left, false },
         { Vector2Int.right, false }
     };
-
-    public int RemainingEnemies;
-    public bool IsCleared = false; // 전투방 클리어 여부를 저장하는 플래그 추가
-
-    public void SetEnemies(int count)
-    {
-        RemainingEnemies = count;
-        IsCleared = false; // 새로운 전투 시작 시 클리어 상태 초기화
-    }
-
-    public void EnemyDefeated()
-    {
-        RemainingEnemies--;
-        if (RemainingEnemies <= 0 && !IsCleared)
-        {
-            IsCleared = true;
-            MapManager.Instance.ClearBattleRoom(this); // RoomManager 통해 다리 열기
-        }
-    }
 }
