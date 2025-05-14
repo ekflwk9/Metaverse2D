@@ -10,16 +10,7 @@ public class MenuWindow : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    private void On()
-    {
-        GameManager.stopGame = true;
-        GameManager.player.StopMove();
-        this.gameObject.SetActive(true);
-    }
+    private void On() => this.gameObject.SetActive(true);
 
-    private void Off()
-    {
-        GameManager.stopGame = false;
-        this.gameObject.SetActive(false);
-    }
+    private void Off() => this.gameObject.SetActive(false); 
 }

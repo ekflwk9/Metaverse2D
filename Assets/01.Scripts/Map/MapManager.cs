@@ -31,12 +31,12 @@ public class MapManager : MonoBehaviour
     public GameObject TreasureRoom_3;
     public GameObject BossRoom_3;
 
-    private Room[,] grid; // 2D 배열에 방 배치
+    public Room[,] grid; // 2D 배열에 방 배치
     private List<Room> rooms = new List<Room>(); // 생성된 방 목록
     private System.Random rng = new System.Random(); // 난수 생성기
 
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
-    private Vector2Int currentRoomPos; // 현재 방 위치
+    public Vector2Int currentRoomPos; // 현재 방 위치
     public string bridgeDirection; // 외부에서 설정할 문 방향
 
     private void Start()
@@ -59,7 +59,7 @@ public class MapManager : MonoBehaviour
             Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
             if (currentRoom != null && currentRoom.RoomObject != null)
             {
-                OpenBridge(currentRoom.RoomObject); 
+                OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
             }
         }
     }
@@ -244,11 +244,12 @@ public class MapManager : MonoBehaviour
             else if (bridge.name.Contains("Bridge_L")) hasNeighbor = hasLeft;
             else if (bridge.name.Contains("Bridge_R")) hasNeighbor = hasRight;
 
-            bridge.gameObject.SetActive(hasNeighbor);
+            bridge.gameObject.SetActive(true); // 일단 Bridge는 항상 활성화
 
             if (hasNeighbor)
             {
-                // 자식 Bridge 오브젝트 꺼두기 (명시적으로)
+                // 연결된 경우
+                // 자식 Bridge 오브젝트 꺼두기
                 Transform bridgeVisual = bridge.Find("Bridge");
                 if (bridgeVisual != null) bridgeVisual.gameObject.SetActive(false);
 
@@ -259,33 +260,86 @@ public class MapManager : MonoBehaviour
                 // 콜라이더 끄기
                 Collider2D col = bridge.GetComponent<Collider2D>();
                 if (col != null) col.enabled = false;
+
+                // 자식 중 Wall 태그 가진 오브젝트는 꺼준다
+                foreach (Transform child in bridge)
+                {
+                    if (child.CompareTag("Wall"))
+                        child.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                // 연결되지 않은 경우
+                foreach (Transform child in bridge)
+                {
+                    if (child.CompareTag("Wall"))
+                        child.gameObject.SetActive(true);  // Wall 태그 자식만 켬
+                    else
+                        child.gameObject.SetActive(false); // 나머지는 끔
+                }
             }
         }
     }
 
-    public void OpenBridge(GameObject roomObj)
+
+    // 다리를 보이게 하는 코드
+    public void OpenBridge(GameObject roomObj, int x, int y)
     {
+        bool hasUp = IsInBounds(new Vector2Int(x, y + 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y + 1] != null;
+        bool hasDown = IsInBounds(new Vector2Int(x, y - 1), grid.GetLength(0), grid.GetLength(1)) && grid[x, y - 1] != null;
+        bool hasLeft = IsInBounds(new Vector2Int(x - 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x - 1, y] != null;
+        bool hasRight = IsInBounds(new Vector2Int(x + 1, y), grid.GetLength(0), grid.GetLength(1)) && grid[x + 1, y] != null;
+
         Transform[] allBridges = roomObj.GetComponentsInChildren<Transform>(true);
         foreach (Transform bridge in allBridges)
         {
             if (!bridge.CompareTag("Bridge")) continue;
 
-            // 자식 Bridge 오브젝트 켜기
-            Transform bridgeVisual = bridge.Find("Bridge");
-            if (bridgeVisual != null)
-                bridgeVisual.gameObject.SetActive(true);
+            bool hasNeighbor = false;
+            if (bridge.name.Contains("Bridge_U")) hasNeighbor = hasUp;
+            else if (bridge.name.Contains("Bridge_D")) hasNeighbor = hasDown;
+            else if (bridge.name.Contains("Bridge_L")) hasNeighbor = hasLeft;
+            else if (bridge.name.Contains("Bridge_R")) hasNeighbor = hasRight;
 
-            // 콜라이더 켜기
-            Collider2D col = bridge.GetComponent<Collider2D>();
-            if (col != null)
-                col.enabled = true;
+            if (hasNeighbor)
+            {
+                // 자식 Bridge 오브젝트 켜기
+                Transform bridgeVisual = bridge.Find("Bridge");
+                if (bridgeVisual != null)
+                    bridgeVisual.gameObject.SetActive(true);
 
-            // 벽 끄기
-            Transform wall = bridge.Find("Wall");
-            if (wall != null)
-                wall.gameObject.SetActive(false);
+                // 콜라이더 켜기
+                Collider2D col = bridge.GetComponent<Collider2D>();
+                if (col != null)
+                    col.enabled = true;
+
+                // 벽 끄기
+                Transform wall = bridge.Find("Wall");
+                if (wall != null)
+                    wall.gameObject.SetActive(false);
+
+                // Wall 태그 자식도 꺼두기
+                foreach (Transform child in bridge)
+                {
+                    if (child.CompareTag("Wall"))
+                        child.gameObject.SetActive(false);
+                }
+            }
+            else
+            {
+                // 연결되지 않은 경우
+                foreach (Transform child in bridge)
+                {
+                    if (child.CompareTag("Wall"))
+                        child.gameObject.SetActive(true);  // Wall 태그 자식만 켬
+                    else
+                        child.gameObject.SetActive(false); // 나머지는 끔
+                }
+            }
         }
     }
+
 
     // 데코 오브젝트들 랜덤 On/Off
     public void RandomizeDecorations()
@@ -330,6 +384,8 @@ public class MapManager : MonoBehaviour
             }
         }
     }
+
+    // 플레이어 배치
     void PlacePlayer()
     {
         foreach (Room room in rooms)

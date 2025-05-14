@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
@@ -16,7 +14,7 @@ public class CardButton : UiButton
     };
 
     private string[] skillInfo =
-{
+    {
         "스킬 설명",
     };
 

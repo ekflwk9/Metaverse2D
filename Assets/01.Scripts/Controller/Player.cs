@@ -156,6 +156,7 @@ IHit
     public void StopMove()
     {
         rigid.velocity = Vector3.zero;
+        anim.SetBool("Move", false);
         anim.Play("Idle", 0, 0);
     }
 

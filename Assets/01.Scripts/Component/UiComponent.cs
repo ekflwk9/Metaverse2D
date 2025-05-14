@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UiComponent : MonoBehaviour
 {
@@ -12,20 +13,26 @@ public class UiComponent : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            GameManager.stopGame = true;
+            if (GameManager.player.gameObject.activeSelf) Menu();
         }
     }
 
     private void Menu()
     {
-        if (!GameManager.stopGame)
+        if (SceneManager.GetActiveScene().name != "Start")
         {
-            GameManager.gameEvent.Call("MenuOn");
-        }
+            if (!GameManager.stopGame)
+            {
+                GameManager.stopGame = true;
+                GameManager.player.StopMove();
+                GameManager.gameEvent.Call("MenuOn");
+            }
 
-        else
-        {
-            GameManager.gameEvent.Call("MenuOff");
+            else
+            {
+                GameManager.stopGame = false;
+                GameManager.gameEvent.Call("MenuOff");
+            }
         }
     }
 }
