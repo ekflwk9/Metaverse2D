@@ -29,15 +29,15 @@ public class Boss : Monster
             anim.Play("Idle", 0, 0);
 
             this.gameObject.SetActive(false);
-            GameManager.map.EnemyDefeated();
 
+            GameManager.map.EnemyDefeated();
             GameManager.fade.OnFade(FadeFunc);
         }
     }
 
     private void FadeFunc()
     {
-
+        GameManager.map.NextRoom();
     }
 
     public override void SetMonster()
