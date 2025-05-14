@@ -16,7 +16,7 @@ public class FollowCamera : MonoBehaviour
     private bool playerInitialized = false;
 
     // Start는 게임 시작 시 한 번만 실행
-    void Start()
+    private void Awake()
     {
         // Camera 컴포넌트 가져오기
         var cam = Service.FindChild(this.transform, "Main Camera").GetComponent<Camera>();
@@ -27,7 +27,7 @@ public class FollowCamera : MonoBehaviour
         halfWidth = halfHeight * cam.aspect;
 
         this.gameObject.SetActive(false);
-        GameManager.gameEvent.Add(On, true);
+        GameManager.SetComponent(this);
         DontDestroyOnLoad(this.gameObject);
     }
 
@@ -118,6 +118,4 @@ public class FollowCamera : MonoBehaviour
         // WireCube로 경계 박스 그리기
         Gizmos.DrawWireCube(center, size);
     }
-
-    private void On() => this.gameObject.SetActive(true); 
 }

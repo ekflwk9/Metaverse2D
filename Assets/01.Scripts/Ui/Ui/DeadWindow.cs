@@ -13,7 +13,6 @@ public class DeadWindow : MonoBehaviour
     //애니메이션 호출 메서드
     private void EndDeadWindow()
     {
-        this.gameObject.SetActive(false);
         GameManager.fade.OnFade(FadeFunc);
     }
 
@@ -21,8 +20,14 @@ public class DeadWindow : MonoBehaviour
     {
         GameManager.fade.OnFade();
         GameManager.ChangeScene("Start");
+        
+        GameManager.cam.gameObject.SetActive(false);
+        GameManager.gameEvent.Call("HpOff");
+
         GameManager.player.transform.position = Vector3.one * 20;
         GameManager.player.gameObject.SetActive(true);
         GameManager.stopGame = true;
+
+        this.gameObject.SetActive(false);
     }
 }

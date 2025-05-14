@@ -16,7 +16,8 @@ public class StartButton : UiButton
 
         GameManager.stopGame = false;
         GameManager.fade.OnFade();
-        GameManager.gameEvent.Call("CameraOn");
+        GameManager.cam.gameObject.SetActive(true);
         GameManager.gameEvent.Call("HpOn");
+        GameManager.gameEvent.Call("HpSliderUpdate");
     }
 }

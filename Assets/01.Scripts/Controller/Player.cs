@@ -26,7 +26,7 @@ IHit
 
     private event Func skill;
     private Rigidbody2D rigid;
-    private Animator action;
+    private Animator anim;
     public Ghost ghost;
 
     private StringBuilder itemName = new StringBuilder(30);
@@ -35,7 +35,7 @@ IHit
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        action = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
         StartCoroutine(Attack());
         GameManager.SetComponent(this);
@@ -60,6 +60,8 @@ IHit
         {
             maxHealth = 100;
             health = maxHealth;
+            anim.Play("Idle", 0, 0);
+
             this.gameObject.SetActive(false);
             GameManager.gameEvent.Call("DeadWindowOn");
         }
@@ -71,7 +73,7 @@ IHit
         {
             case StateCode.MoveSpeed:
                 moveSpeed += _upValue;
-                action.SetFloat("MoveSpeed", moveSpeed);
+                anim.SetFloat("MoveSpeed", moveSpeed);
 
                 break;
 
@@ -162,7 +164,7 @@ IHit
     public void OnPickUpAction()
     {
         isPickUp = true;
-        action.Play("PickUp", 0, 0);
+        anim.Play("PickUp", 0, 0);
         rigid.velocity = Vector3.zero;
     }
 
@@ -170,7 +172,7 @@ IHit
     {
         //줍는 모션 종료
         isPickUp = false;
-        action.Play("Idle", 0, 0);
+        anim.Play("Idle", 0, 0);
     }
 
     private void Move()
@@ -210,14 +212,14 @@ IHit
             //애니메이션 재생
             if (pos != Vector3.zero)
             {
-                action.SetBool("Move", true);
+                anim.SetBool("Move", true);
                 direction = pos.normalized;
                 this.transform.localScale = filp;
             }
 
             else
             {
-                action.SetBool("Move", false);
+                anim.SetBool("Move", false);
             }
 
             //보는 방향
