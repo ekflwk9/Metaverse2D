@@ -70,11 +70,7 @@ IHit
 
             health = maxHealth;
             this.gameObject.SetActive(false);
-            Service.Log($"111");
             GameManager.map.EnemyDefeated();
-
-            GameManager.gameEvent.Call("UpDifficulty");
-            GameManager.gameEvent.Call("UpKillCount");
         }
     }
 

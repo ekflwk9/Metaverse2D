@@ -7,6 +7,8 @@ public class Boss : Monster
     private int count;
     private Bullet[] bullet;
 
+    
+
     public override void SetMonster()
     {
         base.SetMonster();
