@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimationEventRelay : MonoBehaviour
+public class ProjectileSpawnDelay : MonoBehaviour
 {
     private RangedAttack rangedAttack;
 

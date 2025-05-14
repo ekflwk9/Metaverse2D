@@ -46,11 +46,11 @@ public class MonsterBase : MonoBehaviour
         switch (monsterType)
         {
             case MonsterType.BringerOfDeath:
-                moveSpeed = 1.6f;
+                moveSpeed = 2f;
                 maxHealth = 4f;
-                attackSpeed = 2f;
+                attackSpeed = 1.5f;
                 attackDamage = 1;
-                attackRange = 1.5f;
+                attackRange = 1f;
                 break;
 
             case MonsterType.FireWorm:
@@ -59,7 +59,7 @@ public class MonsterBase : MonoBehaviour
                 attackSpeed = 3.5f;
                 attackDamage = 1;
                 attackRange = 7f;
-                keepDistance = 5f;
+                keepDistance = 3f;
                 break;
 
             case MonsterType.Necromancer:
@@ -68,7 +68,7 @@ public class MonsterBase : MonoBehaviour
                 attackSpeed = 2f;
                 attackDamage = 1;
                 attackRange = 6f;
-                keepDistance = 7f;
+                keepDistance = 5f;
                 break;
 
             case MonsterType.Shaman:
@@ -77,7 +77,7 @@ public class MonsterBase : MonoBehaviour
                 attackSpeed = 3f;
                 attackDamage = 1;
                 attackRange = 5f;
-                keepDistance = 3f;
+                keepDistance = 2.5f;
 
                 break;
 
