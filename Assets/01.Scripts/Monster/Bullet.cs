@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 
-public class FireWormProjectile : MonoBehaviour
+public class Bullet : MonoBehaviour
 {
     private int damageAmountWhichPlayerWillGetFromThisFireWormMonsterByProjectileOfFireBallMadeByFireWorm;
     private string targetNameIsPlayerNameWhichWhoYouArePlayingCharacterWithWhiteHeadHeIsUnStopableCharacterWithMostPowerfulAttackPower;
@@ -18,6 +18,11 @@ public class FireWormProjectile : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    /// <summary>
+    /// _target 방향으로 발사함
+    /// </summary>
+    /// <param name="_thisPos"></param>
+    /// <param name="_target"></param>
     public void Fire(Vector3 _thisPos, Vector3 _target)
     {
         if (!this.gameObject.activeSelf)
@@ -28,6 +33,11 @@ public class FireWormProjectile : MonoBehaviour
         _rigid.velocity = direction.normalized * 4f;
     }
 
+    /// <summary>
+    /// _target 방향으로 로테이션 시켜줌
+    /// </summary>
+    /// <param name="_thisPos"></param>
+    /// <param name="_target"></param>
     public void SetRotate(Vector3 _thisPos, Vector3 _target)
     {
         var direction = _target - _thisPos;

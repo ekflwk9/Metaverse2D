@@ -90,10 +90,9 @@ public class Service
 
             var spawnMonster = MonoBehaviour.Instantiate(monster[ranMonsterType]);
             spawnMonster.name = $"{monster[ranMonsterType].name}_{i}";
-            //spawnMonster.GetComponent<MonsterBase>().SetMonster();
+            spawnMonster.GetComponent<Monster>().SetMonster();
 
             spawnMonster.transform.position = _mapPos.transform.position + monsterPos;
-            spawnMonster.gameObject.SetActive(true);
         }
 
         return ranSpawnCount;

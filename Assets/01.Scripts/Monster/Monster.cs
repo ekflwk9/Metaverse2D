@@ -23,7 +23,7 @@ IHit
     protected Animator anim;
     protected Rigidbody2D rigid;
 
-    public virtual void Awake()
+    public virtual void SetMonster()
     {
         maxHealth = health;
         target = GameManager.player.transform;
@@ -69,7 +69,8 @@ IHit
             anim.Play("Idle", 0, 0);
 
             health = maxHealth;
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
+            GameManager.map.EnemyDefeated();
 
             GameManager.gameEvent.Call("UpDifficulty");
             GameManager.gameEvent.Call("UpKillCount");

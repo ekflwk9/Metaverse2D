@@ -5,19 +5,19 @@ using UnityEngine;
 public class FireWorm : Monster
 {
     private int count;
-    private FireWormProjectile[] bullet;
+    private Bullet[] bullet;
 
     public override void SetMonster()
     {
         base.SetMonster();
 
         var projectile = Service.FindResource("Enemy", "Fireworm_Projectile");
-        bullet = new FireWormProjectile[5];
+        bullet = new Bullet[5];
 
         for (int i = 0; i < bullet.Length; i++)
         {
             var spawnProjectile = Instantiate(projectile);
-            var projectileInfo = spawnProjectile.GetComponent<FireWormProjectile>();
+            var projectileInfo = spawnProjectile.GetComponent<Bullet>();
 
             projectileInfo.SetBullet("Player", 4);
             bullet[i] = projectileInfo;

@@ -5,19 +5,19 @@ using UnityEngine;
 public class Shaman : Monster
 {
     private int count;
-    private ShamanBullet[] bullet;
+    private Bullet[] bullet;
 
-    public override void Awake()
+    public override void SetMonster()
     {
-        base.Awake();
+        base.SetMonster();
 
         var bulletResource = Service.FindResource("Enemy", "Shaman_Projectile");
-        bullet = new ShamanBullet[5];
+        bullet = new Bullet[5];
 
         for (int i = 0; i < bullet.Length; i++)
         {
             var spawnBullet = Instantiate(bulletResource);
-            var bulletInfo = spawnBullet.GetComponent<ShamanBullet>();
+            var bulletInfo = spawnBullet.GetComponent<Bullet>();
 
             bulletInfo.SetBullet("Player", 10);
             bullet[i] = bulletInfo;

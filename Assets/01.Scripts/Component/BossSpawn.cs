@@ -22,8 +22,7 @@ IItemEnter
 
         boss.name = bossResource.name;
 
-        //boss.GetComponent<MonsterBase>().SetMonster();
-
+        boss.GetComponent<Monster>().SetMonster();
         boss.transform.position = this.transform.position;
     }
 

@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 4568583440819111563}
   - component: {fileID: 7928591238667258146}
   - component: {fileID: 4061262062753323809}
-  - component: {fileID: -4346798501411081753}
+  - component: {fileID: -4503681943823245836}
   m_Layer: 0
   m_Name: FireWorm_Projectile
   m_TagString: Untagged
@@ -203,7 +203,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &-4346798501411081753
+--- !u!114 &-4503681943823245836
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -212,6 +212,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6635427155633505980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d916e8c6c5db2f4b977f0223eecf421, type: 3}
+  m_Script: {fileID: 11500000, guid: 0ebc0dd9b5d28cb4aaf711483c5bb0f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
