@@ -23,7 +23,7 @@ IHit
     protected Animator anim;
     protected Rigidbody2D rigid;
 
-    public virtual void SetMonster()
+    public virtual void Awake()
     {
         maxHealth = health;
         target = GameManager.player.transform;
@@ -36,7 +36,6 @@ IHit
         if (rigid == null) Debug.Log($"{this.name}에 Rigidbody2D가 존재하지 않음");
 
         GameManager.SetComponent(this);
-        this.gameObject.SetActive(false);
     }
 
     protected virtual void OnIdle()
