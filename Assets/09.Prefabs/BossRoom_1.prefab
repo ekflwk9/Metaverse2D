@@ -4272,6 +4272,7 @@ GameObject:
   - component: {fileID: 8543688432348048701}
   - component: {fileID: 7528805646027025284}
   - component: {fileID: 9093461660131355661}
+  - component: {fileID: 5093358806348274989}
   m_Layer: 0
   m_Name: BossTrigger
   m_TagString: Item
@@ -4413,6 +4414,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.3237733, y: 0.33732343}
   m_EdgeRadius: 0
+--- !u!114 &5093358806348274989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4429158884748137065}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c099ba29768ab042b3094371b375573, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4745777816040559528
 GameObject:
   m_ObjectHideFlags: 0

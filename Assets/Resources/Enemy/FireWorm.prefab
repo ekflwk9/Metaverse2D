@@ -226,7 +226,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: -909427070, guid: 00db9758ef8e524459d6eca8503f760a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -276,4 +276,8 @@ MonoBehaviour:
   moveSpeed: 0.8
   knockback: 1.7
   attackRange: 8
+  soundName:
+  - FireWorm01
+  - FireWorm02
+  - FireWorm03
   bloodPos: {x: 0, y: 0, z: 0}
