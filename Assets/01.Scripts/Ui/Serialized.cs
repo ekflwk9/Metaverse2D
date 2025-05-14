@@ -15,7 +15,7 @@ public class Serialized : MonoBehaviour
     // HP Gauge
     [SerializeField] protected Image healthBarImg;
 
-
+    // Button Change Sprite
     [SerializeField] protected Sprite videoSprite;
     [SerializeField] protected Sprite audioSprite;
     [SerializeField] protected Sprite gameSprite;
