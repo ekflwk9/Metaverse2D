@@ -52,6 +52,7 @@ public class MapManager : MonoBehaviour
 
     public int RemainingEnemies;
     public bool IsCleared = false; // 전투방 클리어 여부를 저장하는 플래그 추가
+    private Room currentRoom;
 
 
     private void Awake()
@@ -67,7 +68,7 @@ public class MapManager : MonoBehaviour
     // 다음층 생성 임시코드
     void Update()
     {
-        Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+        currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
 
         if (currentRoom != null && currentRoom.Type == RoomType.Battle)
         {
@@ -476,15 +477,15 @@ public class MapManager : MonoBehaviour
     }
 
     // 적 처치 시 호출
-    public void EnemyDefeated(Room room)
+    public void EnemyDefeated()
     {
-        if (!roomEnemyCount.ContainsKey(room)) return;
+        if (!roomEnemyCount.ContainsKey(currentRoom)) return;
 
-        roomEnemyCount[room]--;
+        roomEnemyCount[currentRoom]--;
 
-        if (roomEnemyCount[room] <= 0 && !clearedRooms.Contains(room))
+        if (roomEnemyCount[currentRoom] <= 0 && !clearedRooms.Contains(currentRoom))
         {
-            ClearBattleRoom(room);
+            ClearBattleRoom(currentRoom);
         }
     }
     // 해당 방에 남아 있는 적 수를 반환하는 메서드
