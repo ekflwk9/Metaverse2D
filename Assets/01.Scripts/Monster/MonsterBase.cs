@@ -72,7 +72,7 @@ public class MonsterBase : MonoBehaviour
                 maxHealth = 6f;
                 attackSpeed = 3f;
                 attackDamage = 1;
-                attackRange = 4f;
+                attackRange = 5f;
                 keepDistance = 2.5f;
 
                 break;
