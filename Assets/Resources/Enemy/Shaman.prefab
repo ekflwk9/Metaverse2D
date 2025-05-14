@@ -195,7 +195,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dmg: 10
   health: 400
-  moveSpeed: 4
-  knockback: 0
+  moveSpeed: 2.5
+  knockback: 0.5
   attackRange: 5
   bloodPos: {x: 0, y: 0, z: 0}
