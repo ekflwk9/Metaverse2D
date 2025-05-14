@@ -21,6 +21,10 @@ IHit
     public float attackSpeed { get; private set; } = 1f;
     public Vector3 direction { get; private set; }
 
+    private float dashTime;
+    private float maxDashTime = 0.5f;
+
+    private bool isDash = false;
     private bool inRange = false;
     private bool isPickUp = false;
 
@@ -214,10 +218,6 @@ IHit
             rigid.velocity = pos.normalized * moveSpeed;
         }
     }
-
-    private float dashTime;
-    private float maxDashTime = 0.5f;
-    private bool isDash = false;
 
     private void Dash()
     {
