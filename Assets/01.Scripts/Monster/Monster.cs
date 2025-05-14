@@ -52,7 +52,7 @@ IHit
 
         var effectPos = this.transform.position + bloodPos;
         GameManager.effect.Show(effectPos, "Blood");
-        GameManager.sound.OnEffect(monsterName);
+        //GameManager.sound.OnEffect(monsterName);
 
         if (health > 0)
         {
@@ -63,18 +63,8 @@ IHit
 
         else
         {
-            isMove = true;
-            rigid.velocity = Vector3.zero;
-            anim.SetBool("Move", false);
-            anim.Play("Idle", 0, 0);
-
-            health = maxHealth;
             this.gameObject.SetActive(false);
-            Service.Log($"111");
             GameManager.map.EnemyDefeated();
-
-            GameManager.gameEvent.Call("UpDifficulty");
-            GameManager.gameEvent.Call("UpKillCount");
         }
     }
 

@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class MapManager : MonoBehaviour
 {
     private Dictionary<Room, int> roomEnemyCount = new Dictionary<Room, int>();
     private HashSet<Room> clearedRooms = new HashSet<Room>();
-    
+
     public HashSet<string> battleRoomName = new HashSet<string>();
     public string[][] monsterName =
     {
@@ -244,7 +243,7 @@ public class MapManager : MonoBehaviour
                     GameObject roomObj = Instantiate(prefab, worldPos, Quaternion.identity, transform);
                     roomObj.name = $"{roomObj.name}{x}{y}";
 
-                    if(prefab.name.Contains("BattleRoom"))
+                    if (prefab.name.Contains("BattleRoom"))
                     {
                         battleRoomName.Add(roomObj.name);
                     }
@@ -469,5 +468,11 @@ public class MapManager : MonoBehaviour
                 ClearBattleRoom(currentRoom);
             }
         }
+    }
+
+    public void NextRoom()
+    {
+        GoToNextFloor();  // 1Ãþ ¡æ 2Ãþ ¡æ 3Ãþ ¼øÂ÷ÀûÀ¸·Î »ý¼º
+        GameManager.gameEvent.Call("CardWindowOn");
     }
 }
