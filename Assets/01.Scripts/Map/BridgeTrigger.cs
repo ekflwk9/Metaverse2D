@@ -30,6 +30,45 @@ public class BridgeTrigger : MonoBehaviour
         }
     }
 
+    public int SpawnMonster(Transform _mapPos, string[] _monsterNameArray, int _maxSpawnCount)
+    {
+        if (_maxSpawnCount < 3) Service.Log($"{_maxSpawnCount} 스폰 최대 수치가 3보다 이하일 수는 없습니다.");
+
+        //스폰할 몬스터 정보
+        GameObject[] monster = new GameObject[_monsterNameArray.Length];
+
+        for (int i = 0; i < _monsterNameArray.Length; i++)
+        {
+            monster[i] = Service.FindResource("Enemy", _monsterNameArray[i]);
+        }
+
+        //몬스터 배열만큼 랜덤 스폰 및 지정
+        var ranSpawnCount = Random.Range(3, _maxSpawnCount);
+        var ranMonsterType = Random.Range(0, _monsterNameArray.Length);
+        var isRandom = ranMonsterType == 0 ? false : true;
+
+        for (int i = 0; i < ranSpawnCount; i++)
+        {
+            //스폰 타입 랜덤
+            if (isRandom) ranMonsterType = Random.Range(0, _monsterNameArray.Length);
+            else ranMonsterType = 0;
+
+            var monsterPos = _mapPos.transform.position;
+            monsterPos.x = Random.Range(0, 5);
+            monsterPos.y = Random.Range(0, 5);
+
+            var spawnMonster = MonoBehaviour.Instantiate(monster[ranMonsterType]);
+
+            GameManager.map.spawnCount++;
+            spawnMonster.name = $"{monster[ranMonsterType].name}_{GameManager.map.spawnCount}";
+            spawnMonster.GetComponent<Monster>().SetMonster();
+
+            spawnMonster.transform.position = _mapPos.transform.position + monsterPos;
+        }
+
+        return ranSpawnCount;
+    }
+
     private void FadeFunc()
     {
         // 전투 방인지 확인
@@ -39,7 +78,7 @@ public class BridgeTrigger : MonoBehaviour
             var ranMonster = Random.Range(mapManager.currentFloor - 1, mapManager.currentFloor);
 
             // 몬스터 수 계산
-            int enemyCount = Service.SpawnMonster
+            int enemyCount = SpawnMonster
                 (nextRoom.RoomObject.transform,
                 mapManager.monsterName[ranMonster],
                 mapManager.currentFloor * 5);
@@ -49,7 +88,7 @@ public class BridgeTrigger : MonoBehaviour
 
             GameManager.map.currentRoom = nextRoom;
 
-            Service.Log($"[Room] 다음 방에 설정할 몬스터 수: {enemyCount}");
+            //Service.Log($"[Room] 다음 방에 설정할 몬스터 수: {enemyCount}");
             // Room 클래스에 몬스터 수 기록
             GameManager.map.SetEnemies(nextRoom, enemyCount);
 

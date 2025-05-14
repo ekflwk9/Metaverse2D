@@ -16,6 +16,7 @@ public class MapManager : MonoBehaviour
 
     public string decorationTag = "Decoration"; // 데코레이션 태그 설정
 
+    public int spawnCount;
     public int currentFloor = 1; // 현재 층 정보 (1부터 시작)
 
     // 현재 층에 따라 맵 크기 지정
@@ -65,26 +66,26 @@ public class MapManager : MonoBehaviour
     }
 
     // 다음층 생성 임시코드
-    void Update()
-    {
-        // 예시: 특정 키를 눌러서 GoToNextFloor 호출 테스트
-        if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
-        {
-            GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
+    //void Update()
+    //{
+    //    // 예시: 특정 키를 눌러서 GoToNextFloor 호출 테스트
+    //    if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
+    //    {
+    //        GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
 
-            GameManager.gameEvent.Call("CardWindowOn");
-        }
+    //        GameManager.gameEvent.Call("CardWindowOn");
+    //    }
 
-        // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
-            if (currentRoom != null && currentRoom.RoomObject != null)
-            {
-                OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
-            }
-        }
-    }
+    //    // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
+    //    if (Input.GetKeyDown(KeyCode.B))
+    //    {
+    //        currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+    //        if (currentRoom != null && currentRoom.RoomObject != null)
+    //        {
+    //            OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
+    //        }
+    //    }
+    //}
 
     // 맵 생성 전체 로직
     public void GenerateMap()

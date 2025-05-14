@@ -24,11 +24,7 @@ public class Boss : Monster
 
         else
         {
-            isMove = true;
             rigid.velocity = Vector3.zero;
-            anim.SetBool("Move", false);
-            anim.Play("Idle", 0, 0);
-
             this.gameObject.SetActive(false);
 
             GameManager.map.EnemyDefeated();
