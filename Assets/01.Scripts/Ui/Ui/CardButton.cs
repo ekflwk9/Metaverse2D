@@ -56,5 +56,7 @@ public class CardButton : UiButton
     {
         GameManager.gameEvent.Call($"{skill[cardNumber]}GetSkill");
         GameManager.gameEvent.Call("CardWindowOff");
+
+        GameManager.gameEvent.Call("MapManagerManualClear");
     }
 }

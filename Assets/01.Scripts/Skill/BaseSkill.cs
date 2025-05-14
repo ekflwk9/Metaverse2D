@@ -269,7 +269,7 @@ public abstract class BaseSkill : MonoBehaviour
         _collider.enabled = false;
     }
 
-    private void CamAction()
+    protected void CamAction()
     {
         GameManager.cam.Action("Shake");
     }
