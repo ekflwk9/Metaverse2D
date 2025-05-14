@@ -31,15 +31,13 @@ public class BridgeTrigger : MonoBehaviour
 
     private void FadeFunc()
     {
-        var parent = this.transform.parent.parent;
-        var parentName = parent.name;
         
-        if (mapManager.battleRoomName.Contains(parentName))
+        if (mapManager.battleRoomName.Contains(nextRoom.RoomObject.name))
         {
             var ranMonster = Random.Range(mapManager.currentFloor - 1, mapManager.currentFloor);
 
-            Service.SpawnMonster(parent, mapManager.monsterName[ranMonster], mapManager.currentFloor * 5);
-            mapManager.battleRoomName.Remove(parentName);
+            Service.SpawnMonster(nextRoom.RoomObject.transform, mapManager.monsterName[ranMonster], mapManager.currentFloor * 5);
+            mapManager.battleRoomName.Remove(nextRoom.RoomObject.name);
         }
 
         // 플레이어를 새 방의 위치로 이동
