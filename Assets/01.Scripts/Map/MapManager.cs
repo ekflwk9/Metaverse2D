@@ -46,6 +46,12 @@ public class MapManager : MonoBehaviour
     private GameObject playerInstance; // 실제 씬에 존재하는 플레이어
     public Vector2Int currentRoomPos; // 현재 방 위치
     public string bridgeDirection; // 외부에서 설정할 문 방향
+    public RoomClear roomClear;
+
+    private void Awake()
+    {
+        GameManager.gameEvent.Add(ManualClear);
+    }
 
     private void Start()
     {
@@ -420,5 +426,14 @@ public class MapManager : MonoBehaviour
         }
 
         Debug.LogWarning("스타트룸을 찾을 수 없습니다.");
+    }
+
+    public void ManualClear()
+    {
+        Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+        if (currentRoom != null && currentRoom.RoomObject != null)
+        {
+            OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
+        }
     }
 }

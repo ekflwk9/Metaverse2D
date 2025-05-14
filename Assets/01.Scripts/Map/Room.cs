@@ -27,4 +27,16 @@ public class Room
         { Vector2Int.left, false },
         { Vector2Int.right, false }
     };
+
+    public int RemainingEnemies;
+
+    public void SetEnemies(int count)
+    {
+        RemainingEnemies = count;
+    }
+
+    public void EnemyDefeated()
+    {
+        RemainingEnemies--;
+    }
 }
