@@ -9,6 +9,7 @@ IItemEnter
 
     private void Awake()
     {
+        this.gameObject.name = transform.parent.name;
         itemInfo = Service.FindChild(this.transform, "ItemInfo").gameObject;
         GameManager.SetComponent(this);
     }
