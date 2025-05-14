@@ -6,7 +6,7 @@ public class MapManager : MonoBehaviour
 {
     private Dictionary<Room, int> roomEnemyCount = new Dictionary<Room, int>();
     private HashSet<Room> clearedRooms = new HashSet<Room>();
-    public static MapManager Instance { get; private set; }
+    
     public HashSet<string> battleRoomName = new HashSet<string>();
     public string[][] monsterName =
     {
@@ -57,14 +57,11 @@ public class MapManager : MonoBehaviour
     private void Awake()
     {
         GameManager.gameEvent.Add(ManualClear);
-    }
+        GameManager.SetComponent(this);
 
-    private void Start()
-    {
         GenerateMap(); // 게임 시작 시 맵 생성
 
         GameManager.gameEvent.Call("CardWindowOn");
-
     }
 
     // 다음층 생성 임시코드
@@ -74,12 +71,12 @@ public class MapManager : MonoBehaviour
 
         if (currentRoom != null && currentRoom.Type == RoomType.Battle)
         {
-            bool isCleared = MapManager.Instance.IsRoomCleared(currentRoom);
-            int remainingEnemies = MapManager.Instance.GetRemainingEnemies(currentRoom);
+            bool isCleared = GameManager.map.IsRoomCleared(currentRoom);
+            int remainingEnemies = GameManager.map.GetRemainingEnemies(currentRoom);
 
             if (remainingEnemies <= 0 && !isCleared)
             {
-                MapManager.Instance.ClearBattleRoom(currentRoom);
+                GameManager.map.ClearBattleRoom(currentRoom);
             }
         }
 
