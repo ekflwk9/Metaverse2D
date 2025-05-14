@@ -115,11 +115,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1721469144360412136}
-  - component: {fileID: 5961020768643111875}
   - component: {fileID: 7311749629206558829}
-  - component: {fileID: 1026779187933084403}
+  - component: {fileID: 7846572182195399875}
+  - component: {fileID: -8926613112387954785}
   m_Layer: 0
-  m_Name: Necromancer_Projectile
+  m_Name: Shaman_Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -141,18 +141,6 @@ Transform:
   - {fileID: 6192574905298235876}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5961020768643111875
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1408280977734662453}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f558ed8f0b27ac74390a12e437479643, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!50 &7311749629206558829
 Rigidbody2D:
   serializedVersion: 4
@@ -180,8 +168,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &1026779187933084403
-BoxCollider2D:
+--- !u!58 &7846572182195399875
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -195,7 +183,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -212,19 +200,21 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.22322142, y: 0.05455053}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
+  m_Offset: {x: 0.31, y: 0}
   serializedVersion: 2
-  m_Size: {x: 1.2287691, y: 1.109101}
-  m_EdgeRadius: 0
+  m_Radius: 0.5
+--- !u!114 &-8926613112387954785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408280977734662453}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ebc0dd9b5d28cb4aaf711483c5bb0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2586259546481881538
 GameObject:
   m_ObjectHideFlags: 0
