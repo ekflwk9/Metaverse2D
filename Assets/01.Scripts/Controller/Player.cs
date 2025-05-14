@@ -69,6 +69,7 @@ IHit
             GameManager.cam.Action(null);
 
             this.gameObject.SetActive(false);
+            GameManager.sound.OnEffect("Die");
             GameManager.gameEvent.Call("DeadWindowOn");
         }
     }
@@ -247,6 +248,8 @@ IHit
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isDash)
         {
+            GameManager.sound.OnEffect("Dash01");
+
             ghost.makeGhost = true;
             isDash = true;
 
