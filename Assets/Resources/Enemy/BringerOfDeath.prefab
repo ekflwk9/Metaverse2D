@@ -186,6 +186,6 @@ MonoBehaviour:
   dmg: 10
   health: 300
   moveSpeed: 3
-  knockback: 3
-  attackRange: 2
+  knockback: 0.5
+  attackRange: 2.5
   bloodPos: {x: 0, y: 0, z: 0}
