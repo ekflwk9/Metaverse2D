@@ -50,8 +50,8 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         GenerateMap(); // 게임 시작 시 맵 생성
-        
-        //GameManager.gameEvent.Call("CarWindowOn");
+
+        GameManager.gameEvent.Call("CarWindowOn");
 
     }
 
@@ -62,8 +62,8 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
         {
             GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
-            
-            //GameManager.gameEvent.Call("CarWindowOn");
+
+            GameManager.gameEvent.Call("CarWindowOn");
         }
 
         // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
