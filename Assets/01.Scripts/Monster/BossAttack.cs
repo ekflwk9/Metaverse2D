@@ -9,13 +9,20 @@ public class BossAttack : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float dashSpeedMultiplier = 3f;
     [SerializeField] private float dashCooldownTime = 2f;
-    [SerializeField] private MonsterAttackBase attackBase;
+    [SerializeField] private float attackRange = 2.5f;
+    [SerializeField] private RangedAttack rangedAttack;
+    private MonsterAttackBase attackBase;
 
     private bool isAttacking = false;
     private bool dashOnCooldown = false;
     private Vector2 dashDirection;
 
     public bool IsAttacking => isAttacking;
+
+    private void Start()
+    {
+        attackBase = GetComponent<RangedAttack>();
+    }
 
     public void PerformAttack()
     {
@@ -44,7 +51,7 @@ public class BossAttack : MonoBehaviour
         rb.velocity = dashDirection * dashSpeedMultiplier;
 
         StartCoroutine(DashCooldown());
-        yield break; // EndAttack은 애니메이션 이벤트에서 호출됨
+        yield break; 
     }
 
     private IEnumerator DashCooldown()
@@ -55,20 +62,26 @@ public class BossAttack : MonoBehaviour
 
     public void TriggerDashDamage()
     {
-        Collider2D hit = Physics2D.OverlapCircle(transform.position, 1.5f, LayerMask.GetMask("Player"));
-        if (hit != null)
+        float distanceToPlayer = Vector2.Distance(transform.position, GameManager.player.transform.position);
+
+        if (distanceToPlayer <= attackRange)
         {
-            GameManager.player.OnHit(20); // 예시 데미지
+            GameManager.player.OnHit(3);
+        }
+        else
+        {
+            Service.Log("DashAttack 범위 밖에 있습니다");
         }
     }
 
     public void TriggerProjectile()
     {
-        // 애니메이션 이벤트에서 호출되는 Projectile 처리 (이미 attackBase에서 발사됨)
+        rangedAttack?.SpawnProjectile();
     }
 
     public void EndAttack()
     {
+        Service.Log("[BossAttack] 보스는 멈추도록 하시오");
         rb.velocity = Vector2.zero;
         isAttacking = false;
 

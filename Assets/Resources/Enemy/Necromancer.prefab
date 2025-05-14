@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4940862088708392010}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.05, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -106,7 +106,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 19
+  m_SortingOrder: 20
   m_Sprite: {fileID: -281300768, guid: 150832e3d93810b4392c41b764dce315, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -248,7 +248,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.018644094, y: -0.34527338}
+  m_Offset: {x: -0.032372355, y: -0.19860077}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -259,7 +259,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2147183, y: 2.6206648}
+  m_Size: {x: 1.8065856, y: 2.3273191}
   m_EdgeRadius: 0
 --- !u!114 &947348644925410071
 MonoBehaviour:
@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterType: 0
+  monsterType: 2
 --- !u!114 &1764277296831071085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,8 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 988b95aea688eaf418b8e1cec990bffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1408280977734662453, guid: 786ea0c19f403e047955e6f2d0b01816, type: 3}
-  projectileSpeed: 3
+  projectilePrefab: {fileID: 6635427155633505980, guid: a18286be7bc9b0e4494cbd6f5082e03f, type: 3}
+  projectileSpeed: 5
 --- !u!114 &7975047711335617904
 MonoBehaviour:
   m_ObjectHideFlags: 0

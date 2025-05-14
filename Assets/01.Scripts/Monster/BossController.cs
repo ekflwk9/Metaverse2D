@@ -10,8 +10,8 @@ public class BossController : MonoBehaviour
     [SerializeField] private MonsterBase monsterBase;
 
     private float attackCooldown;
+    private bool hasWanderDirection = false;
     private Vector2 wanderDirection;
-    private float wanderTimer;
 
     private void Start()
     {
@@ -31,6 +31,7 @@ public class BossController : MonoBehaviour
         else
         {
             anim.SetBool("isMoving", false);
+            hasWanderDirection = false;
         }
 
         attackCooldown -= Time.deltaTime;
@@ -43,19 +44,18 @@ public class BossController : MonoBehaviour
 
     private void Wander()
     {
-        wanderTimer -= Time.deltaTime;
-        if (wanderTimer <= 0f)
+        if (!hasWanderDirection)
         {
             PickNewWanderDirection();
+            hasWanderDirection = true;
         }
 
-        rb.velocity = wanderDirection * wanderSpeed * 0.5f;
+        rb.velocity = wanderDirection * wanderSpeed * 0.8f;
     }
 
     private void PickNewWanderDirection()
     {
         wanderDirection = Random.insideUnitCircle.normalized;
-        wanderTimer = Random.Range(1f, 3f);
     }
 
     public void ResetAttackCooldown()
