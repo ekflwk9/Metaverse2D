@@ -109,7 +109,7 @@ public class MonsterBase : MonoBehaviour
         if (IsDead)
         {
             animator.SetBool("isDead", true);
-            gameObject.SetActive(false); // or Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 
