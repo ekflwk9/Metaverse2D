@@ -4,6 +4,8 @@ using UnityEngine.SceneManagement;
 public static class GameManager
 {
     public static bool stopGame = false;
+
+    public static MapManager map { get; private set; }
     public static Player player { get; private set; }
     public static FollowCamera cam { get; private set; }
     public static UiComponent ui { get; private set; }
@@ -20,6 +22,7 @@ public static class GameManager
         else if (_component is UiComponent isUi) ui = isUi;
         else if (_component is FollowCamera isCam) cam = isCam;
         else if (_component is FadeComponent isFade) fade = isFade;
+        else if (_component is MapManager isMap) map = isMap;
 
         sound.SetComponent(_component);
         gameEvent.SetComponent(_component);

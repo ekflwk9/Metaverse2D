@@ -49,7 +49,7 @@ public class BridgeTrigger : MonoBehaviour
 
             Debug.Log($"[Room] 다음 방에 설정할 몬스터 수: {enemyCount}");
             // Room 클래스에 몬스터 수 기록
-            nextRoom.SetEnemies(enemyCount);
+            GameManager.map.SetEnemies(nextRoom, enemyCount);
 
             // 전투 방 리스트에서 제거 (중복 생성 방지)
             mapManager.battleRoomName.Remove(nextRoom.RoomObject.name);
