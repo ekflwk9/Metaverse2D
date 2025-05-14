@@ -1,6 +1,8 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class StartMenuWindow : MonoBehaviour
+public class StartUiWindow : MonoBehaviour
 {
     private void Awake()
     {
