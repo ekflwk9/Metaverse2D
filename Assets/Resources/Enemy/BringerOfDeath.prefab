@@ -264,7 +264,7 @@ MonoBehaviour:
   dmg: 12
   health: 450
   moveSpeed: 2.5
-  knockback: 0.5
+  knockback: 0.4
   attackRange: 2.3
   soundName:
   - BringerOfDeath01

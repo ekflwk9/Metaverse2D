@@ -274,7 +274,7 @@ MonoBehaviour:
   dmg: 14
   health: 700
   moveSpeed: 2
-  knockback: 2
+  knockback: 0.5
   attackRange: 7
   soundName:
   - Necromancer01
