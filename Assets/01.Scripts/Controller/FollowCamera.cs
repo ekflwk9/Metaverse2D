@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
+
     // 카메라가 이동할 수 있는 맵의 최소 좌표와 최대 좌표 (경계 영역)
     public Vector2 minBounds;
     public Vector2 maxBounds;
@@ -34,17 +35,6 @@ public class FollowCamera : MonoBehaviour
     // Update는 매 프레임 실행 (플레이어 존재 확인 및 초기화)
     void Update()
     {
-        if (!playerInitialized && GameManager.player != null)
-        {
-            // 카메라를 플레이어 위치로 즉시 이동 [수정됨]
-            transform.position = new Vector3(GameManager.player.transform.position.x,
-                                             GameManager.player.transform.position.y,
-                                             transform.position.z);
-
-            // 플레이어 위치를 기준으로 경계 재설정
-            CenterBoundsOn(GameManager.player.transform.position);
-            playerInitialized = true;
-        }
 
         if (GameManager.player != null)
         {
@@ -64,12 +54,9 @@ public class FollowCamera : MonoBehaviour
 
             if (isPlayerInsideBounds)
             {
-                // 플레이어가 경계 안에 있을 때
-                // 카메라는 경계 내에서만 움직임 (Clamp로 제한)
-                float clampedX = Mathf.Clamp(desiredX, minX, maxX);
-                float clampedY = Mathf.Clamp(desiredY, minY, maxY);
-
-                transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+                // 부드럽게 따라감
+                transform.position = Vector3.Lerp(transform.position, GameManager.player.transform.position, 0.05f);
+                //transform.position = new Vector3(clampedX, clampedY, transform.position.z);
             }
             else
             {
@@ -79,6 +66,7 @@ public class FollowCamera : MonoBehaviour
 
                 // 경계도 플레이어 위치를 중심으로 재조정
                 CenterBoundsOn(new Vector2(desiredX, desiredY));
+
             }
         }
     }

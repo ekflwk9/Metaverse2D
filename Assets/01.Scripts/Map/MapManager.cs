@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+    public HashSet<string> battleRoomName = new HashSet<string>();
+    public string[][] monsterName =
+    {
+        new string[] { "BringerOfDeath", "FireWorm"},
+        new string[] { "Necromancer", "Shaman"},
+        new string[] { "BringerOfDeath", "FireWorm", "Necromancer", "Shaman"},
+    };
+
     public string decorationTag = "Decoration"; // 데코레이션 태그 설정
 
     public int currentFloor = 1; // 현재 층 정보 (1부터 시작)
@@ -42,6 +50,9 @@ public class MapManager : MonoBehaviour
     private void Start()
     {
         GenerateMap(); // 게임 시작 시 맵 생성
+        
+        //GameManager.gameEvent.Call("CarWindowOn");
+
     }
 
     // 다음층 생성 임시코드
@@ -51,6 +62,8 @@ public class MapManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
         {
             GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
+            
+            //GameManager.gameEvent.Call("CarWindowOn");
         }
 
         // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
@@ -85,21 +98,23 @@ public class MapManager : MonoBehaviour
         if (currentFloor == 1)
         {
             battleCount = rng.Next(7, 11);
-            treasureCount = rng.Next(1, 4);
+            treasureCount = rng.Next(1, 3);
         }
         else if (currentFloor == 2)
         {
             battleCount = rng.Next(7, 14);
-            treasureCount = rng.Next(1, 5);
+            treasureCount = rng.Next(1, 3);
         }
         else if (currentFloor == 3)
         {
             battleCount = rng.Next(9, 17);
-            treasureCount = rng.Next(2, 6);
+            treasureCount = rng.Next(1, 3);
         }
 
         // 1. 전투방 랜덤 생성
         RandomRooms(RoomType.Battle, battleCount, width, height);
+
+        //Service.SpawnMonster
 
         // 2. 보물방 랜덤 생성
         RandomRooms(RoomType.Treasure, treasureCount, width, height);
@@ -217,6 +232,12 @@ public class MapManager : MonoBehaviour
                     Vector3 worldPos = new Vector3(x * 20, y * 20, 0);
                     GameObject prefab = GetPrefab(room.Type);
                     GameObject roomObj = Instantiate(prefab, worldPos, Quaternion.identity, transform);
+                    roomObj.name = $"{roomObj.name}{x}{y}";
+
+                    if(prefab.name.Contains("BattleRoom"))
+                    {
+                        battleRoomName.Add(roomObj.name);
+                    }
 
                     room.RoomObject = roomObj; // 오브젝트 저장
                     SetBridge(roomObj, x, y);
