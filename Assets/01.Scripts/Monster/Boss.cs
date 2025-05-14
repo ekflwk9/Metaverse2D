@@ -30,7 +30,14 @@ public class Boss : Monster
 
             this.gameObject.SetActive(false);
             GameManager.map.EnemyDefeated();
+
+            GameManager.fade.OnFade(FadeFunc);
         }
+    }
+
+    private void FadeFunc()
+    {
+
     }
 
     public override void SetMonster()
