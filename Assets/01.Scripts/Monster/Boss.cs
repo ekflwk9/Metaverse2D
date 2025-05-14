@@ -7,7 +7,31 @@ public class Boss : Monster
     private int count;
     private Bullet[] bullet;
 
-    
+    public override void OnHit(int _dmg)
+    {
+        health -= _dmg;
+
+        var effectPos = this.transform.position + bloodPos;
+        GameManager.effect.Show(effectPos, "Blood");
+
+        if (health > 0)
+        {
+            isMove = false;
+            rigid.velocity = (target.position - this.transform.position) * -knockback;
+            anim.Play("Hit", 0, 0);
+        }
+
+        else
+        {
+            isMove = true;
+            rigid.velocity = Vector3.zero;
+            anim.SetBool("Move", false);
+            anim.Play("Idle", 0, 0);
+
+            this.gameObject.SetActive(false);
+            GameManager.map.EnemyDefeated();
+        }
+    }
 
     public override void SetMonster()
     {

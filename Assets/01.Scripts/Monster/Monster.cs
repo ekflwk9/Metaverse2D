@@ -52,7 +52,7 @@ IHit
 
         var effectPos = this.transform.position + bloodPos;
         GameManager.effect.Show(effectPos, "Blood");
-        GameManager.sound.OnEffect(monsterName);
+        //GameManager.sound.OnEffect(monsterName);
 
         if (health > 0)
         {
@@ -68,7 +68,6 @@ IHit
             anim.SetBool("Move", false);
             anim.Play("Idle", 0, 0);
 
-            health = maxHealth;
             this.gameObject.SetActive(false);
             GameManager.map.EnemyDefeated();
         }
