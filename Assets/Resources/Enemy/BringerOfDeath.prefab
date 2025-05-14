@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2099444950903215725}
   - component: {fileID: 5681843952319493048}
   - component: {fileID: 526449000669597097}
-  - component: {fileID: 3218385772770959185}
+  - component: {fileID: 5962619236596460105}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 2021507694525773883}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.75, y: 0.37, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 1.49, y: 0.53, z: 0}
+  m_LocalScale: {x: -1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2810843505706970664}
@@ -96,7 +96,7 @@ Animator:
   m_GameObject: {fileID: 2021507694525773883}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 2135b11446f64e8458cad0a64f3818ff, type: 2}
+  m_Controller: {fileID: 9100000, guid: 6845eb9ccb3f3a6409c1fd96201deec5, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -107,7 +107,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3218385772770959185
+--- !u!114 &5962619236596460105
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -116,10 +116,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 2021507694525773883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 06225657d32431a4f97f2ec6f34efca1, type: 3}
+  m_Script: {fileID: 11500000, guid: 15e083e57d5146d46931ed813f4712a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isAttackEnd: 0
 --- !u!1 &5808826603434195912
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,8 +248,8 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0033371449, y: -0.046720028}
-  m_Size: {x: 1.0005717, y: 1.4271545}
+  m_Offset: {x: 0.0033371449, y: -0.29}
+  m_Size: {x: 1.79, y: 2.63}
   m_Direction: 0
 --- !u!114 &3159425273321989898
 MonoBehaviour:
@@ -277,7 +276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monsterType: 0
-  spritePivot: {fileID: 2810843505706970664}
 --- !u!114 &2921836898102023873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -290,8 +288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f31f7273273bad438c7352b8e0abd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  canAttack: 0
-  isAttackEnd: 0
+  projectilePrefab: {fileID: 0}
 --- !u!114 &2719677314245002330
 MonoBehaviour:
   m_ObjectHideFlags: 0

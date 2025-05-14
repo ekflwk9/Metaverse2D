@@ -42,11 +42,11 @@ public class MonsterBase : MonoBehaviour
         switch (monsterType)
         {
             case MonsterType.BringerOfDeath:
-                moveSpeed = 1.6f;
+                moveSpeed = 2f;
                 maxHealth = 4f;
-                attackSpeed = 2f;
+                attackSpeed = 1.5f;
                 attackDamage = 1;
-                attackRange = 1.5f;
+                attackRange = 1f;
                 break;
 
             case MonsterType.FireWorm:
