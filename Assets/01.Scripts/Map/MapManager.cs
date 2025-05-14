@@ -79,7 +79,7 @@ public class MapManager : MonoBehaviour
         // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
         if (Input.GetKeyDown(KeyCode.B))
         {
-            //Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+            currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
             if (currentRoom != null && currentRoom.RoomObject != null)
             {
                 OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
