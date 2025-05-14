@@ -194,6 +194,7 @@ GameObject:
   - component: {fileID: 231935752}
   - component: {fileID: 231935751}
   - component: {fileID: 231935750}
+  - component: {fileID: 231935756}
   m_Layer: 0
   m_Name: PaladinHammer
   m_TagString: Untagged
@@ -379,6 +380,19 @@ Transform:
   - {fileID: 828683754}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &231935756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 231935749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &285192491
 GameObject:
   m_ObjectHideFlags: 0
@@ -751,6 +765,7 @@ GameObject:
   - component: {fileID: 549474693}
   - component: {fileID: 549474692}
   - component: {fileID: 549474691}
+  - component: {fileID: 549474697}
   m_Layer: 0
   m_Name: BloodBlast
   m_TagString: Untagged
@@ -925,6 +940,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &549474697
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 549474690}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &701754595
 GameObject:
   m_ObjectHideFlags: 0
@@ -939,6 +967,7 @@ GameObject:
   - component: {fileID: 701754597}
   - component: {fileID: 701754596}
   - component: {fileID: 701754602}
+  - component: {fileID: 701754603}
   m_Layer: 0
   m_Name: IceAge
   m_TagString: Untagged
@@ -1125,6 +1154,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &701754603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 701754595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &828683753
 GameObject:
   m_ObjectHideFlags: 0
@@ -6027,6 +6069,7 @@ GameObject:
   - component: {fileID: 899438727}
   - component: {fileID: 899438726}
   - component: {fileID: 899438725}
+  - component: {fileID: 899438731}
   m_Layer: 0
   m_Name: PoisonGas
   m_TagString: Untagged
@@ -6201,6 +6244,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &899438731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899438724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &973654018
 GameObject:
   m_ObjectHideFlags: 0
@@ -6344,6 +6400,7 @@ GameObject:
   - component: {fileID: 1112111724}
   - component: {fileID: 1112111723}
   - component: {fileID: 1112111722}
+  - component: {fileID: 1112111728}
   m_Layer: 0
   m_Name: Kaboom
   m_TagString: Untagged
@@ -6518,6 +6575,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1112111728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112111721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &1174803966
 GameObject:
   m_ObjectHideFlags: 0
@@ -6609,6 +6679,7 @@ GameObject:
   - component: {fileID: 1251662120}
   - component: {fileID: 1251662119}
   - component: {fileID: 1251662118}
+  - component: {fileID: 1251662124}
   m_Layer: 0
   m_Name: Vortex
   m_TagString: Untagged
@@ -6784,6 +6855,20 @@ Transform:
   - {fileID: 2045393566}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1251662124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1251662117}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName:
+  - Sound_Vortex
 --- !u!1 &1301672900
 GameObject:
   m_ObjectHideFlags: 0
@@ -11686,6 +11771,7 @@ GameObject:
   - component: {fileID: 1524379206}
   - component: {fileID: 1524379205}
   - component: {fileID: 1524379204}
+  - component: {fileID: 1524379210}
   m_Layer: 0
   m_Name: DoubleSlash
   m_TagString: Untagged
@@ -11870,6 +11956,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1524379210
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524379203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &1624882427
 GameObject:
   m_ObjectHideFlags: 0
@@ -11884,6 +11983,7 @@ GameObject:
   - component: {fileID: 1624882430}
   - component: {fileID: 1624882429}
   - component: {fileID: 1624882428}
+  - component: {fileID: 1624882434}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Untagged
@@ -12058,6 +12158,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1624882434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624882427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &1818125583
 GameObject:
   m_ObjectHideFlags: 0
@@ -12072,6 +12185,7 @@ GameObject:
   - component: {fileID: 1818125586}
   - component: {fileID: 1818125585}
   - component: {fileID: 1818125584}
+  - component: {fileID: 1818125590}
   m_Layer: 0
   m_Name: Crystalize
   m_TagString: Untagged
@@ -12246,6 +12360,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1818125590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1818125583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf121661e33552347979e6ca751cfa1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundName: []
 --- !u!1 &1901365388
 GameObject:
   m_ObjectHideFlags: 0
@@ -12415,7 +12542,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   getDmg: 0
-  skillCooldown: 13
+  skillCooldown: 0
   skillSpeed: 0
   forward: 0
   slowAmount: 0
