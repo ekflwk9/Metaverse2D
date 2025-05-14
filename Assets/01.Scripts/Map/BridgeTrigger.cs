@@ -6,7 +6,8 @@ public class BridgeTrigger : MonoBehaviour
 {
     public string direction; // 이동 방향 ("Left", "Right", "Up", "Down" 중 하나)
     private MapManager mapManager; // 현재 맵 정보를 가지고 있는 MapManager 참조
-
+    private Room nextRoom;
+    
     private void Awake()
     {
         // MapManager를 씬에서 찾아서 연결
@@ -26,6 +27,24 @@ public class BridgeTrigger : MonoBehaviour
         {
             collider.isTrigger = true;
         }
+    }
+
+    private void FadeFunc()
+    {
+        var parent = this.transform.parent.parent;
+        var parentName = parent.name;
+        
+        if (mapManager.battleRoomName.Contains(parentName))
+        {
+            var ranMonster = Random.Range(mapManager.currentFloor - 1, mapManager.currentFloor);
+
+            Service.SpawnMonster(parent, mapManager.monsterName[ranMonster], mapManager.currentFloor * 5);
+            mapManager.battleRoomName.Remove(parentName);
+        }
+
+        // 플레이어를 새 방의 위치로 이동
+        GameManager.player.transform.position = nextRoom.RoomObject.transform.position;
+        GameManager.fade.OnFade();
     }
 
     // 플레이어가 브리지 트리거에 닿았을 때 실행됨
@@ -61,11 +80,12 @@ public class BridgeTrigger : MonoBehaviour
         if (newRoomPos.x >= 0 && newRoomPos.x < width && newRoomPos.y >= 0 && newRoomPos.y < height)
         {
             // 해당 좌표에 방이 존재하는지 확인
-            Room nextRoom = mapManager.grid[newRoomPos.x, newRoomPos.y];
+            nextRoom = mapManager.grid[newRoomPos.x, newRoomPos.y];
             if (nextRoom != null && nextRoom.RoomObject != null)
             {
                 // 플레이어를 새 방의 위치로 이동
-                GameManager.player.transform.position = nextRoom.RoomObject.transform.position;
+                //GameManager.player.transform.position = nextRoom.RoomObject.transform.position;
+                GameManager.fade.OnFade(FadeFunc);
 
                 // 현재 방 위치를 새 위치로 갱신
                 mapManager.currentRoomPos = newRoomPos;
