@@ -50,7 +50,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   getDmg: 0
   skillCooldown: 0
-  changeDamage: 0.1
+  changeDamage: 1.3
   forward: 0
   skillSpeed: 0
   slowAmount: 0
