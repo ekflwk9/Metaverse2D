@@ -69,7 +69,8 @@ IHit
             anim.Play("Idle", 0, 0);
 
             health = maxHealth;
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
+            Service.Log($"111");
             GameManager.map.EnemyDefeated();
 
             GameManager.gameEvent.Call("UpDifficulty");
