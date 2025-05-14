@@ -23,20 +23,19 @@ IHit
     protected Animator anim;
     protected Rigidbody2D rigid;
 
-    public virtual void SetMonster()
+    public virtual void Awake()
     {
         maxHealth = health;
         target = GameManager.player.transform;
         monsterName = this.GetType().Name;
 
         anim = GetComponent<Animator>();
-        if (anim == null) Debug.Log($"{this.name}에 애니메이터가 존재하지 않음");
+        if (anim == null) Service.Log($"{this.name}에 애니메이터가 존재하지 않음");
 
         rigid = GetComponent<Rigidbody2D>();
-        if (rigid == null) Debug.Log($"{this.name}에 Rigidbody2D가 존재하지 않음");
+        if (rigid == null) Service.Log($"{this.name}에 Rigidbody2D가 존재하지 않음");
 
         GameManager.SetComponent(this);
-        this.gameObject.SetActive(false);
     }
 
     protected virtual void OnIdle()

@@ -3621,7 +3621,7 @@ GameObject:
   - component: {fileID: 1124291399}
   - component: {fileID: 1124291400}
   m_Layer: 7
-  m_Name: HitBox
+  m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
