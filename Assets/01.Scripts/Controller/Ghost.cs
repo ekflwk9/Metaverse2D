@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Ghost : MonoBehaviour
 {
-    public float ghostDelayIsForCountingTheNumberOfGhostImageWhichPlayerWillGetTurnsIntoDelayPerSecondsToCountWithTimeDeltaTimeToShowPlayerWithFantasticExperienceOfUnityCodeSystem;
     private float theNumberOfGhostImageWhichPlayerWillGetTurnsIntoDelayPerSecondsToCountWithTimeDeltaTimeToShowPlayerWithFantasticExperienceOfUnityCodeSystem;
+    public float ghostDelayIsForCountingTheNumberOfGhostImageWhichPlayerWillGetTurnsIntoDelayPerSecondsToCountWithTimeDeltaTimeToShowPlayerWithFantasticExperienceOfUnityCodeSystem;
     public bool makeGhost = false;
 
     public GameObject thisGameObjectIsToCreateTheGhostOfPlayerUsingGhostPrefabInFlieFolderInPrefabsFolder;
