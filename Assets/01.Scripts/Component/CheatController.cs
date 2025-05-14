@@ -9,7 +9,7 @@ public class CheatController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) GameManager.ChangeScene(sceneName);
+        //if (Input.GetKeyDown(KeyCode.K)) GameManager.ChangeScene(sceneName);
 
         //if (Input.GetKeyDown(KeyCode.V))
         //{
@@ -17,9 +17,9 @@ public class CheatController : MonoBehaviour
         //    Service.SpawnMonster(transform, monster, 5);
         //}
 
-        if (Input.GetKeyDown(KeyCode.V))
-        {
-            GameManager.gameEvent.Hit(GameManager.player.name, 20);
-        }
+        //if (Input.GetKeyDown(KeyCode.V))
+        //{
+        //    GameManager.gameEvent.Hit(GameManager.player.name, 20);
+        //}
     }
 }

@@ -61,44 +61,6 @@ public class Service
         return findObject;
     }
 
-    public static int SpawnMonster(Transform _mapPos, string[] _monsterNameArray, int _maxSpawnCount)
-    {
-        if (_maxSpawnCount < 3) Log($"{_maxSpawnCount} 스폰 최대 수치가 3보다 이하일 수는 없습니다.");
-
-        //스폰할 몬스터 정보
-        GameObject[] monster = new GameObject[_monsterNameArray.Length];
-
-        for (int i = 0; i < _monsterNameArray.Length; i++)
-        {
-            monster[i] = Service.FindResource("Enemy", _monsterNameArray[i]);
-        }
-
-        //몬스터 배열만큼 랜덤 스폰 및 지정
-        var ranSpawnCount = Random.Range(3, _maxSpawnCount);
-        var ranMonsterType = Random.Range(0, _monsterNameArray.Length);
-        var isRandom = ranMonsterType == 0 ? false : true;
-
-        for (int i = 0; i < ranSpawnCount; i++)
-        {
-            //스폰 타입 랜덤
-            if (isRandom) ranMonsterType = Random.Range(0, _monsterNameArray.Length);
-            else ranMonsterType = 0;
-
-            var monsterPos = _mapPos.transform.position;
-            monsterPos.x = Random.Range(0, 5);
-            monsterPos.y = Random.Range(0, 5);
-
-            var spawnMonster = MonoBehaviour.Instantiate(monster[ranMonsterType]);
-            spawnMonster.name = $"{monster[ranMonsterType].name}_{i}";
-            spawnMonster.GetComponent<Monster>().SetMonster();
-
-            spawnMonster.transform.position = _mapPos.transform.position + monsterPos;
-        }
-
-        return ranSpawnCount;
-    }
-
-
 #if UNITY_EDITOR
     /// <summary>
     /// 에디터 디버깅 전용 로그
