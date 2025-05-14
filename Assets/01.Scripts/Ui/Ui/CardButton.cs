@@ -35,5 +35,6 @@ public class CardButton : UiButton
     {
         //GameManager.gameEvent.Call(skill[cardNumber]);
         GameManager.gameEvent.Call("CarWindowOff");
+        GameManager.gameEvent.Call("MapManagerManualClear");
     }
 }

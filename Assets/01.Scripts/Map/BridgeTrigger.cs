@@ -7,7 +7,8 @@ public class BridgeTrigger : MonoBehaviour
     public string direction; // 이동 방향 ("Left", "Right", "Up", "Down" 중 하나)
     private MapManager mapManager; // 현재 맵 정보를 가지고 있는 MapManager 참조
     private Room nextRoom;
-    
+    private int spawnedMonsterCount = 0;
+
     private void Awake()
     {
         // MapManager를 씬에서 찾아서 연결
@@ -31,19 +32,39 @@ public class BridgeTrigger : MonoBehaviour
 
     private void FadeFunc()
     {
-        
+        // 전투 방인지 확인
         if (mapManager.battleRoomName.Contains(nextRoom.RoomObject.name))
         {
+            // 현재 층에 맞는 몬스터 인덱스를 무작위로 선택
             var ranMonster = Random.Range(mapManager.currentFloor - 1, mapManager.currentFloor);
 
-            Service.SpawnMonster(nextRoom.RoomObject.transform, mapManager.monsterName[ranMonster], mapManager.currentFloor * 5);
+            // 몬스터 수 계산
+            int enemyCount = mapManager.currentFloor * 5;
+
+            // 몬스터 생성
+            Service.SpawnMonster(
+                nextRoom.RoomObject.transform,
+                mapManager.monsterName[ranMonster],
+                enemyCount
+            );
+
+            // 몬스터 카운트 증가
+            spawnedMonsterCount++;
+
+            // Room 클래스에 몬스터 수 기록
+            nextRoom.SetEnemies(enemyCount);
+
+            // 전투 방 리스트에서 제거 (중복 생성 방지)
             mapManager.battleRoomName.Remove(nextRoom.RoomObject.name);
         }
 
-        // 플레이어를 새 방의 위치로 이동
+        // 플레이어 위치 이동
         GameManager.player.transform.position = nextRoom.RoomObject.transform.position;
+
+        // 페이드 효과 실행
         GameManager.fade.OnFade();
     }
+
 
     // 플레이어가 브리지 트리거에 닿았을 때 실행됨
     private void OnTriggerEnter2D(Collider2D collision)
