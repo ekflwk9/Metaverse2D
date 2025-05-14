@@ -274,7 +274,7 @@ MonoBehaviour:
   dmg: 8
   health: 380
   moveSpeed: 0.8
-  knockback: 1.7
+  knockback: 0.6
   attackRange: 8
   soundName:
   - FireWorm01
