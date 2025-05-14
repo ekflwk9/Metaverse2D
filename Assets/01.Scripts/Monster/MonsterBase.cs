@@ -109,7 +109,7 @@ public class MonsterBase : MonoBehaviour, IHit
         {
             rb.velocity = Vector2.zero;
             animator.SetBool("isDead", true);
-            StartCoroutine(DeactivateAfterDelay(10f));
+            StartCoroutine(DeactivateAfterDelay(3f));
         }
     }
     private IEnumerator DeactivateAfterDelay(float delay)
