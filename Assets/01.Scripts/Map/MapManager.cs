@@ -330,6 +330,8 @@ public class MapManager : MonoBehaviour
             }
         }
     }
+
+    // 플레이어 배치
     void PlacePlayer()
     {
         foreach (Room room in rooms)

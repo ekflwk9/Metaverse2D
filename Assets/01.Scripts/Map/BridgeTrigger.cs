@@ -31,8 +31,8 @@ public class BridgeTrigger : MonoBehaviour
     // 플레이어가 브리지 트리거에 닿았을 때 실행됨
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-        Debug.Log("트리거 감지됨");
+        // 충돌한 오브젝트가 플레이어가 아니면 무시
+        if (!collision.CompareTag("Player")) return;
 
         // 방향 문자열에 따라 좌표 오프셋 설정
         Vector2Int offset = Vector2Int.zero;

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6bc45e328c1b4488774869acd0d65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 
+  direction: Right
 --- !u!1 &649714735968711369
 GameObject:
   m_ObjectHideFlags: 0
@@ -1315,7 +1315,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Origin: {x: -7, y: -1, z: 0}
   m_Size: {x: 82, y: 33, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -1483,7 +1483,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Origin: {x: -1, y: -7, z: 0}
   m_Size: {x: 83, y: 32, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -2813,7 +2813,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Origin: {x: 0, y: -1, z: 0}
   m_Size: {x: 88, y: 33, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
@@ -3066,7 +3066,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -3133,7 +3133,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6bc45e328c1b4488774869acd0d65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 
+  direction: Up
 --- !u!1 &3092772610050961099
 GameObject:
   m_ObjectHideFlags: 0
@@ -6606,7 +6606,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -6673,7 +6673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6bc45e328c1b4488774869acd0d65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 
+  direction: Left
 --- !u!1 &5912887318374752391
 GameObject:
   m_ObjectHideFlags: 0
@@ -7599,7 +7599,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -7666,7 +7666,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc6bc45e328c1b4488774869acd0d65b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 
+  direction: Down
 --- !u!1 &8240668848220468008
 GameObject:
   m_ObjectHideFlags: 0
@@ -8396,7 +8396,7 @@ Tilemap:
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_Origin: {x: -1, y: 0, z: 0}
   m_Size: {x: 83, y: 38, z: 1}
   m_TileAnchor: {x: 0.5, y: 0.5, z: 0}
