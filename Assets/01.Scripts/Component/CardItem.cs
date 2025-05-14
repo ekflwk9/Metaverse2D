@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardItem : MonoBehaviour,
 IItemEnter
 {
+    private bool isGet;
     private GameObject itemInfo;
 
     private void Awake()
@@ -15,6 +16,7 @@ IItemEnter
 
     public void OnItem()
     {
+        this.gameObject.SetActive(false);
         //GameManager.player.OnPickUpAction();
         GameManager.gameEvent.Call("CardWindowOn");
     }

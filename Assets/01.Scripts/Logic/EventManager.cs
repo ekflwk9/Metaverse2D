@@ -36,6 +36,7 @@ public class EventManager
     {
         //이벤트 정리
         hit.Clear();
+        item.Clear();
         gameEvent.Clear();
     }
 

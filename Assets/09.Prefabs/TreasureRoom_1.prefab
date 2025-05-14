@@ -3194,7 +3194,7 @@ GameObject:
   - component: {fileID: 2745000119751316545}
   - component: {fileID: 8454689955327481911}
   m_Layer: 0
-  m_Name: ItemTrigger
+  m_Name: CardItem
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
