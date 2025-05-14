@@ -11,10 +11,6 @@ GameObject:
   - component: {fileID: 3973434178951047078}
   - component: {fileID: 5739010725204256806}
   - component: {fileID: 76232561168218700}
-  - component: {fileID: 3423843221858719563}
-  - component: {fileID: 7662038943282494798}
-  - component: {fileID: 7910247828327310401}
-  - component: {fileID: 1614772034752948370}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Untagged
@@ -110,71 +106,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.6505153, y: 2.6731505}
   m_EdgeRadius: 0
---- !u!114 &3423843221858719563
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154667797608170878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292c117a9a0f31b49aa001f623a5f57f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  anim: {fileID: 856001131020835}
-  rb: {fileID: 5739010725204256806}
-  dashSpeedMultiplier: 3
-  dashCooldownTime: 2
-  attackRange: 2.5
-  rangedAttack: {fileID: 7910247828327310401}
---- !u!114 &7662038943282494798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154667797608170878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c76bdb96d679bb43a80a2e05f95c935, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  wanderSpeed: 1.5
-  attackCooldownTime: 3
-  anim: {fileID: 856001131020835}
-  rb: {fileID: 5739010725204256806}
-  bossAttack: {fileID: 3423843221858719563}
-  monsterBase: {fileID: 1614772034752948370}
---- !u!114 &7910247828327310401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154667797608170878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988b95aea688eaf418b8e1cec990bffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 1601032002429970148, guid: 6a47c7e79df73a444a8e8c81314098fa, type: 3}
-  projectileSpeed: 5
---- !u!114 &1614772034752948370
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 154667797608170878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloodPos: {x: 0, y: 0}
-  floorPos: {x: 0, y: 0}
-  monsterType: 0
 --- !u!1 &5190728016090935912
 GameObject:
   m_ObjectHideFlags: 0
@@ -186,8 +117,6 @@ GameObject:
   - component: {fileID: 9139133157426466611}
   - component: {fileID: 8805513489042234625}
   - component: {fileID: 856001131020835}
-  - component: {fileID: 3043194249498850456}
-  - component: {fileID: 4504826066087407151}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -283,30 +212,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3043194249498850456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5190728016090935912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb564bbd4584ccb4cb40199e1accede3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4504826066087407151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5190728016090935912}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649bb051bab8ffb41b09d3d2529510a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8066258413082892761
 GameObject:
   m_ObjectHideFlags: 0

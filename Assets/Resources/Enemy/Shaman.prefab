@@ -42,9 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2466830139940099824}
   - component: {fileID: 5610918906702397327}
-  - component: {fileID: 8378149094991269528}
   - component: {fileID: 5197412389157739787}
-  - component: {fileID: 240625549482081438}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -119,18 +117,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &8378149094991269528
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4659313370899199542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b5f31ee4aced542be75f15016e5386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &5197412389157739787
 Animator:
   serializedVersion: 5
@@ -152,18 +138,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &240625549482081438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4659313370899199542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649bb051bab8ffb41b09d3d2529510a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7382698888321194325
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,10 +149,6 @@ GameObject:
   - component: {fileID: 5260962866119368225}
   - component: {fileID: 1822515807271180021}
   - component: {fileID: 2719668895517677363}
-  - component: {fileID: 3892782895757250592}
-  - component: {fileID: 7861709164572958538}
-  - component: {fileID: 1754988447114721610}
-  - component: {fileID: 125270333730436166}
   m_Layer: 0
   m_Name: Shaman
   m_TagString: Enemy
@@ -274,56 +244,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.9979266, y: 1.6571214}
   m_EdgeRadius: 0
---- !u!114 &3892782895757250592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382698888321194325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloodPos: {x: 0, y: 0}
-  floorPos: {x: 0, y: 0}
-  monsterType: 2
---- !u!114 &7861709164572958538
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382698888321194325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e78bf3cf3c14c54793f7c3dfb23b88b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1754988447114721610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382698888321194325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988b95aea688eaf418b8e1cec990bffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 5141432421953448741, guid: 61f41f4259ec79c419a8827510e4c729, type: 3}
-  projectileSpeed: 3
---- !u!114 &125270333730436166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382698888321194325}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56079f415b60d34c95fe1093778a6e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

@@ -57,7 +57,7 @@ public class DoubleSlash : BaseSkill
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
 
-            collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
+            //collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
         }
     }
 }

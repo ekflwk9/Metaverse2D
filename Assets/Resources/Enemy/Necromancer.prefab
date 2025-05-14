@@ -42,9 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8655086064646363055}
   - component: {fileID: 4391615268420492783}
-  - component: {fileID: 3474686930649938845}
   - component: {fileID: 2521312104267709525}
-  - component: {fileID: 6126255262592697009}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -119,18 +117,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3474686930649938845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5194751658907148416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b5f31ee4aced542be75f15016e5386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &2521312104267709525
 Animator:
   serializedVersion: 5
@@ -152,18 +138,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6126255262592697009
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5194751658907148416}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649bb051bab8ffb41b09d3d2529510a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7986770601364740880
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,10 +149,6 @@ GameObject:
   - component: {fileID: 5491268969816132747}
   - component: {fileID: 7144271334264009666}
   - component: {fileID: 6507746933487437518}
-  - component: {fileID: 947348644925410071}
-  - component: {fileID: 1764277296831071085}
-  - component: {fileID: 4190117434077192059}
-  - component: {fileID: 7975047711335617904}
   m_Layer: 0
   m_Name: Necromancer
   m_TagString: Enemy
@@ -274,56 +244,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.8065856, y: 2.3273191}
   m_EdgeRadius: 0
---- !u!114 &947348644925410071
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7986770601364740880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloodPos: {x: 0, y: 0}
-  floorPos: {x: 0, y: 0}
-  monsterType: 2
---- !u!114 &1764277296831071085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7986770601364740880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e78bf3cf3c14c54793f7c3dfb23b88b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &4190117434077192059
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7986770601364740880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988b95aea688eaf418b8e1cec990bffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6635427155633505980, guid: a18286be7bc9b0e4494cbd6f5082e03f, type: 3}
-  projectileSpeed: 5
---- !u!114 &7975047711335617904
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7986770601364740880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56079f415b60d34c95fe1093778a6e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

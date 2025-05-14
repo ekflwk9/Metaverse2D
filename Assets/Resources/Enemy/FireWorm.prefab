@@ -10,9 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3797205275364917837}
   - component: {fileID: 3231880162793465071}
-  - component: {fileID: 2624143121714275694}
   - component: {fileID: 8261238200280009272}
-  - component: {fileID: 7724990188350043230}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -87,18 +85,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2624143121714275694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2197019453963051471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b5f31ee4aced542be75f15016e5386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8261238200280009272
 Animator:
   serializedVersion: 5
@@ -120,18 +106,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7724990188350043230
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2197019453963051471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 649bb051bab8ffb41b09d3d2529510a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2920671897684001068
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,10 +149,6 @@ GameObject:
   - component: {fileID: 3811964091975224155}
   - component: {fileID: 2851222499687608212}
   - component: {fileID: 5734948091710855901}
-  - component: {fileID: 2890852396711138280}
-  - component: {fileID: 5072985119310977845}
-  - component: {fileID: 5290813050963408422}
-  - component: {fileID: 7769367039184731732}
   m_Layer: 0
   m_Name: FireWorm
   m_TagString: Enemy
@@ -274,56 +244,3 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.5765909, y: 1.0795496}
   m_EdgeRadius: 0
---- !u!114 &2890852396711138280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5647207739806466079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bloodPos: {x: 0, y: 0}
-  floorPos: {x: 0, y: 0}
-  monsterType: 1
---- !u!114 &5072985119310977845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5647207739806466079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e78bf3cf3c14c54793f7c3dfb23b88b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &5290813050963408422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5647207739806466079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 988b95aea688eaf418b8e1cec990bffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 6635427155633505980, guid: a18286be7bc9b0e4494cbd6f5082e03f, type: 3}
-  projectileSpeed: 5
---- !u!114 &7769367039184731732
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5647207739806466079}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d56079f415b60d34c95fe1093778a6e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
