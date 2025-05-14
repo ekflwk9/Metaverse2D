@@ -54,9 +54,16 @@ public class FollowCamera : MonoBehaviour
 
             if (isPlayerInsideBounds)
             {
-                // 부드럽게 따라감
-                transform.position = Vector3.Lerp(transform.position, GameManager.player.transform.position, 0.05f);
-                //transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+
+                // 플레이어가 경계 안에 있을 때
+                // 카메라는 경계 내에서만 움직임 (Clamp로 제한)
+                float clampedX = Mathf.Clamp(desiredX, minX, maxX);
+                float clampedY = Mathf.Clamp(desiredY, minY, maxY);
+
+                Vector3 targetPos = new Vector3(clampedX, clampedY, transform.position.z);
+                // 부드러운 이동
+                transform.position = Vector3.Lerp(transform.position, targetPos, 0.05f);
+
             }
             else
             {
