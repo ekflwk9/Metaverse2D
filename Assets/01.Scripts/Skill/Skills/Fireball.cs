@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Fireball : BaseSkill
@@ -60,7 +58,9 @@ public class Fireball : BaseSkill
             else
             {
                 int x = (int)skillDamage;
+                CamAction();
                 GameManager.gameEvent.Hit(collision.gameObject.name, x);
+                GameManager.effect.Damage(collision.transform.position, x, DmgTypeCode.CriticalDamage);
             }
         }
     }

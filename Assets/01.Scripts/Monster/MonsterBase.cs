@@ -22,9 +22,9 @@ public class MonsterBase : MonoBehaviour, IHit
     public float maxHealth { get; private set; }
     public float currentHealth { get; private set; }
     public float attackSpeed { get; private set; }
+    public int attackDamage { get; private set; }
     public float attackRange { get; private set; }
     public float keepDistance { get; private set; }
-    public int attackDamage { get; private set; }
 
     public bool IsDamaged { get; private set; }
     public bool IsDead => currentHealth <= 0;
@@ -32,6 +32,7 @@ public class MonsterBase : MonoBehaviour, IHit
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     public Animator animator { get; private set; }
+
     private Coroutine slowCoroutine;
 
     /// <summary>

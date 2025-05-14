@@ -62,7 +62,9 @@ public class Kaboom : BaseSkill
             else
             {
                 int x = (int)skillDamage;
+                CamAction();
                 GameManager.gameEvent.Hit(collision.gameObject.name, x);
+                GameManager.effect.Damage(collision.transform.position, x, DmgTypeCode.CriticalDamage);
             }
         }
     }
