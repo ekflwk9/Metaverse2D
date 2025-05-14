@@ -212,7 +212,6 @@ GameObject:
   - component: {fileID: 511843121}
   - component: {fileID: 511843120}
   - component: {fileID: 511843123}
-  - component: {fileID: 511843122}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -308,18 +307,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &511843122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 511843118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8b5f31ee4aced542be75f15016e5386, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &511843123
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -513,9 +500,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c76bdb96d679bb43a80a2e05f95c935, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 1.5
-  AttackCooldown: 3
-  currentHealth: 12
+  wanderSpeed: 1.5
+  attackCooldownTime: 3
+  anim: {fileID: 0}
+  rb: {fileID: 0}
+  bossAttack: {fileID: 0}
+  monsterBase: {fileID: 0}
 --- !u!114 &1093259711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,10 +518,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 292c117a9a0f31b49aa001f623a5f57f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  anim: {fileID: 0}
+  rb: {fileID: 0}
   dashSpeedMultiplier: 3
-  attackDamage: 3
-  isAttacking: 0
   dashCooldownTime: 2
+  attackBase: {fileID: 0}
 --- !u!1 &1240841624
 GameObject:
   m_ObjectHideFlags: 0

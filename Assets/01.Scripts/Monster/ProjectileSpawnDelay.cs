@@ -23,9 +23,4 @@ public class ProjectileSpawnDelay : MonoBehaviour
             rangedAttack.SpawnProjectile();
         }
     }
-    public void EndAttack()
-    {
-        rb.velocity = Vector2.zero;
-        bossAttack.isAttacking = false;
-    }
 }
