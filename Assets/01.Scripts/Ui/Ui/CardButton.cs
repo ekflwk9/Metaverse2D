@@ -10,7 +10,6 @@ public class CardButton : UiButton
 
     private string[] skill =
     {
-        "오브젝트 이름",
         "Crystalize",
         "DoubleSlash",
         "PaladinHammer",
@@ -21,27 +20,10 @@ public class CardButton : UiButton
         "Kaboom",
         "Vortex",
         "EldenRing",
-
-    };
-
-    private string[] eventName =
-    {
-        "스킬 메서드 이름",
-        "Crystalize_Skill()",
-        "DoubleSlash_Skill()",
-        "PaladinHammer_Skill()",
-        "BloodBlast_Skill()",
-        "IceAge_Skill()",
-        "PoisonGas_Skill()",
-        "Fireball_Skill()",
-        "Kaboom_Skill()",
-        "Vortex_Skill()",
-        "EldenRing_Skill()",
     };
 
     private string[] skillInfo =
     {
-        "스킬 설명",
         "“낡은 마술사들의 유적 깊숙한 곳,\n수정을 꽃 피운 자는 존재의 경계를 넘었다고 전해진다.”",
         "“그는 두 번 베었다.\n모두가 한 번 봤을 뿐인데.”",
         "“정의는 철과 신념으로 내려앉는다.\n죄인은 피하지 못하리라.”",
@@ -57,6 +39,9 @@ public class CardButton : UiButton
     protected override void Awake()
     {
         base.Awake();
+        title = Service.FindChild(this.transform, "Title").GetComponent<TMP_Text>();
+        info = Service.FindChild(this.transform, "Info").GetComponent<TMP_Text>();
+
         GameManager.gameEvent.Add(SetSkill, true);
     }
 
@@ -69,7 +54,7 @@ public class CardButton : UiButton
 
     protected override void Click()
     {
-        //GameManager.gameEvent.Call(skill[cardNumber]);
-        GameManager.gameEvent.Call("CarWindowOff");
+        GameManager.gameEvent.Call($"{skill[cardNumber]}GetSkill");
+        GameManager.gameEvent.Call("CardWindowOff");
     }
 }

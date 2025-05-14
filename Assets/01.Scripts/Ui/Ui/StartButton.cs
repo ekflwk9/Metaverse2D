@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class StartButton : UiButton
 {
+    protected override void Awake()
+    {
+        base.Awake();
+        GameManager.gameEvent.Call("CardWindowOff");
+    }
+
     protected override void Click()
     {
         GameManager.fade.OnFade(FadeFunc);

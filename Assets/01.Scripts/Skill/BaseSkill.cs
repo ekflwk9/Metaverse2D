@@ -31,7 +31,7 @@ public abstract class BaseSkill : MonoBehaviour
     protected Vector3 direction = Vector3.zero;
     protected Vector3 generateLocation = Vector3.zero;
 
-    protected void Awake()
+    public void SetSkill()
     {
         GameManager.gameEvent.Add(GetSkill, true);
 

@@ -66,6 +66,7 @@ IHit
             maxHealth = 100;
             health = maxHealth;
             anim.Play("Idle", 0, 0);
+            GameManager.cam.Action(null);
 
             this.gameObject.SetActive(false);
             GameManager.gameEvent.Call("DeadWindowOn");

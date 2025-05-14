@@ -51,7 +51,7 @@ public class MapManager : MonoBehaviour
     {
         GenerateMap(); // 게임 시작 시 맵 생성
 
-        GameManager.gameEvent.Call("CarWindowOn");
+        GameManager.gameEvent.Call("CardWindowOn");
 
     }
 

@@ -97,7 +97,8 @@ public class FollowCamera : MonoBehaviour
     /// <param name="_actionName"></param>
     public void Action(string _actionName)
     {
-        anim.Play(_actionName, 0, 0);
+        if(!string.IsNullOrEmpty(_actionName)) anim.Play(_actionName, 0, 0);
+        else anim.Play("Idle", 0, 0);
     }
 
     // OnDrawGizmos: 씬 뷰에서 경계를 시각적으로 표시 (디버그용)
