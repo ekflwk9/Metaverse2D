@@ -13,10 +13,6 @@ public class DoubleSlash : BaseSkill
 
     public override void GetSkill()
     {
-        //Test¿ë ÄÚµå
-        GameManager.gameEvent.Add(GetSkill, true);
-        DontDestroyOnLoad(gameObject);
-
         GameManager.player.AddSkill(DoubleSlash_Skill);
 
         DmgChange();

@@ -33,19 +33,15 @@ public abstract class BaseSkill : MonoBehaviour
 
     protected void Awake()
     {
-        GetSkill();
-        //Test 위해서 꺼놓음
-        //GameManager.gameEvent.Add(GetSkill, true);
+        GameManager.gameEvent.Add(GetSkill, true);
 
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         particle = GetComponentInChildren<ParticleSystem>();
 
-        //저 죽이지 마세용 ㅠㅠ
         DontDestroyOnLoad(gameObject);
 
-        //스킬 미리 데미지넣는것 방지 애니메이션에서 끄고 켤 예정
         _collider.enabled = false;
 
         //스킬 생성 위치

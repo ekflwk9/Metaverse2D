@@ -12,13 +12,10 @@ public class BloodBlast : BaseSkill
 
     public override void GetSkill()
     {
-        //Test¿ë ÄÚµå
-        GameManager.gameEvent.Add(GetSkill, true);
         GameManager.player.AddSkill(BloodBlast_Skill);
 
         SkillLocation(Skill_location.CloseEnemy);
         DmgChange();
-        DontDestroyOnLoad(gameObject);
     }
 
     protected void BloodBlast_Skill()
