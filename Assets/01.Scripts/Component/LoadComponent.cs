@@ -9,5 +9,7 @@ public class LoadComponent : MonoBehaviour
         GameManager.effect.Load();
         GameManager.sound.Load();
         SceneManager.LoadScene("Start");
+
+        //GameManager.gameEvent.Call("CameraOn");
     }
 }

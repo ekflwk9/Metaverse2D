@@ -30,7 +30,7 @@ IHit
 
     private event Func skill;
     private Rigidbody2D rigid;
-    private Animator action;
+    private Animator anim;
     public Ghost ghost;
 
     private StringBuilder itemName = new StringBuilder(30);
@@ -39,7 +39,7 @@ IHit
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        action = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
         StartCoroutine(Attack());
         GameManager.SetComponent(this);
@@ -55,9 +55,20 @@ IHit
         bloodPos.y += 0.5f;
         health -= _dmg;
 
+        GameManager.gameEvent.Call("HpSliderUpdate");
         GameManager.effect.Show(bloodPos, "Blood");
         GameManager.effect.FloorBlood(playerPos);
         //GameManager.sound.OnEffect("PlayerHit");
+
+        if (health <= 0)
+        {
+            maxHealth = 100;
+            health = maxHealth;
+            anim.Play("Idle", 0, 0);
+
+            this.gameObject.SetActive(false);
+            GameManager.gameEvent.Call("DeadWindowOn");
+        }
     }
 
     public void StateUp(StateCode _code, float _upValue)
@@ -66,7 +77,7 @@ IHit
         {
             case StateCode.MoveSpeed:
                 moveSpeed += _upValue;
-                action.SetFloat("MoveSpeed", moveSpeed);
+                anim.SetFloat("MoveSpeed", moveSpeed);
 
                 break;
 
@@ -139,6 +150,15 @@ IHit
         }
     }
 
+    /// <summary>
+    /// 플레이어가 일시 정지일 경우 호출
+    /// </summary>
+    public void StopMove()
+    {
+        rigid.velocity = Vector3.zero;
+        anim.Play("Idle", 0, 0);
+    }
+
     private void PickUp()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -157,7 +177,7 @@ IHit
     public void OnPickUpAction()
     {
         isPickUp = true;
-        action.Play("PickUp", 0, 0);
+        anim.Play("PickUp", 0, 0);
         rigid.velocity = Vector3.zero;
     }
 
@@ -165,13 +185,14 @@ IHit
     {
         //줍는 모션 종료
         isPickUp = false;
-        action.Play("Idle", 0, 0);
+        anim.Play("Idle", 0, 0);
     }
 
     private void Move()
     {
         var pos = Vector3.zero;
         var filp = Vector3.one;
+
         if (isDash == false)
         {
             //상하
@@ -204,14 +225,14 @@ IHit
             //애니메이션 재생
             if (pos != Vector3.zero)
             {
-                action.SetBool("Move", true);
+                anim.SetBool("Move", true);
                 direction = pos.normalized;
                 this.transform.localScale = filp;
             }
 
             else
             {
-                action.SetBool("Move", false);
+                anim.SetBool("Move", false);
             }
 
             //보는 방향

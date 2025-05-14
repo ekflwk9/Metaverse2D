@@ -16,7 +16,7 @@ public class FollowCamera : MonoBehaviour
     private bool playerInitialized = false;
 
     // Start는 게임 시작 시 한 번만 실행
-    void Start()
+    private void Awake()
     {
         // Camera 컴포넌트 가져오기
         var cam = Service.FindChild(this.transform, "Main Camera").GetComponent<Camera>();
@@ -26,6 +26,8 @@ public class FollowCamera : MonoBehaviour
         // aspect로 화면 절반 너비 계산
         halfWidth = halfHeight * cam.aspect;
 
+        this.gameObject.SetActive(false);
+        GameManager.SetComponent(this);
         DontDestroyOnLoad(this.gameObject);
     }
 
