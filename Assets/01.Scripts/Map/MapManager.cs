@@ -6,7 +6,7 @@ public class MapManager : MonoBehaviour
 {
     private Dictionary<Room, int> roomEnemyCount = new Dictionary<Room, int>();
     private HashSet<Room> clearedRooms = new HashSet<Room>();
-    public static MapManager Instance { get; private set; }
+    
     public HashSet<string> battleRoomName = new HashSet<string>();
     public string[][] monsterName =
     {
@@ -52,50 +52,34 @@ public class MapManager : MonoBehaviour
 
     public int RemainingEnemies;
     public bool IsCleared = false; // 전투방 클리어 여부를 저장하는 플래그 추가
+    private Room currentRoom;
 
 
     private void Awake()
     {
         GameManager.gameEvent.Add(ManualClear);
-    }
+        GameManager.SetComponent(this);
 
-    private void Start()
-    {
         GenerateMap(); // 게임 시작 시 맵 생성
 
         GameManager.gameEvent.Call("CardWindowOn");
-
     }
 
     // 다음층 생성 임시코드
     void Update()
     {
-        Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
-
-        if (currentRoom != null && currentRoom.Type == RoomType.Battle)
-        {
-            bool isCleared = MapManager.Instance.IsRoomCleared(currentRoom);
-            int remainingEnemies = MapManager.Instance.GetRemainingEnemies(currentRoom);
-
-            if (remainingEnemies <= 0 && !isCleared)
-            {
-                MapManager.Instance.ClearBattleRoom(currentRoom);
-            }
-        }
-
-
         // 예시: 특정 키를 눌러서 GoToNextFloor 호출 테스트
         if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
         {
             GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
 
-            GameManager.gameEvent.Call("CarWindowOn");
+            GameManager.gameEvent.Call("CardWindowOn");
         }
 
         // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
         if (Input.GetKeyDown(KeyCode.B))
         {
-            //Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+            currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
             if (currentRoom != null && currentRoom.RoomObject != null)
             {
                 OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
@@ -450,7 +434,7 @@ public class MapManager : MonoBehaviour
 
     public void ManualClear()
     {
-        Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+        currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
         if (currentRoom != null && currentRoom.RoomObject != null)
         {
             OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
@@ -459,18 +443,13 @@ public class MapManager : MonoBehaviour
 
     public void ClearBattleRoom(Room room)
     {
-        if (room.Type != RoomType.Battle) return;
-
-        int remaining = GetRemainingEnemies(room);
-        bool isCleared = IsRoomCleared(room);
-
-        if (remaining <= 0 && !isCleared)
+        currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+        if (currentRoom != null && currentRoom.RoomObject != null)
         {
-            OpenBridge(room.RoomObject, room.Position.x, room.Position.y);
-            clearedRooms.Add(room); // 클리어 상태 등록
+            OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
         }
+        clearedRooms.Add(room); // 클리어 상태 등록
     }
-
     // 적 수 설정
     public void SetEnemies(Room room, int count)
     {
@@ -479,31 +458,15 @@ public class MapManager : MonoBehaviour
     }
 
     // 적 처치 시 호출
-    public void EnemyDefeated(Room room)
+    public void EnemyDefeated()
     {
-        if (!roomEnemyCount.ContainsKey(room)) return;
+        if (!roomEnemyCount.ContainsKey(currentRoom)) return;
 
-        roomEnemyCount[room]--;
+        roomEnemyCount[currentRoom]--;
 
-        if (roomEnemyCount[room] <= 0 && !clearedRooms.Contains(room))
+        if (roomEnemyCount[currentRoom] <= 0 && !clearedRooms.Contains(currentRoom))
         {
-            ClearBattleRoom(room);
+            ClearBattleRoom(currentRoom);
         }
-    }
-    // 해당 방에 남아 있는 적 수를 반환하는 메서드
-    // roomEnemyCount 딕셔너리에서 값을 가져오고, 없다면 기본값 0을 반환
-    public int GetRemainingEnemies(Room room)
-    {
-        if (roomEnemyCount.TryGetValue(room, out int count))
-            return count;
-
-        return 0; // 적이 없거나 등록되지 않은 방인 경우 기본값 반환
-    }
-
-    // 해당 방이 클리어 상태인지 확인하는 메서드
-    // clearedRooms 해시셋에 포함되어 있는지 여부로 판단
-    public bool IsRoomCleared(Room room)
-    {
-        return clearedRooms.Contains(room);
     }
 }

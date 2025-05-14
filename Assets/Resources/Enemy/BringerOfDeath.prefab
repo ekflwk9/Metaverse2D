@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5681843952319493048}
   - component: {fileID: 526449000669597097}
   - component: {fileID: 5962619236596460105}
+  - component: {fileID: 1242445668739260188}
   m_Layer: 0
   m_Name: MainSprite
   m_TagString: Untagged
@@ -119,6 +120,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15e083e57d5146d46931ed813f4712a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1242445668739260188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2021507694525773883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649bb051bab8ffb41b09d3d2529510a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5808826603434195912
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +179,7 @@ GameObject:
   - component: {fileID: 7569960245015820169}
   - component: {fileID: 2921836898102023873}
   - component: {fileID: 2719677314245002330}
+  - component: {fileID: 6779275141290450776}
   m_Layer: 0
   m_Name: BringerOfDeath
   m_TagString: Enemy
@@ -275,7 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floorPos: {x: 0, y: -0.65}
+  bloodPos: {x: 0, y: 0}
+  floorPos: {x: 0, y: 0}
   monsterType: 0
 --- !u!114 &2921836898102023873
 MonoBehaviour:
@@ -300,5 +315,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9ff15c79af0873548ae9607c768d1e4c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6779275141290450776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6720742822559132834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 649bb051bab8ffb41b09d3d2529510a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
