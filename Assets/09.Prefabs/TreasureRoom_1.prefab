@@ -3192,6 +3192,7 @@ GameObject:
   - component: {fileID: 8882058135977246103}
   - component: {fileID: 9141417473549915879}
   - component: {fileID: 2745000119751316545}
+  - component: {fileID: 8454689955327481911}
   m_Layer: 0
   m_Name: ItemTrigger
   m_TagString: Item
@@ -3333,6 +3334,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8101158, y: 0.6644156}
   m_EdgeRadius: 0
+--- !u!114 &8454689955327481911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2270200906712448322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1502ee40942deac4c836996ff46999de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2636576899434110897
 GameObject:
   m_ObjectHideFlags: 0
