@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CardWindow : MonoBehaviour
@@ -11,6 +9,16 @@ public class CardWindow : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    private void On() => this.gameObject.SetActive(true);
-    private void Off() => this.gameObject.SetActive(false);
+    private void On()
+    {
+        GameManager.stopGame = true;
+        GameManager.player.StopMove();
+        this.gameObject.SetActive(true);
+    }
+
+    private void Off()
+    {
+        GameManager.stopGame = false;
+        this.gameObject.SetActive(false);
+    }
 }

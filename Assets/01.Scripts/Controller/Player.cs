@@ -146,6 +146,15 @@ IHit
         }
     }
 
+    /// <summary>
+    /// 플레이어가 일시 정지일 경우 호출
+    /// </summary>
+    public void StopMove()
+    {
+        rigid.velocity = Vector3.zero;
+        anim.Play("Idle", 0, 0);
+    }
+
     private void PickUp()
     {
         if (Input.GetKeyDown(KeyCode.E))

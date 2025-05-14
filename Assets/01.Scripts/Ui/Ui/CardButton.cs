@@ -12,12 +12,12 @@ public class CardButton : UiButton
 
     private string[] skill =
     {
-        "",
+        "오브젝트 이름 + 스킬 메서드 이름",
     };
 
     private string[] skillInfo =
 {
-        "",
+        "스킬 설명",
     };
 
     protected override void Awake()
@@ -29,13 +29,13 @@ public class CardButton : UiButton
     private void SetSkill()
     {
         cardNumber = Random.Range(0, skill.Length);
-        title.text = skillInfo[cardNumber];
+        title.text = skill[cardNumber];
         info.text = skillInfo[cardNumber];
     }
 
     protected override void Click()
     {
-        GameManager.gameEvent.Call(skill[cardNumber]);
+        //GameManager.gameEvent.Call(skill[cardNumber]);
         GameManager.gameEvent.Call("CarWindowOff");
     }
 }
