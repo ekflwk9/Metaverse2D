@@ -29,6 +29,7 @@ public class MonsterBase : MonoBehaviour, IHit
     public bool IsDamaged { get; private set; }
     public bool IsDead => currentHealth <= 0;
 
+    private Room room;
     private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
     public Animator animator { get; private set; }
@@ -109,6 +110,7 @@ public class MonsterBase : MonoBehaviour, IHit
         {
             rb.velocity = Vector2.zero;
             animator.SetBool("isDead", true);
+            room.EnemyDefeated();
         }
     }
 
