@@ -11,13 +11,13 @@ IItemEnter
     private void Awake()
     {
         itemInfo = Service.FindChild(this.transform, "ItemInfo").gameObject;
+        this.gameObject.name = this.transform.parent.name;
         GameManager.SetComponent(this);
     }
 
     public void OnItem()
     {
         this.gameObject.SetActive(false);
-        //GameManager.player.OnPickUpAction();
         GameManager.gameEvent.Call("CardWindowOn");
     }
 
