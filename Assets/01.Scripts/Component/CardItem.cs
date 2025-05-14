@@ -16,7 +16,7 @@ IItemEnter
     public void OnItem()
     {
         //GameManager.player.OnPickUpAction();
-        GameManager.gameEvent.Call("CarWindowOn");
+        GameManager.gameEvent.Call("CardWindowOn");
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

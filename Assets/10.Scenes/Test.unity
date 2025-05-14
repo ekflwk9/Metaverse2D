@@ -1687,7 +1687,6 @@ GameObject:
   - component: {fileID: 1661463304}
   - component: {fileID: 1661463306}
   - component: {fileID: 1661463305}
-  - component: {fileID: 1661463307}
   m_Layer: 0
   m_Name: ItemInfo
   m_TagString: Untagged
@@ -1736,7 +1735,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC544\uC774\uD15C \uCE74\uB4DC \uD65C\uC131\uD654 \" E \""
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 55b3e42739543b140b242e3ad349bb9d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 51a49b37cf10bc94892b1a5d269da5f2, type: 2}
   m_sharedMaterial: {fileID: 7236319403335969687, guid: 55b3e42739543b140b242e3ad349bb9d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1803,7 +1802,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_renderer: {fileID: 1661463306}
   m_maskType: 0
 --- !u!23 &1661463306
@@ -1848,18 +1847,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 25
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1661463307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1661463303}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1502ee40942deac4c836996ff46999de, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1716782109
 GameObject:
   m_ObjectHideFlags: 0

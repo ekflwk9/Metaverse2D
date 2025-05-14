@@ -11,12 +11,14 @@ public class CardWindow : MonoBehaviour
 
     private void On()
     {
+        GameManager.stopGame = true;
         GameManager.player.StopMove();
         this.gameObject.SetActive(true);
     }
 
     private void Off()
     {
+        GameManager.stopGame = false;
         this.gameObject.SetActive(false);
     }
 }

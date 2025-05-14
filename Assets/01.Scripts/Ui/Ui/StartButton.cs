@@ -12,7 +12,7 @@ public class StartButton : UiButton
     private void FadeFunc()
     {
         //전투 씬으로 이동해야함
-        GameManager.ChangeScene("Test");
+        GameManager.ChangeScene("DungeonStart");
 
         GameManager.stopGame = false;
         GameManager.fade.OnFade();

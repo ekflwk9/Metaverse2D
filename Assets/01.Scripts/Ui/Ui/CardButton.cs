@@ -10,7 +10,7 @@ public class CardButton : UiButton
 
     private string[] skill =
     {
-        "오브젝트 이름 + 스킬 메서드 이름",
+        "",
     };
 
     private string[] skillInfo =
@@ -34,6 +34,6 @@ public class CardButton : UiButton
     protected override void Click()
     {
         //GameManager.gameEvent.Call(skill[cardNumber]);
-        GameManager.gameEvent.Call("CarWindowOff");
+        GameManager.gameEvent.Call("CardWindowOff");
     }
 }
