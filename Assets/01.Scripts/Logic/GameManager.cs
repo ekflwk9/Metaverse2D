@@ -11,7 +11,8 @@ public static class GameManager
     public static EffectManager effect { get; private set; } = new EffectManager();
     public static SoundManager sound { get; private set; } = new SoundManager();
     public static EventManager gameEvent { get; private set; } = new EventManager();
-
+    public static SpriteManager sprite { get; private set; } = new SpriteManager();
+    
     public static void SetComponent(MonoBehaviour _component)
     {
         //컴포넌트 / interface이벤트 할당 메서드

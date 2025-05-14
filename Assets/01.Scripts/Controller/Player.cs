@@ -55,6 +55,7 @@ IHit
         bloodPos.y += 0.5f;
         health -= _dmg;
 
+        GameManager.cam.Action("HitShake");
         GameManager.gameEvent.Call("HpSliderUpdate");
         GameManager.effect.Show(bloodPos, "Blood");
         GameManager.effect.FloorBlood(playerPos);

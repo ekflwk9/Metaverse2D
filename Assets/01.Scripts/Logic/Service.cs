@@ -88,7 +88,6 @@ public class Service
             monsterPos.x = Random.Range(0, 8);
             monsterPos.y = Random.Range(0, 8);
 
-            //몬스터 스폰 메서드 추가해야함
             var spawnMonster = MonoBehaviour.Instantiate(monster[ranMonsterType]);
             spawnMonster.transform.position = _mapPos.transform.position + monsterPos;
             spawnMonster.gameObject.SetActive(true);
