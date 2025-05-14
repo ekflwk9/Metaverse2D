@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public enum MonsterType
@@ -10,35 +10,35 @@ public enum MonsterType
     Boss
 }
 
-public class MonsterBase : MonoBehaviour
+public class MonsterBase : MonoBehaviour, IHit
 {
     [Header("Monster Type")]
     public MonsterType monsterType;
     
-    private float normalSpeed;
     public float moveSpeed { get; private set; }
     public float maxHealth { get; private set; }
     public float currentHealth { get; private set; }
     public float attackSpeed { get; private set; }
+    public int attackDamage { get; private set; }
     public float attackRange { get; private set; }
     public float keepDistance { get; private set; }
-    public int attackDamage { get; private set; }
     
     public bool IsDamaged { get; private set; }
     public bool IsDead => currentHealth <= 0;
 
     private SpriteRenderer spriteRenderer;
     public Animator animator { get; private set; }
-    private Coroutine slowCoroutine;
-
 
     protected virtual void Awake()
     {
         animator = GetComponentInChildren<Animator>();
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
+        GameManager.SetComponent(this);
+
         SetStatsByType();
         currentHealth = maxHealth;
-        normalSpeed = moveSpeed;
+
     }
 
     private void SetStatsByType()
@@ -76,7 +76,7 @@ public class MonsterBase : MonoBehaviour
                 maxHealth = 6f;
                 attackSpeed = 3f;
                 attackDamage = 1;
-                attackRange = 5f;
+                attackRange = 4f;
                 keepDistance = 2.5f;
 
                 break;
@@ -93,28 +93,18 @@ public class MonsterBase : MonoBehaviour
         }
     }
 
-    public virtual void TakeDamage(float damage)
-    {
-        if (IsDead) return;
-        currentHealth -= damage;
-        IsDamaged = true;
-        animator.SetTrigger("isDamaged");
-        StartCoroutine(ClearDamagedFlag());
-    }
-
-    private IEnumerator ClearDamagedFlag()
-    {
-        yield return new WaitForSeconds(0.5f);
-        IsDamaged = false;
-    }
-
     public void Dead()
     {
         if (IsDead)
         {
             animator.SetBool("isDead", true);
-            gameObject.SetActive(false);
+            StartCoroutine(DeactivateAfterDelay(1.0f));
         }
+    }
+    private IEnumerator DeactivateAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        gameObject.SetActive(false);
     }
 
     public void SetIdle()
@@ -131,20 +121,27 @@ public class MonsterBase : MonoBehaviour
         transform.localScale = scale;
     }
 
-    public void ApplySlow(float slowAmount)
+    public void OnHit(int _dmg)
     {
-        if (slowCoroutine != null)
+        if (IsDead) return;
+
+        currentHealth -= _dmg;
+        IsDamaged = true;
+
+        animator.SetTrigger("isDamaged");
+
+        if (IsDead)
         {
-            StopCoroutine(slowCoroutine);
+            Dead();
+            return;
         }
 
-        slowCoroutine = StartCoroutine(CoroutineSlow(slowAmount));
+        StartCoroutine(ClearDamagedFlag());
     }
 
-    private IEnumerator CoroutineSlow(float slowAmount)
+    private IEnumerator ClearDamagedFlag()
     {
-        moveSpeed = normalSpeed * (1f - slowAmount);
-        yield return Service.wait;
-        moveSpeed = normalSpeed;
+        yield return new WaitForSeconds(0.3f);
+        IsDamaged = false;
     }
 }
