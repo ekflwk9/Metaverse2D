@@ -59,7 +59,7 @@ IHit
         GameManager.gameEvent.Call("HpSliderUpdate");
         GameManager.effect.Show(bloodPos, "Blood");
         GameManager.effect.FloorBlood(playerPos);
-        //GameManager.sound.OnEffect("PlayerHit");
+        GameManager.sound.OnEffect("PlayerHit");
 
         if (health <= 0)
         {

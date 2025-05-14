@@ -12,8 +12,7 @@ public enum MonsterType
 
 public class MonsterBase : MonoBehaviour, IHit
 {
-    [SerializeField] private Vector2 bloodPos;
-    [SerializeField] private Vector2 floorPos;
+    [SerializeField] private Vector3 floorPos;
 
     [Header("Monster Type")]
     public MonsterType monsterType;
@@ -156,8 +155,9 @@ public class MonsterBase : MonoBehaviour, IHit
         currentHealth -= _dmg;
         IsDamaged = true;
 
-        GameManager.effect.Show(bloodPos, "Blood");
-        GameManager.effect.FloorBlood(floorPos);
+        var monsterPos = this.transform.position;
+        GameManager.effect.Show(monsterPos, "Blood");
+        GameManager.effect.FloorBlood(monsterPos + floorPos);
         animator.SetTrigger("isDamaged");
 
         if (IsDead)

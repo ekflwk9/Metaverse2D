@@ -273,7 +273,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5555c2b6a7ce22c438ae4b6548a80282, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterType: 2
+  floorPos: {x: 0, y: -0.72}
+  monsterType: 0
 --- !u!114 &7861709164572958538
 MonoBehaviour:
   m_ObjectHideFlags: 0
