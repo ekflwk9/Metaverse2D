@@ -9,6 +9,7 @@ public class SkillSoundEventHandler : MonoBehaviour
     public void PlaySound()
     {
         var randomSound = Random.Range(0, soundName.Length);
+        
         GameManager.sound.OnEffect(soundName[randomSound]);
     }
 }
