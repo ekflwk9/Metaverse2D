@@ -470,4 +470,11 @@ public class MapManager : MonoBehaviour
             }
         }
     }
+
+    public void nextRoom()
+    {
+     GoToNextFloor();  // 1Ãþ ¡æ 2Ãþ ¡æ 3Ãþ ¼øÂ÷ÀûÀ¸·Î »ý¼º
+
+     GameManager.gameEvent.Call("CardWindowOn");
+    }
 }
