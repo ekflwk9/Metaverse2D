@@ -8,7 +8,9 @@ public class Ending : MonoBehaviour
     {
         GameManager.ChangeScene("Start");
 
+        GameManager.player.transform.position = Vector3.one * 1000;
         GameManager.player.StateUp(StateCode.Health, 100);
+
         GameManager.gameEvent.Call("HpSliderUpdate");
         GameManager.gameEvent.Call("HpOff");
         GameManager.cam.gameObject.SetActive(false);

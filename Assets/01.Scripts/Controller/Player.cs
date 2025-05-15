@@ -14,7 +14,7 @@ public enum StateCode
 public class Player : MonoBehaviour,
 IHit
 {
-    public int dmg { get; private set; } = 100;
+    public int dmg { get; private set; } = 10000;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
     public float moveSpeed { get; private set; } = 2f;
@@ -130,9 +130,9 @@ IHit
     /// 스킬 정보 삭제
     /// </summary>
     /// <param name="_skill"></param>
-    public void RemoveSkill(Func _skill)
+    public void Clear()
     {
-        skill -= _skill;
+        skill = null;
     }
 
     private void Update()

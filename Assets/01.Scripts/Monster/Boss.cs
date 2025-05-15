@@ -38,11 +38,14 @@ public class Boss : Monster
 
         else
         {
+            GameManager.ChangeScene("EndingScene");
+
             GameManager.stopGame = true;
             GameManager.player.StopMove();
             GameManager.player.transform.position = Vector3.one * 1000;
 
-            GameManager.ChangeScene("EndingScene");
+            GameManager.cam.gameObject.SetActive(false);
+            GameManager.gameEvent.Call("HpOff");
         }
 
         GameManager.fade.OnFade();
