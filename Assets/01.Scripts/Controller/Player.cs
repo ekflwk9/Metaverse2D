@@ -15,8 +15,8 @@ public class Player : MonoBehaviour,
 IHit
 {
     public int dmg { get; private set; } = 100;
-    public int health { get; private set; } = 100000;
-    public int maxHealth { get; private set; } = 100000;
+    public int health { get; private set; } = 100;
+    public int maxHealth { get; private set; } = 100;
     public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
     public Vector3 direction { get; private set; }
@@ -104,6 +104,7 @@ IHit
 
             case StateCode.Health:
                 health += _upValue;
+                if(health > maxHealth) health = maxHealth;
                 break;
 
             case StateCode.MaxHealth:

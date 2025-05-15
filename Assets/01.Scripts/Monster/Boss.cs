@@ -39,6 +39,9 @@ public class Boss : Monster
         else
         {
             GameManager.stopGame = true;
+            GameManager.player.StopMove();
+            GameManager.player.transform.position = Vector3.one * 1000;
+
             GameManager.ChangeScene("EndingScene");
         }
 
