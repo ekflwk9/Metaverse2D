@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4984437186937630286}
   - component: {fileID: 5224269069953436988}
   - component: {fileID: 725196404588674331}
+  - component: {fileID: 2390523042770982218}
   m_Layer: 0
   m_Name: Boss_Projectile
   m_TagString: Untagged
@@ -170,3 +171,15 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2390523042770982218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8286498174768970870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ebc0dd9b5d28cb4aaf711483c5bb0f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1676496419119362537}
   - component: {fileID: 2862587385389954640}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: -759542562821323568}
   m_Layer: 0
   m_Name: Boss 3
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

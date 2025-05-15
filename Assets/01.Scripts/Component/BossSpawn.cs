@@ -31,7 +31,11 @@ IItemEnter
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")) itemInfo.SetActive(true);
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            GameManager.sound.OnEffect("TouchItem");
+            itemInfo.SetActive(true);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
