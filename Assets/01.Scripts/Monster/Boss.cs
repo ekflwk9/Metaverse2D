@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : Monster
@@ -37,7 +35,12 @@ public class Boss : Monster
     private void FadeFunc()
     {
         if (GameManager.map.currentFloor < 3) GameManager.map.NextRoom();
-        else GameManager.ChangeScene("EndingScene");
+
+        else
+        {
+            GameManager.stopGame = true;
+            GameManager.ChangeScene("EndingScene");
+        }
 
         GameManager.fade.OnFade();
     }
