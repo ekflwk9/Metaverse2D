@@ -25,7 +25,6 @@ public class BloodBlast : BaseSkill
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }
