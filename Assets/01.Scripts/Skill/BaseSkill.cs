@@ -234,11 +234,10 @@ public abstract class BaseSkill : MonoBehaviour
         float random = Random.Range(-0.3f, 0.3f);
         skillDamage = baseDmg * (1f + random);
 
-        if (Random.value < 0.15f)
+        if (Random.value < 0.25f)
         {
             skillDamage *= 1.5f;
             dmgType = DmgTypeCode.CriticalDamage;
-            Debug.Log("Critical Hit!");
         }
         else
         {
