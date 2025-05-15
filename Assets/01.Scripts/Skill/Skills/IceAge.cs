@@ -26,7 +26,6 @@ public class IceAge : BaseSkill
         {
             this.gameObject.SetActive(true);
             FlipSkill();
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }
@@ -56,6 +55,8 @@ public class IceAge : BaseSkill
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            SkillDmg();
+            CamAction();
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
             GameManager.effect.Damage(collision.transform.position + Vector3.up, x, DmgTypeCode.CriticalDamage);

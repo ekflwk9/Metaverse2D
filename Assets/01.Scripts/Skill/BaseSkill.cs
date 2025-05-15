@@ -17,6 +17,8 @@ public abstract class BaseSkill : MonoBehaviour
     protected Collider2D _collider;
     protected ParticleSystem particle;
 
+    protected DmgTypeCode dmgType;
+
     protected int count = 0;
     protected int randomState;
     protected float skillDamage;
@@ -64,7 +66,6 @@ public abstract class BaseSkill : MonoBehaviour
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }
@@ -229,8 +230,19 @@ public abstract class BaseSkill : MonoBehaviour
     /// </summary>
     protected virtual void SkillDmg()
     {
-        randomState = Random.Range(5, 11);
-        skillDamage = ((randomState * 0.1f) + GameManager.player.dmg) * changeDamage;
+        float baseDmg = GameManager.player.dmg * changeDamage;
+        float random = Random.Range(-0.3f, 0.3f);
+        skillDamage = baseDmg * (1f + random);
+
+        if (Random.value < 0.25f)
+        {
+            skillDamage *= 1.5f;
+            dmgType = DmgTypeCode.CriticalDamage;
+        }
+        else
+        {
+            dmgType = DmgTypeCode.Damage;
+        }
     }
 
     //스킬 오브젝트의 Collider에 적이 감지되면
@@ -239,10 +251,11 @@ public abstract class BaseSkill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            int x = (int)skillDamage;
+            SkillDmg();
             CamAction();
+            int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
-            GameManager.effect.Damage(collision.transform.position + Vector3.up, x, DmgTypeCode.CriticalDamage);
+            GameManager.effect.Damage(collision.transform.position + Vector3.up, x, dmgType);
         }
     }
 

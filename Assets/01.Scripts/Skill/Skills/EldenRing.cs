@@ -25,6 +25,5 @@ public class EldenRing : BaseSkill
         {
             this.gameObject.SetActive(true);
         }
-        SkillDmg();
     }
 }
