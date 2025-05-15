@@ -9,7 +9,7 @@ public class CheatController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) GameManager.ChangeScene(sceneName);
+        //if (Input.GetKeyDown(KeyCode.K)) GameManager.ChangeScene(sceneName);
 
         //if (Input.GetKeyDown(KeyCode.V))
         //{
@@ -19,15 +19,7 @@ public class CheatController : MonoBehaviour
 
         //if (Input.GetKeyDown(KeyCode.V))
         //{
-        //    var spawnPos = this.transform.position;
-        //    GameManager.effect.Show(spawnPos, "Blood");
-        //    GameManager.effect.FloorBlood(spawnPos);
-        //}
-
-        //if (Input.GetKeyDown(KeyCode.B))
-        //{
-        //    var spawnPos = this.transform.position;
-        //    GameManager.effect.Damage(spawnPos, 1512);
+        //    GameManager.gameEvent.Hit(GameManager.player.name, 20);
         //}
     }
 }

@@ -4,21 +4,25 @@ using UnityEngine.SceneManagement;
 public static class GameManager
 {
     public static bool stopGame = false;
+
+    public static MapManager map { get; private set; }
     public static Player player { get; private set; }
-    public static CamComponent cam { get; private set; }
+    public static FollowCamera cam { get; private set; }
     public static UiComponent ui { get; private set; }
     public static FadeComponent fade { get; private set; }
     public static EffectManager effect { get; private set; } = new EffectManager();
     public static SoundManager sound { get; private set; } = new SoundManager();
     public static EventManager gameEvent { get; private set; } = new EventManager();
-
+    public static SpriteManager sprite { get; private set; } = new SpriteManager();
+    
     public static void SetComponent(MonoBehaviour _component)
     {
         //컴포넌트 / interface이벤트 할당 메서드
         if (_component is Player isPlayer) player = isPlayer;
         else if (_component is UiComponent isUi) ui = isUi;
-        else if (_component is CamComponent isCam) cam = isCam;
+        else if (_component is FollowCamera isCam) cam = isCam;
         else if (_component is FadeComponent isFade) fade = isFade;
+        else if (_component is MapManager isMap) map = isMap;
 
         sound.SetComponent(_component);
         gameEvent.SetComponent(_component);

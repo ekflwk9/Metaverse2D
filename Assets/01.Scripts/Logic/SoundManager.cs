@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SoundManager
 {
-    public float volume { get; private set; } = 0.5f;
+    public float musicVolume { get; private set; } = 0.5f;
+    public float effectVolume { get; private set; } = 0.5f;
 
     private EffectSound effect;
     private MusicSound music;
@@ -20,11 +21,16 @@ public class SoundManager
         }
     }
 
-    public void SetVolume(float _volume)
+    public void SetMusicVolume(float _volume)
     {
         //º¼·ý ¼³Á¤
-        volume = _volume;
+        musicVolume = _volume;
         music.SetVolume();
+    }
+
+    public void SetEffectVolume(float _volume)
+    {
+        effectVolume = _volume;
         effect.SetVolume();
     }
 

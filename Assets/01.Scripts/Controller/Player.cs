@@ -1,6 +1,6 @@
+using System.Collections;
+using System.Text;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public enum StateCode
 {
@@ -14,56 +14,64 @@ public enum StateCode
 public class Player : MonoBehaviour,
 IHit
 {
-    [SerializeField] private Vector3 bloodPos; 
-    [SerializeField] private Vector3 textPos; 
-
-    public int dmg { get; private set; } = 1;
+    public int dmg { get; private set; } = 100;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
-
-    public float healthRatio { get; private set; }  // 데미지 받을 때 체력바 줄어드는 값 저장용
     public float moveSpeed { get; private set; } = 2f;
     public float attackSpeed { get; private set; } = 1f;
+    public Vector3 direction { get; private set; }
 
+    private float dashTime;
+    private float maxDashTime = 0.5f;
+
+    private bool isDash = false;
     private bool inRange = false;
     private bool isPickUp = false;
-    public Vector3 direction { get => fieldDirection; }
-    private Vector3 fieldDirection = Vector3.zero;
-    private Vector3 scale = Vector3.one;
-    private Vector3 healthScale;
 
     private event Func skill;
     private Rigidbody2D rigid;
-    private Animator action;
-    private Animator attack;
-    private Transform healthBarTrans;
-    private Canvas healthBarCanvas;
+    private Animator anim;
+    public Ghost ghost;
+
+    private StringBuilder itemName = new StringBuilder(30);
+    private readonly WaitForSeconds attackTime = new WaitForSeconds(0.4f);
 
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-        attack = GetComponent<Animator>();
-        action = Service.FindChild(this.transform, "Action").GetComponent<Animator>();
+        anim = GetComponent<Animator>();
 
-
-        // transform 변수 선언하고 헬스바 오브젝트 찾아서 지정하기 transform.Find
-        healthBarTrans = transform.Find("HealthUi/Health");
-        // Vector3 변수 선언해서 트랜스폼변수이름.localScale로 지정하기
-        healthScale = healthBarTrans.localScale;
-
+        StartCoroutine(Attack());
         GameManager.SetComponent(this);
+
         DontDestroyOnLoad(this.gameObject);
     }
 
     public void OnHit(int _dmg)
     {
         var playerPos = this.transform.position;
+        var bloodPos = playerPos;
+
+        bloodPos.y += 0.5f;
         health -= _dmg;
 
-        GameManager.effect.Show(playerPos, "Blood");
-        GameManager.effect.FloorBlood(playerPos + bloodPos);
-        GameManager.effect.Damage(playerPos + textPos, _dmg);
-        //GameManager.sound.OnEffect("PlayerHit");
+        GameManager.cam.Action("HitShake");
+        GameManager.gameEvent.Call("HpSliderUpdate");
+        GameManager.effect.Show(bloodPos, "Blood");
+        GameManager.effect.FloorBlood(playerPos);
+        GameManager.sound.OnEffect("PlayerHit");
+
+        if (health <= 0)
+        {
+            maxHealth = 100;
+            health = maxHealth;
+            anim.Play("Idle", 0, 0);
+            GameManager.cam.Action(null);
+
+            this.gameObject.SetActive(false);
+            GameManager.sound.OnEffect("Die");
+            GameManager.gameEvent.Call("DeadWindowOn");
+        }
     }
 
     public void StateUp(StateCode _code, float _upValue)
@@ -72,7 +80,7 @@ IHit
         {
             case StateCode.MoveSpeed:
                 moveSpeed += _upValue;
-                action.SetFloat("MoveSpeed", moveSpeed);
+                anim.SetFloat("MoveSpeed", moveSpeed);
 
                 break;
 
@@ -96,6 +104,7 @@ IHit
 
             case StateCode.Health:
                 health += _upValue;
+                if(health > maxHealth) health = maxHealth;
                 break;
 
             case StateCode.MaxHealth:
@@ -108,22 +117,22 @@ IHit
         }
     }
 
-    //스킬 추가
+    /// <summary>
+    /// 플레이어가 지속적으로 호출하는 공격 메서드에 추가
+    /// </summary>
+    /// <param name="_skill"></param>
     public void AddSkill(Func _skill)
     {
         skill += _skill;
     }
 
-    //스킬 삭제
-    public void RemoveSkill(Func _skill)
+    /// <summary>
+    /// 스킬 정보 삭제
+    /// </summary>
+    /// <param name="_skill"></param>
+    public void Clear()
     {
-        skill -= _skill;
-    }
-
-    //애니메이션 호출 메서드 => 공격
-    private void AttackFunction()
-    {
-        if (inRange) skill?.Invoke();
+        skill = null;
     }
 
     private void Update()
@@ -131,88 +140,157 @@ IHit
         if (!GameManager.stopGame && !isPickUp)
         {
             Move();
-            Attack();
+            PickUp();
+            Dash();
         }
+    }
+
+    private IEnumerator Attack()
+    {
+        while (true)
+        {
+            yield return attackTime;
+            if (inRange) skill?.Invoke();
+        }
+    }
+
+    /// <summary>
+    /// 플레이어가 일시 정지일 경우 호출
+    /// </summary>
+    public void StopMove()
+    {
+        rigid.velocity = Vector3.zero;
+        anim.SetBool("Move", false);
+        anim.Play("Idle", 0, 0);
+    }
+
+    private void PickUp()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (itemName.Length != 0)
+            {
+                GameManager.gameEvent.GetItem(itemName.ToString());
+                itemName.Clear();
+            }
+        }
+    }
+
+    /// <summary>
+    /// 플레이어가 줍는 모션을 취하게함
+    /// </summary>
+    public void OnPickUpAction()
+    {
+        isPickUp = true;
+        anim.Play("PickUp", 0, 0);
+        rigid.velocity = Vector3.zero;
     }
 
     private void EndPickUp()
     {
         //줍는 모션 종료
         isPickUp = false;
-    }
-
-    public void PickUp()
-    {
-        //줍는 모션 호출
-        action.Play("PickUp", 0, 0);
-        isPickUp = true;
-        rigid.velocity = Vector3.zero;
-    }
-
-    private void Attack()
-    {
-        if (inRange) attack.SetFloat("AttackSpeed", attackSpeed);
-        else attack.SetFloat("AttackSpeed", 0);
+        anim.Play("Idle", 0, 0);
     }
 
     private void Move()
     {
-        var pos = this.transform.position;
-        pos.x = 0;
-        pos.y = 0;
-        pos.z = 0;
+        var pos = Vector3.zero;
+        var filp = Vector3.one;
 
-        //상하
-        if (Input.GetKey(KeyCode.W))
+        if (isDash == false)
         {
-            pos.y = 1f;
+            //상하
+            if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
+            {
+                pos.y = 1f;
+                filp = this.transform.localScale;
+            }
+
+            else if (Input.GetKey(KeyCode.S) || Input.GetKey(KeyCode.DownArrow))
+            {
+                pos.y = -1f;
+                filp = this.transform.localScale;
+            }
+
+            //좌우
+            if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+            {
+                pos.x = -1f;
+                filp.x = 1f;
+                // 벡터로 선언한 변수의 .x 값 바꾸기
+            }
+
+            else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+            {
+                pos.x = 1f;
+                filp.x = -1f;
+            }
+
+            //애니메이션 재생
+            if (pos != Vector3.zero)
+            {
+                anim.SetBool("Move", true);
+                direction = pos.normalized;
+                this.transform.localScale = filp;
+            }
+
+            else
+            {
+                anim.SetBool("Move", false);
+            }
+
+            //보는 방향
+            rigid.velocity = pos.normalized * moveSpeed;
+        }
+    }
+
+    private void Dash()
+    {
+        if (Input.GetKeyDown(KeyCode.Space) && !isDash)
+        {
+            GameManager.sound.OnEffect("Dash01");
+
+            ghost.makeGhost = true;
+            isDash = true;
+
+            if (direction != Vector3.zero)
+            {
+                rigid.velocity = direction * (moveSpeed * 5);
+            }
         }
 
-        else if (Input.GetKey(KeyCode.S))
+        if (isDash)
         {
-            pos.y = -1f;
+            dashTime += Time.deltaTime;
+
+            if (dashTime >= maxDashTime)
+            {
+                rigid.velocity = Vector3.zero;
+                dashTime = 0;
+                isDash = false;
+                ghost.makeGhost = false;
+            }
         }
+    }
 
-        //좌우
-        if (Input.GetKey(KeyCode.A))
-        {
-            pos.x = -1f;
-            scale.x = 1f;
-            // 벡터로 선언한 변수의 .x 값 바꾸기
-            healthScale.x = 1f;
-            healthBarTrans.localScale = healthScale;
-        }
-
-        else if (Input.GetKey(KeyCode.D))
-        {
-            pos.x = 1f;
-            scale.x = -1f;
-            healthScale.x = -1f;
-            healthBarTrans.localScale = healthScale;
-        }
-
-        //애니메이션 재생
-        if (pos.x != 0 || pos.y != 0) action.SetBool("Move", true);
-        else action.SetBool("Move", false);
-
-        if (pos != Vector3.zero)
-        {
-            fieldDirection = pos.normalized;
-        }
-
-        //보는 방향
-        this.transform.localScale = scale;
-        rigid.velocity = pos.normalized * moveSpeed;
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy")) inRange = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Enemy")) inRange = true;
-
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            itemName.Clear();
+            itemName.Append(collision.name);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy")) inRange = false;
+        else if (collision.gameObject.CompareTag("Item")) itemName.Clear();
     }
 }

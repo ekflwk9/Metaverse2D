@@ -9,12 +9,15 @@ public enum Skill_location
 
 public abstract class BaseSkill : MonoBehaviour
 {
-    protected delegate Vector3 Coordinate();
-    protected Coordinate del_location;
+    protected delegate Vector3 Location();
+    protected Location del_location;
 
     protected Animator anim;
     protected Rigidbody2D rigid;
     protected Collider2D _collider;
+    protected ParticleSystem particle;
+
+    protected DmgTypeCode dmgType;
 
     protected int count = 0;
     protected int randomState;
@@ -23,26 +26,25 @@ public abstract class BaseSkill : MonoBehaviour
 
     [SerializeField] protected int getDmg;
     [SerializeField] protected int skillCooldown;
-    [SerializeField] protected float skillSpeed = 0f;
-    [SerializeField] protected float forward = 0.5f;
+    [SerializeField] protected float changeDamage;
+    [SerializeField] protected float forward;
+    [SerializeField] protected float skillSpeed;
+    [SerializeField] protected float slowAmount;
 
-    protected Vector3 generateLocation = Vector3.zero;
     protected Vector3 direction = Vector3.zero;
+    protected Vector3 generateLocation = Vector3.zero;
 
-    protected void Awake()
+    public void SetSkill()
     {
-        GetSkill();
-        //Test 위해서 꺼놓음
-        //GameManager.gameEvent.Add(GetSkill, true);
+        GameManager.gameEvent.Add(GetSkill, true);
 
-        _collider = GetComponent<Collider2D>();
-        rigid = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        rigid = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<Collider2D>();
+        particle = GetComponentInChildren<ParticleSystem>();
 
-        //저 죽이지 마세용 ㅠㅠ
         DontDestroyOnLoad(gameObject);
 
-        //스킬 미리 데미지넣는것 방지 애니메이션에서 끄고 켤 예정
         _collider.enabled = false;
 
         //스킬 생성 위치
@@ -56,7 +58,7 @@ public abstract class BaseSkill : MonoBehaviour
         DmgChange();
     }
 
-    protected virtual void Algorithm()
+    private void Algorithm()
     { 
         //count++ 되는동안 스킬이 해당위치에 고정
         count++;
@@ -64,7 +66,6 @@ public abstract class BaseSkill : MonoBehaviour
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }
@@ -72,26 +73,50 @@ public abstract class BaseSkill : MonoBehaviour
         // 위치는 한 번만 고정
         if (!isPosFixed)
         {
+            LocationOfSkill();
             isPosFixed = true;
-            CoordinateOfSkill();
         }
     }
 
-    //스킬 발동시 발사
-    //즉발형 스킬은 사용 안함
+    //스킬 발사 방향 및 속도
     protected virtual void DirectionOfProjectileSkill(Vector3 target)
     {
         direction = (target - transform.position).normalized;
         rigid.velocity = direction * skillSpeed;
     }
 
-    //스킬 발동 방향 및 위치
-    protected void CoordinateOfSkill()
+    /// <summary>
+    /// 스킬 발동 방향 및 위치 (델리게이트)
+    /// </summary>
+    protected void LocationOfSkill()
     {
         if (del_location != null)
         {
             generateLocation = del_location.Invoke();
             transform.position = generateLocation;
+        }
+    }
+
+    /// <summary>
+    /// 델리게이트 컨트롤러. 스킬을 발동시키고 싶은 위치
+    /// Player CloseEnemy FarEnemy
+    /// </summary>
+    /// <param name="locationType"></param>
+    protected void SkillLocation(Skill_location locationType)
+    {
+        switch (locationType)
+        {
+            case Skill_location.Player:
+                del_location = PlayerPosition;
+                break;
+
+            case Skill_location.CloseEnemy:
+                del_location = EnemyClosePosition;
+                break;
+
+            case Skill_location.FarEnemy:
+                del_location = EnemyFarPosition;
+                break;
         }
     }
 
@@ -145,12 +170,12 @@ public abstract class BaseSkill : MonoBehaviour
         GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
         GameObject closeEnemy = null;
 
-        float minDistance = Mathf.Infinity;
+        float minDistance = float.MaxValue;
         Vector3 playerPos = GameManager.player.transform.position;
 
         if (enemies.Length > 0)
         {
-            foreach (GameObject enemy in enemies)
+            foreach (GameObject enemy in enemies) //수정하기
             {
                 float _dist = Vector3.Distance(playerPos, enemy.transform.position);
                 if (_dist < minDistance)
@@ -193,30 +218,6 @@ public abstract class BaseSkill : MonoBehaviour
     }
 
     /// <summary>
-    /// 델리게이트 컨트롤러. 스킬을 발동시키고 싶은 위치
-    /// Player CloseEnemy FarEnemy
-    /// </summary>
-    /// <param name="locationType"></param>
-    protected void SkillLocation(Skill_location locationType)
-    {
-        switch (locationType)
-        {
-            case Skill_location.Player:
-                del_location = PlayerPosition;
-                break;
-
-            case Skill_location.CloseEnemy:
-                del_location = EnemyClosePosition;
-                break;
-
-            case Skill_location.FarEnemy:
-                del_location = EnemyFarPosition;
-                break;
-        }
-
-    }
-
-    /// <summary>
     /// 스킬 획득시 플레이어 데미지 조정
     /// </summary>
     protected virtual void DmgChange()
@@ -229,8 +230,19 @@ public abstract class BaseSkill : MonoBehaviour
     /// </summary>
     protected virtual void SkillDmg()
     {
-        randomState = Random.Range(5, 11);
-        skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
+        float baseDmg = GameManager.player.dmg * changeDamage;
+        float random = Random.Range(-0.3f, 0.3f);
+        skillDamage = baseDmg * (1f + random);
+
+        if (Random.value < 0.25f)
+        {
+            skillDamage *= 1.5f;
+            dmgType = DmgTypeCode.CriticalDamage;
+        }
+        else
+        {
+            dmgType = DmgTypeCode.Damage;
+        }
     }
 
     //스킬 오브젝트의 Collider에 적이 감지되면
@@ -239,8 +251,19 @@ public abstract class BaseSkill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            SkillDmg();
+            CamAction();
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
+            GameManager.effect.Damage(collision.transform.position + Vector3.up, x, dmgType);
+        }
+    }
+
+    private void StartParticle()
+    {
+        if (particle != null)
+        {
+            particle.Play();
         }
     }
 
@@ -258,6 +281,11 @@ public abstract class BaseSkill : MonoBehaviour
     protected virtual void DisableCollider()
     {
         _collider.enabled = false;
+    }
+
+    protected void CamAction()
+    {
+        GameManager.cam.Action("Shake");
     }
 
     //스킬 종료 메서드
