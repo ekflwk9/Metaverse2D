@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 15
-  health: 3000
+  health: 4500
   moveSpeed: 3
   knockback: 0.2
   attackRange: 10
