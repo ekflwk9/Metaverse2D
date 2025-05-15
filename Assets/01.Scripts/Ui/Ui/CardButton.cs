@@ -62,5 +62,6 @@ public class CardButton : UiButton
         GameManager.gameEvent.Call("CardWindowOff");
 
         GameManager.gameEvent.Call("MapManagerManualClear");
+        touchImage.SetActive(false);
     }
 }

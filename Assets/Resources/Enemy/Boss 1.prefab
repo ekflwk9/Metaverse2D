@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8371136845572078356}
   - component: {fileID: 7552856335367050828}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: -759542562821323568}
   m_Layer: 0
   m_Name: Boss 1
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 15
-  health: 1500
+  health: 2200
   moveSpeed: 3
   knockback: 0.3
   attackRange: 10

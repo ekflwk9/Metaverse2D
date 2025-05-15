@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Boss : Monster
@@ -10,7 +8,9 @@ public class Boss : Monster
     public override void OnHit(int _dmg)
     {
         health -= _dmg;
-        PlaySound();
+
+        var randomSound = Random.Range(0, soundName.Length);
+        GameManager.sound.OnEffect(soundName[randomSound]);
 
         var effectPos = this.transform.position + bloodPos;
         GameManager.effect.Show(effectPos, "Blood");
@@ -34,7 +34,15 @@ public class Boss : Monster
 
     private void FadeFunc()
     {
-        GameManager.map.NextRoom();
+        if (GameManager.map.currentFloor < 3) GameManager.map.NextRoom();
+
+        else
+        {
+            GameManager.stopGame = true;
+            GameManager.ChangeScene("EndingScene");
+        }
+
+        GameManager.fade.OnFade();
     }
 
     public override void SetMonster()
@@ -102,12 +110,5 @@ public class Boss : Monster
             var movePos = target.position - transform.position;
             rigid.velocity = movePos.normalized * moveSpeed;
         }
-    }
-
-    public void PlaySound()
-    {
-        var randomSound = Random.Range(0, soundName.Length);
-
-        GameManager.sound.OnEffect(soundName[randomSound]);
     }
 }
