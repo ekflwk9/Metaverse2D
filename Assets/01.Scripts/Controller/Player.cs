@@ -14,7 +14,7 @@ public enum StateCode
 public class Player : MonoBehaviour,
 IHit
 {
-    public int dmg { get; private set; } = 10000;
+    public int dmg { get; private set; } = 100;
     public int health { get; private set; } = 100;
     public int maxHealth { get; private set; } = 100;
     public float moveSpeed { get; private set; } = 2f;
