@@ -12,13 +12,10 @@ public class IceAge : BaseSkill
 
     public override void GetSkill()
     {
-        //Test¿ë ÄÚµå
-        GameManager.gameEvent.Add(GetSkill, true);
         GameManager.player.AddSkill(IceAge_Skill);
 
         SkillLocation(Skill_location.CloseEnemy);
         DmgChange();
-        DontDestroyOnLoad(gameObject);
     }
 
     protected void IceAge_Skill()
@@ -29,7 +26,6 @@ public class IceAge : BaseSkill
         {
             this.gameObject.SetActive(true);
             FlipSkill();
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }
@@ -44,23 +40,27 @@ public class IceAge : BaseSkill
     private void FlipSkill()
     {
         var pos = EnemyClosePosition();
+        var original = Vector3.one;
         var sca = transform.localScale;
 
-        if (pos.x < GameManager.player.transform.position.x) 
-            sca.x = -sca.x;
-        //var flip = pos.x > GameManager.player.transform.position.x ? 1 : -1;
-        //sca.x = flip
-        transform.localScale = sca;
+        if (pos.x < GameManager.player.transform.position.x)
+            sca.x = -original.x;
+        else sca.x = original.x;
+            //var flip = pos.x > GameManager.player.transform.position.x ? 1 : -1;
+            //sca.x = flip
+            transform.localScale = sca;
     }
 
     protected override void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            SkillDmg();
+            CamAction();
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
-
-            collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
+            GameManager.effect.Damage(collision.transform.position + Vector3.up, x, DmgTypeCode.CriticalDamage);
+            //collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
         }
     }
     //[SerializeField] Vector3 size;

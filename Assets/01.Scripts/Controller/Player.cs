@@ -55,18 +55,21 @@ IHit
         bloodPos.y += 0.5f;
         health -= _dmg;
 
+        GameManager.cam.Action("HitShake");
         GameManager.gameEvent.Call("HpSliderUpdate");
         GameManager.effect.Show(bloodPos, "Blood");
         GameManager.effect.FloorBlood(playerPos);
-        //GameManager.sound.OnEffect("PlayerHit");
+        GameManager.sound.OnEffect("PlayerHit");
 
         if (health <= 0)
         {
             maxHealth = 100;
             health = maxHealth;
             anim.Play("Idle", 0, 0);
+            GameManager.cam.Action(null);
 
             this.gameObject.SetActive(false);
+            GameManager.sound.OnEffect("Die");
             GameManager.gameEvent.Call("DeadWindowOn");
         }
     }
@@ -101,6 +104,7 @@ IHit
 
             case StateCode.Health:
                 health += _upValue;
+                if(health > maxHealth) health = maxHealth;
                 break;
 
             case StateCode.MaxHealth:
@@ -126,9 +130,9 @@ IHit
     /// 스킬 정보 삭제
     /// </summary>
     /// <param name="_skill"></param>
-    public void RemoveSkill(Func _skill)
+    public void Clear()
     {
-        skill -= _skill;
+        skill = null;
     }
 
     private void Update()
@@ -245,6 +249,8 @@ IHit
     {
         if (Input.GetKeyDown(KeyCode.Space) && !isDash)
         {
+            GameManager.sound.OnEffect("Dash01");
+
             ghost.makeGhost = true;
             isDash = true;
 
@@ -275,7 +281,11 @@ IHit
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Item")) itemName.Append(collision.name);
+        if (collision.gameObject.CompareTag("Item"))
+        {
+            itemName.Clear();
+            itemName.Append(collision.name);
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

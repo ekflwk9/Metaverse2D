@@ -13,10 +13,6 @@ public class DoubleSlash : BaseSkill
 
     public override void GetSkill()
     {
-        //Test¿ë ÄÚµå
-        GameManager.gameEvent.Add(GetSkill, true);
-        DontDestroyOnLoad(gameObject);
-
         GameManager.player.AddSkill(DoubleSlash_Skill);
 
         DmgChange();
@@ -30,7 +26,6 @@ public class DoubleSlash : BaseSkill
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }
@@ -58,10 +53,12 @@ public class DoubleSlash : BaseSkill
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            SkillDmg();
+            CamAction();
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
-
-            collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
+            GameManager.effect.Damage(collision.transform.position + Vector3.up, x, DmgTypeCode.CriticalDamage);
+            //collision.gameObject.GetComponent<MonsterBase>().ApplySlow(slowAmount);
         }
     }
 }

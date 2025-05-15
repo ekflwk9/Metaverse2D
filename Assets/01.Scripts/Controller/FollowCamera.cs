@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class FollowCamera : MonoBehaviour
 {
-
     // 카메라가 이동할 수 있는 맵의 최소 좌표와 최대 좌표 (경계 영역)
     public Vector2 minBounds;
     public Vector2 maxBounds;
@@ -15,12 +14,14 @@ public class FollowCamera : MonoBehaviour
 
     // 플레이어가 처음 생성되었는지 여부
     private bool playerInitialized = false;
+    private Animator anim;
 
     // Start는 게임 시작 시 한 번만 실행
     private void Awake()
     {
         // Camera 컴포넌트 가져오기
         var cam = Service.FindChild(this.transform, "Main Camera").GetComponent<Camera>();
+        anim = GetComponent<Animator>();
 
         // orthographicSize로 화면 절반 높이 계산
         halfHeight = cam.orthographicSize;
@@ -54,9 +55,16 @@ public class FollowCamera : MonoBehaviour
 
             if (isPlayerInsideBounds)
             {
-                // 부드럽게 따라감
-                transform.position = Vector3.Lerp(transform.position, GameManager.player.transform.position, 0.05f);
-                //transform.position = new Vector3(clampedX, clampedY, transform.position.z);
+
+                // 플레이어가 경계 안에 있을 때
+                // 카메라는 경계 내에서만 움직임 (Clamp로 제한)
+                float clampedX = Mathf.Clamp(desiredX, minX, maxX);
+                float clampedY = Mathf.Clamp(desiredY, minY, maxY);
+
+                Vector3 targetPos = new Vector3(clampedX, clampedY, transform.position.z);
+                // 부드러운 이동
+                transform.position = Vector3.Lerp(transform.position, targetPos, 0.05f);
+
             }
             else
             {
@@ -81,6 +89,16 @@ public class FollowCamera : MonoBehaviour
         // 중심 좌표 기준으로 minBounds, maxBounds 재설정
         minBounds = new Vector2(center.x - width / 2, center.y - height / 2);
         maxBounds = new Vector2(center.x + width / 2, center.y + height / 2);
+    }
+
+    /// <summary>
+    /// 카메라에서 재생할 애니메이션 이름
+    /// </summary>
+    /// <param name="_actionName"></param>
+    public void Action(string _actionName)
+    {
+        if(!string.IsNullOrEmpty(_actionName)) anim.Play(_actionName, 0, 0);
+        else anim.Play("Idle", 0, 0);
     }
 
     // OnDrawGizmos: 씬 뷰에서 경계를 시각적으로 표시 (디버그용)

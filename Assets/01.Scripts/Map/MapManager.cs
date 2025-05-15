@@ -1,9 +1,11 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MapManager : MonoBehaviour
 {
+    private Dictionary<Room, int> roomEnemyCount = new Dictionary<Room, int>();
+    private HashSet<Room> clearedRooms = new HashSet<Room>();
+
     public HashSet<string> battleRoomName = new HashSet<string>();
     public string[][] monsterName =
     {
@@ -14,6 +16,7 @@ public class MapManager : MonoBehaviour
 
     public string decorationTag = "Decoration"; // 데코레이션 태그 설정
 
+    public int spawnCount;
     public int currentFloor = 1; // 현재 층 정보 (1부터 시작)
 
     // 현재 층에 따라 맵 크기 지정
@@ -47,35 +50,42 @@ public class MapManager : MonoBehaviour
     public Vector2Int currentRoomPos; // 현재 방 위치
     public string bridgeDirection; // 외부에서 설정할 문 방향
 
-    private void Start()
-    {
-        GenerateMap(); // 게임 시작 시 맵 생성
-        
-        //GameManager.gameEvent.Call("CarWindowOn");
+    public int RemainingEnemies;
+    public bool IsCleared = false; // 전투방 클리어 여부를 저장하는 플래그 추가
+    public Room currentRoom;
 
+
+    private void Awake()
+    {
+        GameManager.gameEvent.Add(ManualClear);
+        GameManager.SetComponent(this);
+
+        GenerateMap(); // 게임 시작 시 맵 생성
+
+        GameManager.gameEvent.Call("CardWindowOn");
     }
 
     // 다음층 생성 임시코드
-    void Update()
-    {
-        // 예시: 특정 키를 눌러서 GoToNextFloor 호출 테스트
-        if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
-        {
-            GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
-            
-            //GameManager.gameEvent.Call("CarWindowOn");
-        }
+    //void Update()
+    //{
+    //    // 예시: 특정 키를 눌러서 GoToNextFloor 호출 테스트
+    //    if (Input.GetKeyDown(KeyCode.N))  // N 키를 눌렀을 때
+    //    {
+    //        GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
 
-        // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            Room currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
-            if (currentRoom != null && currentRoom.RoomObject != null)
-            {
-                OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
-            }
-        }
-    }
+    //        GameManager.gameEvent.Call("CardWindowOn");
+    //    }
+
+    //    // 예시: 특정 키를 눌러서 OpenBridge(GameObject roomObj) 호출 테스트
+    //    if (Input.GetKeyDown(KeyCode.B))
+    //    {
+    //        currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+    //        if (currentRoom != null && currentRoom.RoomObject != null)
+    //        {
+    //            OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
+    //        }
+    //    }
+    //}
 
     // 맵 생성 전체 로직
     public void GenerateMap()
@@ -234,7 +244,7 @@ public class MapManager : MonoBehaviour
                     GameObject roomObj = Instantiate(prefab, worldPos, Quaternion.identity, transform);
                     roomObj.name = $"{roomObj.name}{x}{y}";
 
-                    if(prefab.name.Contains("BattleRoom"))
+                    if (prefab.name.Contains("BattleRoom"))
                     {
                         battleRoomName.Add(roomObj.name);
                     }
@@ -420,5 +430,50 @@ public class MapManager : MonoBehaviour
         }
 
         Debug.LogWarning("스타트룸을 찾을 수 없습니다.");
+    }
+
+    public void ManualClear()
+    {
+        currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+        if (currentRoom != null && currentRoom.RoomObject != null)
+        {
+            OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
+        }
+    }
+
+    public void ClearBattleRoom(Room room)
+    {
+        currentRoom = grid[currentRoomPos.x, currentRoomPos.y];
+        if (currentRoom != null && currentRoom.RoomObject != null)
+        {
+            OpenBridge(currentRoom.RoomObject, currentRoom.Position.x, currentRoom.Position.y);
+        }
+        clearedRooms.Add(room); // 클리어 상태 등록
+    }
+    // 적 수 설정
+    public void SetEnemies(Room room, int count)
+    {
+        roomEnemyCount[room] = count;
+        clearedRooms.Remove(room);
+    }
+
+    // 적 처치 시 호출
+    public void EnemyDefeated()
+    {
+        if (roomEnemyCount.ContainsKey(GameManager.map.currentRoom))
+        {
+            roomEnemyCount[currentRoom]--;
+
+            if (roomEnemyCount[currentRoom] <= 0 && !clearedRooms.Contains(currentRoom))
+            {
+                ClearBattleRoom(currentRoom);
+            }
+        }
+    }
+
+    public void NextRoom()
+    {
+        GoToNextFloor();  // 1층 → 2층 → 3층 순차적으로 생성
+        GameManager.gameEvent.Call("CardWindowOn");
     }
 }

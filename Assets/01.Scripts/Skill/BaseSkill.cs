@@ -17,6 +17,8 @@ public abstract class BaseSkill : MonoBehaviour
     protected Collider2D _collider;
     protected ParticleSystem particle;
 
+    protected DmgTypeCode dmgType;
+
     protected int count = 0;
     protected int randomState;
     protected float skillDamage;
@@ -24,28 +26,25 @@ public abstract class BaseSkill : MonoBehaviour
 
     [SerializeField] protected int getDmg;
     [SerializeField] protected int skillCooldown;
-    [SerializeField] protected float skillSpeed = 0f;
-    [SerializeField] protected float forward = 0.5f;
+    [SerializeField] protected float changeDamage;
+    [SerializeField] protected float forward;
+    [SerializeField] protected float skillSpeed;
     [SerializeField] protected float slowAmount;
 
     protected Vector3 direction = Vector3.zero;
     protected Vector3 generateLocation = Vector3.zero;
 
-    protected void Awake()
+    public void SetSkill()
     {
-        GetSkill();
-        //Test 위해서 꺼놓음
-        //GameManager.gameEvent.Add(GetSkill, true);
+        GameManager.gameEvent.Add(GetSkill, true);
 
         anim = GetComponent<Animator>();
         rigid = GetComponent<Rigidbody2D>();
         _collider = GetComponent<Collider2D>();
         particle = GetComponentInChildren<ParticleSystem>();
 
-        //저 죽이지 마세용 ㅠㅠ
         DontDestroyOnLoad(gameObject);
 
-        //스킬 미리 데미지넣는것 방지 애니메이션에서 끄고 켤 예정
         _collider.enabled = false;
 
         //스킬 생성 위치
@@ -67,7 +66,6 @@ public abstract class BaseSkill : MonoBehaviour
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }
@@ -232,8 +230,19 @@ public abstract class BaseSkill : MonoBehaviour
     /// </summary>
     protected virtual void SkillDmg()
     {
-        randomState = Random.Range(5, 11);
-        skillDamage = (randomState * 0.1f) + GameManager.player.dmg;
+        float baseDmg = GameManager.player.dmg * changeDamage;
+        float random = Random.Range(-0.3f, 0.3f);
+        skillDamage = baseDmg * (1f + random);
+
+        if (Random.value < 0.25f)
+        {
+            skillDamage *= 1.5f;
+            dmgType = DmgTypeCode.CriticalDamage;
+        }
+        else
+        {
+            dmgType = DmgTypeCode.Damage;
+        }
     }
 
     //스킬 오브젝트의 Collider에 적이 감지되면
@@ -242,9 +251,11 @@ public abstract class BaseSkill : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
+            SkillDmg();
+            CamAction();
             int x = (int)skillDamage;
             GameManager.gameEvent.Hit(collision.gameObject.name, x);
-
+            GameManager.effect.Damage(collision.transform.position + Vector3.up, x, dmgType);
         }
     }
 
@@ -270,6 +281,11 @@ public abstract class BaseSkill : MonoBehaviour
     protected virtual void DisableCollider()
     {
         _collider.enabled = false;
+    }
+
+    protected void CamAction()
+    {
+        GameManager.cam.Action("Shake");
     }
 
     //스킬 종료 메서드

@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 38192324}
   - component: {fileID: 38192323}
   - component: {fileID: 38192327}
+  - component: {fileID: 38192328}
   m_Layer: 5
   m_Name: StartUi
   m_TagString: Untagged
@@ -240,6 +241,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f2c5aeb5b8e88d4fb4bca9eee8d6911, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &38192328
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 38192322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d45c91d2f79c0464988fc486e3bc089c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicName: StartScene
 --- !u!1 &109777898
 GameObject:
   m_ObjectHideFlags: 0
@@ -948,6 +962,7 @@ GameObject:
   - component: {fileID: 994247922}
   - component: {fileID: 994247921}
   - component: {fileID: 994247920}
+  - component: {fileID: 994247923}
   m_Layer: 0
   m_Name: SceneCam
   m_TagString: Untagged
@@ -1065,6 +1080,14 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!81 &994247923
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 994247919}
+  m_Enabled: 1
 --- !u!1 &1070612495
 GameObject:
   m_ObjectHideFlags: 0

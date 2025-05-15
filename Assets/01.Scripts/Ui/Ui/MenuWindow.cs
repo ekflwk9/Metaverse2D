@@ -6,8 +6,6 @@ public class MenuWindow : MonoBehaviour
     {
         GameManager.gameEvent.Add(On, true);
         GameManager.gameEvent.Add(Off, true);
-
-        this.gameObject.SetActive(false);
     }
 
     private void On() => this.gameObject.SetActive(true);

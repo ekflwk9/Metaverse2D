@@ -12,10 +12,6 @@ public class Vortex : BaseSkill
 
     public override void GetSkill()
     {
-        //Test¿ë ÄÚµå
-        GameManager.gameEvent.Add(GetSkill, true);
-        DontDestroyOnLoad(gameObject);
-
         GameManager.player.AddSkill(Vortex_Skill);
 
         DmgChange();
@@ -29,7 +25,6 @@ public class Vortex : BaseSkill
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            SkillDmg();
             count = 0;
             isPosFixed = false;
         }

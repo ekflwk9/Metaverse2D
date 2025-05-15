@@ -11,10 +11,6 @@ public class Kaboom : BaseSkill
 
     public override void GetSkill()
     {
-        //Test¿ë ÄÚµå
-        GameManager.gameEvent.Add(GetSkill, true);
-        DontDestroyOnLoad(gameObject);
-
         GameManager.player.AddSkill(Kaboom_Skill);
 
         DmgChange();
@@ -41,7 +37,6 @@ public class Kaboom : BaseSkill
         if (count >= skillCooldown)
         {
             this.gameObject.SetActive(true);
-            SkillDmg();
             count = 0;
             isBoom = false;
             isPosFixed = false;
@@ -65,8 +60,11 @@ public class Kaboom : BaseSkill
             }
             else
             {
+                SkillDmg();
+                CamAction();
                 int x = (int)skillDamage;
                 GameManager.gameEvent.Hit(collision.gameObject.name, x);
+                GameManager.effect.Damage(collision.transform.position + Vector3.up, x, DmgTypeCode.CriticalDamage);
             }
         }
     }
